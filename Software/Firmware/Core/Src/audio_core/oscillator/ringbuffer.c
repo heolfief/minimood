@@ -2,10 +2,10 @@
  * \file ringbuffer.c
  * \brief Generic ring buffer management
  *
- * File take from Lars Bengtsson L71 on GitHub
+ * File taken from Lars Bengtsson L71 on GitHub
  */
 
-#include "audio_core/ringbuffer.h"
+#include <audio_core/oscillator/ringbuffer.h>
 
 void rb_buffer_init(ringbuf *buf, uint32_t size) {
 	buf->size = size-1 ;

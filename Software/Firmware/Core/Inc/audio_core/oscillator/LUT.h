@@ -3,6 +3,8 @@
  * \brief Look up table for sound synthesis
  */
 
+#include <stm32f4xx.h>
+
 #define NUMBER_OF_WAVES 5
 
 /**

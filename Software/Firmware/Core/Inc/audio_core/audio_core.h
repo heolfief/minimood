@@ -6,9 +6,9 @@
 #ifndef _SYNTH_CORE_H_
 #define _SYNTH_CORE_H_
 
+#include <audio_core/oscillator/osc.h>
+#include <audio_core/oscillator/ringbuffer.h>
 #include <stm32f4xx.h>
-#include "ringbuffer.h"
-#include "osc.h"
 
 
 // Size of audio ring buffer
