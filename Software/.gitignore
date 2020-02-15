@@ -3,3 +3,4 @@ Firmware/.metadata/*
 Firmware/RemoteSystemsTempFiles/*
 Firmware/Debug/*
 Firmware/Release/*
+Firmware/.settings/*

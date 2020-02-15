@@ -1,4 +1,7 @@
-// synth engine etc (header file)
+/**
+ * \file audio_core.h
+ * \brief Functions related to the audio synthesis core
+ */
 
 #ifndef _SYNTH_CORE_H_
 #define _SYNTH_CORE_H_
@@ -23,14 +26,25 @@ typedef struct
 	Oscillator osc3;           /*!<Oscillator */
 } Audio_core;
 
-
-// initialize audio buffers & other necessary startup work.
+/**
+ * \brief Initialize audio buffers & other necessary startup work.
+ *
+ * \param ac The audio core structure of the system
+ */
 void synth_core_start(Audio_core *ac);
 
-// main audio rendering function
+/**
+ * \brief Main audio rendering function
+ *
+ * \param ac The audio core structure of the system
+ */
 void core_render_audio(Audio_core *ac);
 
-// read a word from the audio buffer
+/**
+ * \brief Read a word from the audio buffer
+ *
+ * \return the next value to read in the audio ring buffer
+ */
 uint32_t read_audio_buffer();
 	
 #endif

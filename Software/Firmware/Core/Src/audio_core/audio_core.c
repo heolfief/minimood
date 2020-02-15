@@ -1,10 +1,14 @@
-#include "synth_core.h"
+/**
+ * \file audio_core.c
+ * \brief Functions related to the audio synthesis core
+ */
+
+#include <audio_core/audio_core.h>
 
 ringbuf audiobuf_str;					// Audio data output buffer, filled in here and read from main timer ISR
 uint16_t audiobuf[AUDIO_BUF_SIZE];		// the actual data buffer
 
 
-// synth core startup stuff
 void synth_core_start(Audio_core *ac) {
 	// initialize audio output buffer
 	rb_buffer_init(&audiobuf_str, AUDIO_BUF_SIZE);
@@ -14,7 +18,6 @@ void synth_core_start(Audio_core *ac) {
 	osc_init_default(&ac->osc3);
 }
 
-// main audio rendering function
 void core_render_audio(Audio_core *ac) {
 	int32_t temp_mix;
 	int i;
@@ -50,7 +53,6 @@ void core_render_audio(Audio_core *ac) {
 	}
 }
 
-// return a word from the audio buffer
 uint32_t read_audio_buffer() {
 	if (rb_is_readable(&audiobuf_str)) {	// return next audio buffer word
 		return(rb_read_16(&audiobuf_str,&audiobuf[0]));

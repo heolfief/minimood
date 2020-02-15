@@ -23,7 +23,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "synth_core.h"
+#include <audio_core/audio_core.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

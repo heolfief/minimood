@@ -1,4 +1,10 @@
-// Generic ring buffer management (header file)
+/**
+ * \file ringbuffer.h
+ * \brief Generic ring buffer management
+ *
+ * File taken from Lars Bengtsson L71 on GitHub
+ *
+ */
 
 #ifndef _RINGBUFFER_H_
 

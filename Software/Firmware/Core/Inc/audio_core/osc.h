@@ -1,9 +1,6 @@
 /**
  * \file osc.h
  * \brief Oscillator data structure and function definition.
- *
- *
- * Here are defined the data structure of the oscillator, and the related functions
  */
 
 #ifndef _OSC_H
@@ -53,10 +50,27 @@ typedef struct
 	OnOff onoff;           			/*!<the on/off value */
 } Oscillator;
 
+/**
+ * \brief Generate next sample from the oscillator
+ *
+ * \param osc The Oscillator structure
+ *
+ * \return the generated sample
+ */
 uint16_t osc_get_next_sample(Oscillator *osc);
 
+/**
+ * \brief Initialize oscillator with default values
+ *
+ * \param osc The Oscillator structure
+ */
 void osc_init_default(Oscillator *osc);
 
+/**
+ * \brief Change MIDI note number (and so, frequency) of the oscillator
+ *
+ * \param ac The audio core structure of the system
+ */
 void osc_change_midi_note(Oscillator *osc, uint8_t midi_note);
 
 #endif //_OSC_H

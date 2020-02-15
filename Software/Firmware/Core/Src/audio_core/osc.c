@@ -1,13 +1,11 @@
-/*
- * osc.c
- *
- *  Created on: 9 févr. 2020
- *      Author: Heol
+/**
+ * \file osc.c
+ * \brief Oscillator data structure and function definition.
  */
 
-#include "osc.h"
+#include "audio_core/osc.h"
 
-#include "LUT.h"	// import LUT variables
+#include "audio_core/LUT.h"	// import LUT variables
 
 uint16_t osc_get_next_sample(Oscillator *osc){
 	osc->phase+=osc->phase_inc;								// Increment phase

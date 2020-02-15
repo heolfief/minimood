@@ -1,7 +1,11 @@
-// Generic ring buffer management
+/**
+ * \file ringbuffer.c
+ * \brief Generic ring buffer management
+ *
+ * File take from Lars Bengtsson L71 on GitHub
+ */
 
-// io/data ring buffer functions & defs
-#include "ringbuffer.h"
+#include "audio_core/ringbuffer.h"
 
 void rb_buffer_init(ringbuf *buf, uint32_t size) {
 	buf->size = size-1 ;
