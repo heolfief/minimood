@@ -12,6 +12,10 @@
 #define DAC_ZERO			2047
 #define MAX_AMPL			2000
 
+
+#define SAMPLE_RATE 44094.48819			// Cannot be changed, depends on TIM6 settings and LUT values depend on sample rate
+
+
 /**
  * \enum Waveform
  * \brief various waveform types

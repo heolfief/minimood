@@ -106,16 +106,23 @@ int main(void)
 
   // The following code is for test purpose ////////////////
 
-  ac.osc1.onoff=ON;
-  ac.osc2.onoff=ON;
-  ac.osc3.onoff=ON;
+  ac.env.attack=1;
+  ac.env.decay=1;
+  ac.env.sustain=1;
+  ac.env.release=1;
 
-  ac.osc2.wave=SQR;
+  ac.note.osc1.onoff=ON;
+  ac.note.osc2.onoff=ON;
+  ac.note.osc3.onoff=ON;
+
+  ac.note.osc2.wave=SQR;
 
 
-  osc_change_midi_note(&ac.osc1, 48);
-  osc_change_midi_note(&ac.osc2, 60);
-  osc_change_midi_note(&ac.osc3, 72);
+  osc_change_midi_note(&ac.note.osc1, 48);
+  osc_change_midi_note(&ac.note.osc2, 60);
+  osc_change_midi_note(&ac.note.osc3, 72);
+
+  note_on(&ac.note);
 
   // End of test code		////////////////////////////////
 

@@ -6,10 +6,10 @@
 #ifndef _SYNTH_CORE_H_
 #define _SYNTH_CORE_H_
 
-#include <audio_core/oscillator/osc.h>
-#include <audio_core/oscillator/ringbuffer.h>
 #include <stm32f4xx.h>
 
+#include "audio_core/note/note.h"
+#include "audio_core/oscillator/ringbuffer.h"
 
 // Size of audio ring buffer
 #define AUDIO_BUF_SIZE	16
@@ -21,9 +21,8 @@
  */
 typedef struct
 {
-	Oscillator osc1;           /*!<Oscillator */
-	Oscillator osc2;           /*!<Oscillator */
-	Oscillator osc3;           /*!<Oscillator */
+	Note note;
+	Envelope env;
 } Audio_core;
 
 /**

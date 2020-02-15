@@ -6,7 +6,6 @@
 #include <stm32f4xx.h>
 
 #define NUMBER_OF_WAVES 5
-
 /**
  * \brief look up table to associate MIDI key number to phase increment (to be used in the wave_LUT)
  */
