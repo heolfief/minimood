@@ -10,6 +10,7 @@
 
 #include "audio_core/ringbuffer.h"
 #include "audio_core/note/polyphony.h"
+#include "sys_param/sys_param.h"
 
 // Size of audio ring buffer
 #define AUDIO_BUF_SIZE	16
@@ -20,7 +21,7 @@
  */
 typedef struct {
 	Polyphony note[POLYPHONY_MAX];
-	Envelope env;
+	Sys_param sys_param;
 } Audio_core;
 
 /**

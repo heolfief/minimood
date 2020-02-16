@@ -106,30 +106,30 @@ int main(void)
 
   // The following code is for test purpose ////////////////
 
-  ac.env.attack=0.02;
-  ac.env.decay=0.005;
-  ac.env.sustain=0.8;
-  ac.env.release=0;
+  ac.sys_param.env.attack = 0.02;
+  ac.sys_param.env.decay = 0.005;
+  ac.sys_param.env.sustain = 0.8;
+  ac.sys_param.env.release = 0;
 
-  ac.note[0]->osc1.onoff=ON;
-  ac.note[0]->osc2.onoff=ON;
-  ac.note[0]->osc3.onoff=ON;
+  ac.sys_param.osc1.onoff = ON;
+  ac.sys_param.osc2.onoff = ON;
+  ac.sys_param.osc3.onoff = ON;
 
-  ac.note[0]->osc1.wave=SIN;
-  ac.note[0]->osc2.wave=SQR;
-  ac.note[0]->osc3.wave=SAW;
+  ac.sys_param.osc1.wave = SIN;
+  ac.sys_param.osc2.wave = SQR;
+  ac.sys_param.osc3.wave = SAW;
 
-  ac.note[0]->velocity_amp = 1;
+  ac.sys_param.osc1.detune = -12;
+  ac.sys_param.osc2.detune = 0;
+  ac.sys_param.osc3.detune = 12;
 
-  osc_change_midi_note(&ac.note[0]->osc1, 48-12);
-  osc_change_midi_note(&ac.note[0]->osc2, 60-12);
-  osc_change_midi_note(&ac.note[0]->osc3, 72-12);
-
-  note_on(ac.note[0]);
-
-  HAL_Delay(100);
-
-  note_off(ac.note[0]);
+  midi_note_ON(ac.note, 60, 127); //Note 60, max velocity
+  HAL_Delay(1000);
+  midi_note_ON(ac.note, 54, 127); //Note 54, max velocity
+  HAL_Delay(1000);
+  midi_note_OFF(ac.note, 60);
+  HAL_Delay(1000);
+  midi_note_OFF(ac.note, 54);
 
   // End of test code		////////////////////////////////
 

@@ -26,7 +26,7 @@ void core_render_audio(Audio_core *ac) {
 
 	while (rb_is_writeable(&audiobuf_str)) {// do work while there is space in the audio buffer
 
-		sample = poly_get_next_sample(ac->note, &ac->env);
+		sample = poly_get_next_sample(ac->note, &ac->sys_param.env);
 
 		// write audio frame to output buffer
 		__disable_irq();// make sure we have exclusive access to buffer while writing
