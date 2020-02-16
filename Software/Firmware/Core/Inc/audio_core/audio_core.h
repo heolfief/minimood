@@ -8,19 +8,17 @@
 
 #include <stm32f4xx.h>
 
+#include "audio_core/ringbuffer.h"
 #include "audio_core/note/note.h"
-#include "audio_core/oscillator/ringbuffer.h"
 
 // Size of audio ring buffer
 #define AUDIO_BUF_SIZE	16
-
 
 /**
  * \struct Oscillator
  * \brief define an oscillator
  */
-typedef struct
-{
+typedef struct {
 	Note note;
 	Envelope env;
 } Audio_core;
@@ -45,5 +43,5 @@ void core_render_audio(Audio_core *ac);
  * \return the next value to read in the audio ring buffer
  */
 uint32_t read_audio_buffer();
-	
+
 #endif

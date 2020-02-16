@@ -20,19 +20,18 @@
  *
  * A note is defined with : Oscillator 1, Oscillator 2, Oscillator 3, pitch, amplitude, on/off state, envelope and lifetime value
  */
-typedef struct
-{
-  Oscillator osc1;        /*!<the first oscillator */
-  Oscillator osc2;        /*!<the second oscillator */
-  Oscillator osc3;        /*!<the third oscillator */
-  uint8_t midi_note;      /*!<the MIDI note number */
-  float velocity_amp;     /*!<the velocity / amplitude of the note (range from 0 to 1) */
-  OnOff onoff;            /*!<the on/off value of the note (MIDI protocol wise) */
-  OnOff master_onoff;     /*!<the master on/off value of the note (including release time,
-                           * when master_onoff is OFF, there is no sound from the note) */
-  float env_amp;          /*!<the envelope amplitude (range from 0 to 1) */
-  uint64_t lifetime;      /*!<the number of samples passed since the note is ON (used to calculate envelope) */
-  uint64_t deathtime;     /*!<the number of samples passed when note is OFF since the note was ON */
+typedef struct {
+	Oscillator osc1; /*!<the first oscillator */
+	Oscillator osc2; /*!<the second oscillator */
+	Oscillator osc3; /*!<the third oscillator */
+	uint8_t midi_note; /*!<the MIDI note number */
+	float velocity_amp; /*!<the velocity / amplitude of the note (range from 0 to 1) */
+	OnOff onoff; /*!<the on/off value of the note (MIDI protocol wise) */
+	OnOff master_onoff; /*!<the master on/off value of the note (including release time,
+	 * when master_onoff is OFF, there is no sound from the note) */
+	float env_amp; /*!<the envelope amplitude (range from 0 to 1) */
+	uint64_t lifetime; /*!<the number of samples passed since the note is ON (used to calculate envelope) */
+	uint64_t deathtime; /*!<the number of samples passed when note is OFF since the note was ON */
 } Note;
 
 /**

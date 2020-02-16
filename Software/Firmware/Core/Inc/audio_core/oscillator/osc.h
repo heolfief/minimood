@@ -12,21 +12,18 @@
 #define DAC_ZERO			2047
 #define MAX_AMPL			2000
 
-
 #define SAMPLE_RATE 44094.48819			// Cannot be changed, depends on TIM6 settings and LUT values depend on sample rate
-
 
 /**
  * \enum Waveform
  * \brief various waveform types
  */
-typedef enum
-{
-  SIN,                 /*!< Sinusoidal waveform */
-  SQR,                 /*!< Square waveform */
-  TRI,                 /*!< Triangle waveform */
-  SAW,				   /*!< Sawtooth waveform */
-  ARB				   /*!< Arbitrary waveform */
+typedef enum {
+	SIN, /*!< Sinusoidal waveform */
+	SQR, /*!< Square waveform */
+	TRI, /*!< Triangle waveform */
+	SAW, /*!< Sawtooth waveform */
+	ARB /*!< Arbitrary waveform */
 } Waveform;
 
 /**
@@ -34,24 +31,21 @@ typedef enum
  * \brief defines ON and OFF values
  *
  */
-typedef enum
-{
-  OFF,                 /*!< object is OFF */
-  ON,                  /*!< object is ON */
+typedef enum {
+	OFF, /*!< object is OFF */
+	ON, /*!< object is ON */
 } OnOff;
-
 
 /**
  * \struct Oscillator
  * \brief define an oscillator
  */
-typedef struct
-{
-	Waveform wave;	       			/*!<the waveform type ID */
-	float phase_inc;       			/*!<the phase increment (related to frequency) */
-	float phase;		   			/*!<the actual phase */
-	float amp; 	           			/*!<the amplitude from 0 to 1 */
-	OnOff onoff;           			/*!<the on/off value */
+typedef struct {
+	Waveform wave; /*!<the waveform type ID */
+	float phase_inc; /*!<the phase increment (related to frequency) */
+	float phase; /*!<the actual phase */
+	float amp; /*!<the amplitude from 0 to 1 */
+	OnOff onoff; /*!<the on/off value */
 } Oscillator;
 
 /**
