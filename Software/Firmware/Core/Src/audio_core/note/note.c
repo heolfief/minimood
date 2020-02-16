@@ -26,31 +26,31 @@ void note_off(Note *n)
 
 uint16_t note_get_next_sample(Note *n, const Envelope *env)
 {
-	uint16_t temp_mix=0;
+	uint16_t sample=0;
 	uint8_t number_of_active_osc=0;
 
 	// Mix the 3 oscillators
 	if(n->osc1.onoff != OFF)
 	{
 		number_of_active_osc++;
-		temp_mix+=osc_get_next_sample(&n->osc1);
+		sample+=osc_get_next_sample(&n->osc1);
 	}
 	if(n->osc2.onoff != OFF)
 	{
 		number_of_active_osc++;
-		temp_mix+=osc_get_next_sample(&n->osc2);
+		sample+=osc_get_next_sample(&n->osc2);
 	}
 	if(n->osc3.onoff != OFF)
 	{
 		number_of_active_osc++;
-		temp_mix+=osc_get_next_sample(&n->osc3);
+		sample+=osc_get_next_sample(&n->osc3);
 	}
 
-	if(number_of_active_osc!=0) temp_mix=(uint16_t)(temp_mix/number_of_active_osc);
-	else temp_mix = DAC_ZERO;
+	if(number_of_active_osc!=0) sample=(uint16_t)(sample/number_of_active_osc);
+	else sample = DAC_ZERO;
 
 	// Apply the note velocity
-	temp_mix = (int16_t) ((float) temp_mix * n->velocity_amp);
+	sample = (int16_t) ((float) sample * n->velocity_amp);
 
 	// Add one sample to the note lifetime
 	n->lifetime++;
@@ -59,8 +59,9 @@ uint16_t note_get_next_sample(Note *n, const Envelope *env)
 	update_envelope(n, env, (uint16_t)SAMPLE_RATE);
 
 	// Apply the envelope
-	temp_mix = (int16_t) ((float) temp_mix * n->env_amp);
+	sample = (int16_t) ((float) sample * n->env_amp);
 
+	return sample;
 }
 
 void update_envelope(Note *n, const Envelope *env, float sample_rate)
