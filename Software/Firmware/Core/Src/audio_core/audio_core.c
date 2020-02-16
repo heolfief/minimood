@@ -12,9 +12,12 @@ void synth_core_start(Audio_core *ac) {
 	// initialize audio output buffer
 	rb_buffer_init(&audiobuf_str, AUDIO_BUF_SIZE);
 
-	osc_init_default(&ac->note.osc1);
-	osc_init_default(&ac->note.osc2);
-	osc_init_default(&ac->note.osc3);
+	// initialize oscillators with default values
+	for (int i = 0; i < POLYPHONY_MAX; ++i) {
+		osc_init_default(&ac->note[i]->osc1);
+		osc_init_default(&ac->note[i]->osc2);
+		osc_init_default(&ac->note[i]->osc3);
+	}
 }
 
 void core_render_audio(Audio_core *ac) {
@@ -23,7 +26,7 @@ void core_render_audio(Audio_core *ac) {
 
 	while (rb_is_writeable(&audiobuf_str)) {// do work while there is space in the audio buffer
 
-		sample = note_get_next_sample(&ac->note, &ac->env);
+		sample = poly_get_next_sample(ac->note, &ac->env);
 
 		// write audio frame to output buffer
 		__disable_irq();// make sure we have exclusive access to buffer while writing

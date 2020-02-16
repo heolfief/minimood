@@ -111,25 +111,25 @@ int main(void)
   ac.env.sustain=0.8;
   ac.env.release=0;
 
-  ac.note.osc1.onoff=ON;
-  ac.note.osc2.onoff=ON;
-  ac.note.osc3.onoff=ON;
+  ac.note[0]->osc1.onoff=ON;
+  ac.note[0]->osc2.onoff=ON;
+  ac.note[0]->osc3.onoff=ON;
 
-  ac.note.osc1.wave=SIN;
-  ac.note.osc2.wave=SQR;
-  ac.note.osc3.wave=SAW;
+  ac.note[0]->osc1.wave=SIN;
+  ac.note[0]->osc2.wave=SQR;
+  ac.note[0]->osc3.wave=SAW;
 
-  ac.note.velocity_amp = 1;
+  ac.note[0]->velocity_amp = 1;
 
-  osc_change_midi_note(&ac.note.osc1, 48-12);
-  osc_change_midi_note(&ac.note.osc2, 60-12);
-  osc_change_midi_note(&ac.note.osc3, 72-12);
+  osc_change_midi_note(&ac.note[0]->osc1, 48-12);
+  osc_change_midi_note(&ac.note[0]->osc2, 60-12);
+  osc_change_midi_note(&ac.note[0]->osc3, 72-12);
 
-  note_on(&ac.note);
+  note_on(ac.note[0]);
 
   HAL_Delay(100);
 
-  note_off(&ac.note);
+  note_off(ac.note[0]);
 
   // End of test code		////////////////////////////////
 

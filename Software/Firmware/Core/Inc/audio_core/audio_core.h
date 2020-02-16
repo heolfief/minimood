@@ -9,7 +9,7 @@
 #include <stm32f4xx.h>
 
 #include "audio_core/ringbuffer.h"
-#include "audio_core/note/note.h"
+#include "audio_core/note/polyphony.h"
 
 // Size of audio ring buffer
 #define AUDIO_BUF_SIZE	16
@@ -19,7 +19,7 @@
  * \brief define an oscillator
  */
 typedef struct {
-	Note note;
+	Polyphony note[POLYPHONY_MAX];
 	Envelope env;
 } Audio_core;
 

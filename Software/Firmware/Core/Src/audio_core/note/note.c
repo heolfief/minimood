@@ -46,7 +46,7 @@ uint16_t note_get_next_sample(Note *n, const Envelope *env) {
 		sample = DAC_ZERO;
 
 	// Apply the note velocity
-	sample = (int16_t) ((float) sample * n->velocity_amp);
+	sample = (uint16_t) ((float) sample * n->velocity_amp);
 
 	// Add one sample to the note lifetime
 	n->lifetime++;
@@ -55,16 +55,16 @@ uint16_t note_get_next_sample(Note *n, const Envelope *env) {
 	update_envelope(n, env, (uint16_t) SAMPLE_RATE);
 
 	// Apply the envelope
-	sample = (int16_t) ((float) sample * n->env_amp);
+	sample = (uint16_t) ((float) sample * n->env_amp);
 
 	return sample;
 }
 
 void update_envelope(Note *n, const Envelope *env, float sample_rate) {
 	// Convert times to number of samples based on sample rate
-	int samples_attack = (int) (env->attack * sample_rate);
-	int samples_decay = (int) (env->decay * sample_rate);
-	int samples_release = (int) (env->release * sample_rate);
+	uint32_t samples_attack = (uint32_t) (env->attack * sample_rate);
+	uint32_t samples_decay = (uint32_t) (env->decay * sample_rate);
+	uint32_t samples_release = (uint32_t) (env->release * sample_rate);
 
 	if (env->sustain < 0 || env->sustain > 1) {
 		return; // Parameter is out of range
