@@ -45,8 +45,20 @@ typedef struct {
 	float phase_inc; /*!<the phase increment (related to frequency) */
 	float phase; /*!<the actual phase */
 	float amp; /*!<the amplitude from 0 to 1 */
+	int8_t detune; /*!<the detune amount in number of notes */
 	OnOff onoff; /*!<the on/off value */
 } Oscillator;
+
+/**
+ * \struct Oscillator_param
+ * \brief define an oscillator parameters
+ */
+typedef struct {
+	Waveform wave; /*!<the waveform type ID */
+	float amp; /*!<the amplitude from 0 to 1 */
+	int8_t detune; /*!<the detune amount in number of notes */
+	OnOff onoff; /*!<the on/off value */
+} Oscillator_param;
 
 /**
  * \brief Generate next sample from the oscillator

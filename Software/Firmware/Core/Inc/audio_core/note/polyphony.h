@@ -14,6 +14,8 @@
 
 #define POLYPHONY_MAX 10	// Max notes for polyphony
 
+#define MAX_MIDI_NOTE_VELOCITY 127.0
+
 typedef Note *Polyphony;    // Polyphony is an array of Note
 
 /**
@@ -47,5 +49,24 @@ uint8_t find_note_from_midi_nbr(Polyphony *p, uint8_t id);
  * \return the synthesized sample
  */
 uint16_t poly_get_next_sample(Polyphony *p, const Envelope *env);
+
+/**
+ * \fn int midi_note_ON(Core *ac, Uint8 id, Uint8 velo)
+ * \brief Function to process MIDI input from the opened MIDI peripheral and set the audio core to create notes associated with MIDI input
+ *
+ * \param p The polyphony (note array)
+ * \param note_nbr the MIDI note number
+ * \param velocity the note velocity (range from 1 to 127)
+ */
+void midi_note_ON(Polyphony *p, uint8_t note_nbr, uint8_t velocity);
+
+/**
+ * \fn void midi_note_OFF(Polyphony *p, Uint8 nbr)
+ * \brief Function to process MIDI input from the opened MIDI peripheral and set the audio core to create notes associated with MIDI input
+ *
+ * \param p The polyphony (note array)
+ * \param note_nbr the MIDI note number
+ */
+void midi_note_OFF(Polyphony *p, uint8_t nbr);
 
 #endif //AUDIO_SYNTH_POLYPHONY_H
