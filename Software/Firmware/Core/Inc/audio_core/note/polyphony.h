@@ -12,11 +12,11 @@
 #include <stm32f4xx.h>
 #include "audio_core/note/note.h"
 
-#define POLYPHONY_MAX 10	// Max notes for polyphony
+#define POLYPHONY_MAX 4	// Max notes for polyphony
 
 #define MAX_MIDI_NOTE_VELOCITY 127.0
 
-typedef Note *Polyphony;    // Polyphony is an array of Note
+typedef Note Polyphony;    // Polyphony is an array of Note
 
 /**
  * \fn uint8_t find_free_note(Polyphony *p)

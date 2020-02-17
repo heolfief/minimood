@@ -33,6 +33,6 @@ typedef struct {
  * \param p The Polyphony array to copy settings to
  */
 void copy_osc_sys_param_to_notes_osc(Sys_param *sys_param_to_copy,
-		Polyphony p[]);
+		Polyphony *p);
 
 #endif //AUDIO_SYNTH_SYS_PARAM_H

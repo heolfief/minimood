@@ -13,7 +13,7 @@ uint8_t find_free_note(Polyphony *p) {
 		return -1;
 	}
 	for (int i = 0; i < POLYPHONY_MAX; ++i) {
-		if (p[i]->master_onoff == OFF)
+		if (p[i].master_onoff == OFF)
 			return i;
 	}
 	return -1;
@@ -24,32 +24,35 @@ uint8_t find_note_from_midi_nbr(Polyphony *p, uint8_t note_nbr) {
 		return -1;
 	}
 	for (int i = 0; i < POLYPHONY_MAX; ++i) {
-		if (p[i]->midi_note == note_nbr)
+		if (p[i].midi_note == note_nbr)
 			return i;
 	}
 	return -1;
 }
 
 uint16_t poly_get_next_sample(Polyphony *p, const Envelope *env) {
-	uint16_t sample = 0;
+	int16_t sample = 0;
 	uint8_t number_of_active_notes = 0;
 
 	for (int i = 0; i < POLYPHONY_MAX; ++i) {
-		if (p[i]->master_onoff == ON) {
-			sample += note_get_next_sample(p[i], env);
+		if (p[i].master_onoff == ON) {
+			sample += note_get_next_sample(&p[i], env);
 			number_of_active_notes++;
 		}
 	}
 
 	//Get data range back to normal
-	sample = (uint16_t) (sample / number_of_active_notes);
+	if (number_of_active_notes != 0) {
+		sample = sample / POLYPHONY_MAX;
+	} else
+		sample = DAC_ZERO;
 
-	return sample;
+	return (uint16_t) sample;
 }
 
 void midi_note_ON(Polyphony *p, uint8_t note_nbr, uint8_t velocity) {
-	uint8_t free_note;
-	uint8_t old_note;
+	int8_t free_note;
+	int8_t old_note;
 
 	if (p == NULL) {
 		return;
@@ -61,7 +64,7 @@ void midi_note_ON(Polyphony *p, uint8_t note_nbr, uint8_t velocity) {
 
 	// If note is already ON
 	old_note = find_note_from_midi_nbr(p, note_nbr);
-	if ((old_note != -1) && (p[old_note]->onoff == ON)) {
+	if ((old_note != -1) && (p[old_note].onoff == ON)) {
 		//Note is already ON
 		return;
 	}
@@ -71,17 +74,17 @@ void midi_note_ON(Polyphony *p, uint8_t note_nbr, uint8_t velocity) {
 		return;
 	}
 
-	osc_change_midi_note(&p[free_note]->osc1,
-			note_nbr + p[free_note]->osc1.detune);
-	osc_change_midi_note(&p[free_note]->osc2,
-			note_nbr + p[free_note]->osc2.detune);
-	osc_change_midi_note(&p[free_note]->osc3,
-			note_nbr + p[free_note]->osc3.detune);
-	p[free_note]->midi_note = note_nbr;
-	p[free_note]->velocity_amp = (float) ((float) velocity
+	osc_change_midi_note(&p[free_note].osc1,
+			note_nbr + p[free_note].osc1.detune);
+	osc_change_midi_note(&p[free_note].osc2,
+			note_nbr + p[free_note].osc2.detune);
+	osc_change_midi_note(&p[free_note].osc3,
+			note_nbr + p[free_note].osc3.detune);
+	p[free_note].midi_note = note_nbr;
+	p[free_note].velocity_amp = (float) ((float) velocity
 			/ MAX_MIDI_NOTE_VELOCITY);    // velocity_amp ranges from 0 to 1
 
-	note_on(p[free_note]);
+	note_on(&p[free_note]);
 }
 
 void midi_note_OFF(Polyphony *p, uint8_t note_nbr) {
@@ -98,5 +101,5 @@ void midi_note_OFF(Polyphony *p, uint8_t note_nbr) {
 		return;// Ignore MIDI message (could be when app is started with a midi_test note already pressed, then released)
 	}
 
-	note_off(p[note_to_kill]);
+	note_off(&p[note_to_kill]);
 }

@@ -119,17 +119,24 @@ int main(void)
   ac.sys_param.osc2.wave = SQR;
   ac.sys_param.osc3.wave = SAW;
 
-  ac.sys_param.osc1.detune = -12;
-  ac.sys_param.osc2.detune = 0;
-  ac.sys_param.osc3.detune = 12;
+  ac.sys_param.osc1.amp = 1;
+  ac.sys_param.osc2.amp = 1;
+  ac.sys_param.osc3.amp = 1;
 
-  midi_note_ON(ac.note, 60, 127); //Note 60, max velocity
-  HAL_Delay(1000);
-  midi_note_ON(ac.note, 54, 127); //Note 54, max velocity
-  HAL_Delay(1000);
-  midi_note_OFF(ac.note, 60);
-  HAL_Delay(1000);
-  midi_note_OFF(ac.note, 54);
+  ac.sys_param.osc1.detune = 0;
+  ac.sys_param.osc2.detune = 0;
+  ac.sys_param.osc3.detune = 0;
+
+  copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
+
+  for(int i=0;i<POLYPHONY_MAX;++i){
+	  midi_note_ON(ac.note, 60+i, 127);
+	  HAL_Delay(1000);
+  }
+  for(int i=0;i<POLYPHONY_MAX;++i){
+  	  midi_note_OFF(ac.note, 60+i);
+  	  HAL_Delay(1000);
+    }
 
   // End of test code		////////////////////////////////
 

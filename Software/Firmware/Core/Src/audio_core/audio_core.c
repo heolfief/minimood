@@ -14,9 +14,16 @@ void synth_core_start(Audio_core *ac) {
 
 	// initialize oscillators with default values
 	for (int i = 0; i < POLYPHONY_MAX; ++i) {
-		osc_init_default(&ac->note[i]->osc1);
-		osc_init_default(&ac->note[i]->osc2);
-		osc_init_default(&ac->note[i]->osc3);
+		osc_init_default(&ac->note[i].osc1);
+		osc_init_default(&ac->note[i].osc2);
+		osc_init_default(&ac->note[i].osc3);
+		ac->note[i].onoff = OFF;
+		ac->note[i].master_onoff = OFF;
+		ac->note[i].midi_note = 0;
+		ac->note[i].velocity_amp = 0;
+		ac->note[i].env_amp = 0;
+		ac->note[i].deathtime = 0;
+		ac->note[i].lifetime = 0;
 	}
 }
 

@@ -7,6 +7,7 @@
 #define _OSC_H
 
 #include <stm32f4xx.h>
+#include <math.h>
 
 // set for 12bit DAC, 4096 levels
 #define DAC_ZERO			2047
@@ -82,5 +83,12 @@ void osc_init_default(Oscillator *osc);
  * \param ac The audio core structure of the system
  */
 void osc_change_midi_note(Oscillator *osc, uint8_t midi_note);
+
+/**
+ * \brief Interpolate values to fill ARB waveform in wave_LUT
+ *
+ * \param values the array of values to interpolate to the wave_LUT ARB waveform
+ */
+void osc_arb_wave_interpolate(uint16_t *values);
 
 #endif //_OSC_H
