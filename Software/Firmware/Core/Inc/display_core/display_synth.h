@@ -19,6 +19,12 @@
    ----------------------------------------------------------------------
  */
 
+#include"display_core/ssd1306.h"
+#include"display_core/fonts.h"
+#include "display_core/test.h"
+//#include "display_core/bitmap.h"
+
+
 #ifndef INC_DISPLAY_SYNTH_H_
 #define INC_DISPLAY_SYNTH_H_
 

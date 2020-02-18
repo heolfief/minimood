@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "audio_core/audio_core.h"
+#include "display_core/display_synth.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -104,7 +105,7 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim6);	// start TIM6, IT mode
   HAL_DAC_Start(&hdac,DAC_CHANNEL_1);	// Start DAC on channel 1
-
+/*
   synth_core_start(&ac);	// Start synthesis core
 
 
@@ -135,8 +136,11 @@ int main(void)
 
   note_off(&ac.note);
 
-  // End of test code		////////////////////////////////
+  // End of test code		////////////////////////////////*/
 
+  //test of display code
+
+  Draw_ADSR_frame();
 
   /* USER CODE END 2 */
  

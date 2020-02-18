@@ -20,7 +20,7 @@
  */
 
 
-#include "display_synth.h"
+#include "display_core/display_synth.h"
 
 void Init_ADSR_points(void){
 	First_point.X_pos = 0;
@@ -46,8 +46,14 @@ void Draw_ADSR_points(void){
 
 void Draw_ADSR_frame(void) {
 
+	SSD1306_Init();  // initialise
+	SSD1306_Init_2(); //Initialise the second screen
+
+	SSD1306_Clear();
+	SSD1306_Clear_2();
+
 	SSD1306_GotoXY(110, 0);
-	SSD1306_Puts("ADSR:", &Font11x18, 1);
+	SSD1306_Puts("ADSR:", &Font_11x18, 1);
 
 
 	SSD1306_DrawLine(0, 12, 128, 12, SSD1306_COLOR_WHITE);
