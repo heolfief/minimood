@@ -11,7 +11,7 @@ int16_t osc_get_next_sample(Oscillator *osc) {
 	osc->phase += osc->phase_inc;							// Increment phase
 	if (osc->phase >= 4096)
 		osc->phase = osc->phase - 4096.0;		// Loop through LUT
-	return (int16_t) (osc->amp * (float) wave_LUT[osc->wave][(int) osc->phase]);// Get LUT value;
+	return (int16_t) (osc->amp * /*(float)*/ wave_LUT[osc->wave][(int) osc->phase]);// Get LUT value;
 }
 
 void osc_init_default(Oscillator *osc) {
