@@ -140,7 +140,13 @@ int main(void)
 
   //test of display code
 
+  Init_ADSR_points();
+
   Draw_ADSR_frame();
+
+  Draw_ADSR_points();
+
+  Draw_ADSR_lines();
 
   /* USER CODE END 2 */
  

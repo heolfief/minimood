@@ -40,11 +40,15 @@ ADSR_point Decay_pt;
 ADSR_point Sustain_pt;
 ADSR_point Release_pt;
 
+void Init_Displays(void);
+
 void Init_ADSR_points(void);
 
 void Draw_ADSR_points(void);
 
 void Draw_ADSR_frame(void);
+
+void Draw_ADSR_lines(void);
 
 
 #endif /* INC_DISPLAY_SYNTH_H_ */
