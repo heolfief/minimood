@@ -110,44 +110,25 @@ int main(void)
 
 
   // The following code is for test purpose ////////////////
-
-  ac.env.attack=0.02;
-  ac.env.decay=0.005;
-  ac.env.sustain=0.8;
-  ac.env.release=0;
-
-  ac.note.osc1.onoff=ON;
-  ac.note.osc2.onoff=ON;
-  ac.note.osc3.onoff=ON;
-
-  ac.note.osc1.wave=SIN;
-  ac.note.osc2.wave=SQR;
-  ac.note.osc3.wave=SAW;
-
-  ac.note.velocity_amp = 1;
-
-  osc_change_midi_note(&ac.note.osc1, 48-12);
-  osc_change_midi_note(&ac.note.osc2, 60-12);
-  osc_change_midi_note(&ac.note.osc3, 72-12);
-
-  note_on(&ac.note);
-
-  HAL_Delay(100);
-
-  note_off(&ac.note);
-
-  // End of test code		////////////////////////////////*/
+*/
 
   //test of display code
+	Init_Displays();
 
-  Init_ADSR_points();
+	Init_ADSR_points();
 
-  Draw_ADSR_frame();
+	Draw_ADSR_frame();
 
-  Draw_ADSR_points();
+	Draw_ADSR_points();
 
-  Draw_ADSR_lines();
+	Draw_ADSR_lines();
+	HAL_Delay(1000);
+	ADSR_value_update(0.01, 0.01, 0.5, 1);
 
+	HAL_Delay(1000);
+	ADSR_value_update(0.01, 0.01, 1, 1);
+	HAL_Delay(1000);
+	ADSR_value_update(0.5, 0.01, 0, 1);
   /* USER CODE END 2 */
  
  

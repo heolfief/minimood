@@ -33,19 +33,26 @@ void Init_Displays(void){
 void Init_ADSR_points(void){
 	First_point.X_pos = 5; //origin of the ADSR grid
 	First_point.Y_pos = 61;
+	First_point.is_selected=false;
 
 	Attack_pt.X_pos = 38+5;
 	Attack_pt.Y_pos = 20;
+	Attack_pt.is_selected=false;
 
 	Decay_pt.X_pos = 57+5;
 	Decay_pt.Y_pos=31;
+	Decay_pt.is_selected=false;
 
 	Sustain_pt.X_pos=85+5;
 	Sustain_pt.Y_pos=31;
+	Sustain_pt.is_selected=false;
 
 	Release_pt.X_pos=100+5;
 	Release_pt.Y_pos=61;
+	Release_pt.is_selected=false;
 
+	select_index_adsr=0;
+	menu_adsr=true;
 }
 
 void Draw_ADSR_points(void){
@@ -57,21 +64,49 @@ void Draw_ADSR_points(void){
 	SSD1306_DrawFilledRectangle(Attack_pt.X_pos-1, Attack_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
 	SSD1306_GotoXY(Attack_pt.X_pos+1, Attack_pt.Y_pos-11);
 	SSD1306_Putc('A', &Font_7x10, SSD1306_COLOR_WHITE);
+	// an empty rectangle will be displayed around the letter when the point is selected
+	if(Attack_pt.is_selected==true){
+		SSD1306_DrawRectangle(Attack_pt.X_pos, Attack_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
+	}
+	else{
+		SSD1306_DrawRectangle(Attack_pt.X_pos, Attack_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
+	}
 
 	//then the Decay
 	SSD1306_DrawFilledRectangle(Decay_pt.X_pos-1, Decay_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
 	SSD1306_GotoXY(Decay_pt.X_pos+1, Decay_pt.Y_pos-11);
 	SSD1306_Putc('D', &Font_7x10, SSD1306_COLOR_WHITE);
+	// an empty rectangle will be displayed around the letter when the point is selected
+	if(Decay_pt.is_selected==true){
+		SSD1306_DrawRectangle(Decay_pt.X_pos, Decay_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
+	}else{
+		SSD1306_DrawRectangle(Decay_pt.X_pos, Decay_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
+
+	}
 
 	//then the Sustain
 	SSD1306_DrawFilledRectangle(Sustain_pt.X_pos-1, Sustain_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
 	SSD1306_GotoXY(Sustain_pt.X_pos+1, Sustain_pt.Y_pos-11);
 	SSD1306_Putc('S', &Font_7x10, SSD1306_COLOR_WHITE);
+	// an empty rectangle will be displayed around the letter when the point is selected
+	if(Sustain_pt.is_selected==true){
+		SSD1306_DrawRectangle(Sustain_pt.X_pos, Sustain_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
+	}else{
+		SSD1306_DrawRectangle(Sustain_pt.X_pos, Sustain_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
+
+	}
 
 	//then the Release
 	SSD1306_DrawFilledRectangle(Release_pt.X_pos-1, Release_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
 	SSD1306_GotoXY(Release_pt.X_pos+1, Release_pt.Y_pos-11);
 	SSD1306_Putc('R', &Font_7x10, SSD1306_COLOR_WHITE);
+	// an empty rectangle will be displayed around the letter when the point is selected
+	if(Release_pt.is_selected==true){
+		SSD1306_DrawRectangle(Release_pt.X_pos, Release_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
+	}else{
+		SSD1306_DrawRectangle(Release_pt.X_pos, Release_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
+
+	}
 
 	SSD1306_UpdateScreen(); //display
 
@@ -119,4 +154,46 @@ void Draw_ADSR_lines(void){
 
 
 	SSD1306_UpdateScreen();
+}
+
+void ADSR_Shift_Select_Right(void){
+	select_index_adsr=(select_index_adsr +1)%4;
+	ADSR_Update_Select();
+
+}
+
+void ADSR_Shift_Select_Left(void){
+	if(select_index_adsr==0)select_index_adsr=4;
+	select_index_adsr=(select_index_adsr -1)%4;
+
+	ADSR_Update_Select();
+
+}
+
+void ADSR_Update_Select(void){
+	Attack_pt.is_selected = (select_index_adsr==0) ? true : false;
+	Decay_pt.is_selected = (select_index_adsr==1) ? true : false;
+	Sustain_pt.is_selected = (select_index_adsr==2) ? true : false;
+	Release_pt.is_selected = (select_index_adsr==3) ? true : false;
+
+	Draw_ADSR_points();
+
+}
+
+void ADSR_value_update(float attack_val, float decay_val, float sustain_val, float release_val){
+	//the values should be fetched in the sys.param
+	int release_pos_x_relative=(release_val*30)/2;
+	int sustain_pos_y_relative=28*sustain_val;
+	int attack_pos_x_relative=(23*attack_val)/2;
+	int decay_pos_x_relatve=(38*decay_val)/2;
+
+	Attack_pt.X_pos=attack_pos_x_relative+20;
+	Decay_pt.X_pos=decay_pos_x_relatve+38+15;
+	Sustain_pt.Y_pos=(31+(28-sustain_pos_y_relative));
+	Release_pt.X_pos=release_pos_x_relative+92;
+
+	SSD1306_Clear();
+	Draw_ADSR_frame();
+	Draw_ADSR_points();
+	Draw_ADSR_lines();
 }
