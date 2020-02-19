@@ -22,8 +22,8 @@ void note_off(Note *n) {
 	n->deathtime = n->lifetime;
 }
 
-uint16_t note_get_next_sample(Note *n, const Envelope *env) {
-	uint16_t sample = 0;
+int16_t note_get_next_sample(Note *n, const Envelope *env) {
+	int16_t sample = 0;
 	uint8_t number_of_active_osc = 0;
 
 	// Mix the 3 oscillators
@@ -41,12 +41,12 @@ uint16_t note_get_next_sample(Note *n, const Envelope *env) {
 	}
 
 	if (number_of_active_osc != 0)
-		sample = (uint16_t) (sample / number_of_active_osc);
+		sample = (int16_t) (sample / number_of_active_osc);
 	else
-		sample = DAC_ZERO;
+		sample = 0;
 
 	// Apply the note velocity
-	sample = (uint16_t) ((float) sample * n->velocity_amp);
+	sample = (int16_t) ((float) sample * n->velocity_amp);
 
 	// Add one sample to the note lifetime
 	n->lifetime++;
@@ -55,7 +55,7 @@ uint16_t note_get_next_sample(Note *n, const Envelope *env) {
 	update_envelope(n, env, (uint16_t) SAMPLE_RATE);
 
 	// Apply the envelope
-	sample = (uint16_t) ((float) sample * n->env_amp);
+	sample = (int16_t) ((float) sample * n->env_amp);
 
 	return sample;
 }

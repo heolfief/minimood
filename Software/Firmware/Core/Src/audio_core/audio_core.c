@@ -44,7 +44,7 @@ void core_render_audio(Audio_core *ac) {
 
 uint32_t read_audio_buffer() {
 	if (rb_is_readable(&audiobuf_str)) {	// return next audio buffer word
-		return (rb_read_16(&audiobuf_str, &audiobuf[0]));
+		return (DAC_ZERO + rb_read_16(&audiobuf_str, &audiobuf[0]));	// center output around DAC_ZERO
 	} else {
 		return (DAC_ZERO);	// if underrun, return zero
 	}

@@ -12,7 +12,7 @@
 #include <stm32f4xx.h>
 #include "audio_core/note/note.h"
 
-#define POLYPHONY_MAX 4	// Max notes for polyphony
+#define POLYPHONY_MAX 3	// Max notes for polyphony
 
 #define MAX_MIDI_NOTE_VELOCITY 127.0
 
@@ -26,7 +26,7 @@ typedef Note Polyphony;    // Polyphony is an array of Note
  *
  * \return The index of the note in the Polyphony array if found, -1 otherwise
  */
-uint8_t find_free_note(Polyphony *p);
+int8_t find_free_note(Polyphony *p);
 
 /**
  * \fn uint8_t find_note_from_midi_nbr(Polyphony *p, uint8_t id)
@@ -37,7 +37,7 @@ uint8_t find_free_note(Polyphony *p);
  *
  * \return The index of the note in the Polyphony array if found, -1 otherwise
  */
-uint8_t find_note_from_midi_nbr(Polyphony *p, uint8_t id);
+int8_t find_note_from_midi_nbr(Polyphony *p, uint8_t id);
 
 /**
  * \fn uint16_t poly_get_next_sample(Polyphony *p, const Envelope *env)
@@ -48,7 +48,7 @@ uint8_t find_note_from_midi_nbr(Polyphony *p, uint8_t id);
  *
  * \return the synthesized sample
  */
-uint16_t poly_get_next_sample(Polyphony *p, const Envelope *env);
+int16_t poly_get_next_sample(Polyphony *p, const Envelope *env);
 
 /**
  * \fn int midi_note_ON(Core *ac, Uint8 id, Uint8 velo)

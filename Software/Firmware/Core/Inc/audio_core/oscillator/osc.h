@@ -11,7 +11,6 @@
 
 // set for 12bit DAC, 4096 levels
 #define DAC_ZERO			2047
-#define MAX_AMPL			2000
 
 #define SAMPLE_RATE 44094.48819			// Cannot be changed, depends on TIM6 settings and LUT values depend on sample rate
 
@@ -68,7 +67,7 @@ typedef struct {
  *
  * \return the generated sample
  */
-uint16_t osc_get_next_sample(Oscillator *osc);
+int16_t osc_get_next_sample(Oscillator *osc);
 
 /**
  * \brief Initialize oscillator with default values

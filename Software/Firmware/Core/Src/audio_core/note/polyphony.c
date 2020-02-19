@@ -8,7 +8,7 @@
 
 #include "audio_core/note/polyphony.h"
 
-uint8_t find_free_note(Polyphony *p) {
+int8_t find_free_note(Polyphony *p) {
 	if (p == NULL) {
 		return -1;
 	}
@@ -19,7 +19,7 @@ uint8_t find_free_note(Polyphony *p) {
 	return -1;
 }
 
-uint8_t find_note_from_midi_nbr(Polyphony *p, uint8_t note_nbr) {
+int8_t find_note_from_midi_nbr(Polyphony *p, uint8_t note_nbr) {
 	if (p == NULL) {
 		return -1;
 	}
@@ -30,7 +30,7 @@ uint8_t find_note_from_midi_nbr(Polyphony *p, uint8_t note_nbr) {
 	return -1;
 }
 
-uint16_t poly_get_next_sample(Polyphony *p, const Envelope *env) {
+int16_t poly_get_next_sample(Polyphony *p, const Envelope *env) {
 	int16_t sample = 0;
 	uint8_t number_of_active_notes = 0;
 
@@ -43,14 +43,15 @@ uint16_t poly_get_next_sample(Polyphony *p, const Envelope *env) {
 
 	//Get data range back to normal
 	if (number_of_active_notes != 0) {
-		sample = sample / POLYPHONY_MAX;
+		sample = sample / number_of_active_notes;
 	} else
-		sample = DAC_ZERO;
+		sample = 0;
 
-	return (uint16_t) sample;
+	return sample;
 }
 
 void midi_note_ON(Polyphony *p, uint8_t note_nbr, uint8_t velocity) {
+	__disable_irq();
 	int8_t free_note;
 	int8_t old_note;
 
@@ -85,10 +86,12 @@ void midi_note_ON(Polyphony *p, uint8_t note_nbr, uint8_t velocity) {
 			/ MAX_MIDI_NOTE_VELOCITY);    // velocity_amp ranges from 0 to 1
 
 	note_on(&p[free_note]);
+	__enable_irq();
 }
 
 void midi_note_OFF(Polyphony *p, uint8_t note_nbr) {
-	uint8_t note_to_kill;
+	__disable_irq();
+	int8_t note_to_kill;
 
 	if (p == NULL) {
 		return;
@@ -102,4 +105,5 @@ void midi_note_OFF(Polyphony *p, uint8_t note_nbr) {
 	}
 
 	note_off(&p[note_to_kill]);
+	__enable_irq();
 }

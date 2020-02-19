@@ -63,7 +63,7 @@ void note_off(Note *n);
  *
  * \return the synthesized sample
  */
-uint16_t note_get_next_sample(Note *n, const Envelope *env);
+int16_t note_get_next_sample(Note *n, const Envelope *env);
 
 /**
  * \fn void update_envelope(Note *n, Envelope *env)

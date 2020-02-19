@@ -44,7 +44,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 
-extern Audio_core ac;
+Audio_core ac;
 
 /* USER CODE END PV */
 
@@ -212,8 +212,6 @@ void TIM6_DAC_IRQHandler(void)
   HAL_DAC_IRQHandler(&hdac);
   HAL_TIM_IRQHandler(&htim6);
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
-
-  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 
   core_render_audio(&ac);	// Actual sound synthesis here
 

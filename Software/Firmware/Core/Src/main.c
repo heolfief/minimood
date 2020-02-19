@@ -47,7 +47,7 @@ TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
 
-Audio_core ac;
+extern Audio_core ac;
 
 /* USER CODE END PV */
 
@@ -109,7 +109,7 @@ int main(void)
   ac.sys_param.env.attack = 0.02;
   ac.sys_param.env.decay = 0.005;
   ac.sys_param.env.sustain = 0.8;
-  ac.sys_param.env.release = 0;
+  ac.sys_param.env.release = 0.01;
 
   ac.sys_param.osc1.onoff = ON;
   ac.sys_param.osc2.onoff = ON;
@@ -117,7 +117,7 @@ int main(void)
 
   ac.sys_param.osc1.wave = SIN;
   ac.sys_param.osc2.wave = SQR;
-  ac.sys_param.osc3.wave = SAW;
+  ac.sys_param.osc3.wave = TRI;
 
   ac.sys_param.osc1.amp = 1;
   ac.sys_param.osc2.amp = 1;
@@ -129,14 +129,16 @@ int main(void)
 
   copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
 
+  int testmidinotes[POLYPHONY_MAX]={60,64,67,71,72,64+12,67+12,71+12,72+12,64+24};
+
   for(int i=0;i<POLYPHONY_MAX;++i){
-	  midi_note_ON(ac.note, 60+i, 127);
+	  midi_note_ON(ac.note, testmidinotes[i], 127);
 	  HAL_Delay(1000);
   }
-  for(int i=0;i<POLYPHONY_MAX;++i){
-  	  midi_note_OFF(ac.note, 60+i);
+  for(int j=0;j<POLYPHONY_MAX;++j){
+  	  midi_note_OFF(ac.note, testmidinotes[j]);
   	  HAL_Delay(1000);
-    }
+  }
 
   // End of test code		////////////////////////////////
 

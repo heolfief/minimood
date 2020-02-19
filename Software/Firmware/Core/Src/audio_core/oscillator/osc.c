@@ -7,11 +7,11 @@
 
 #include "audio_core/oscillator/LUT.h"	// import LUT variables
 
-uint16_t osc_get_next_sample(Oscillator *osc) {
+int16_t osc_get_next_sample(Oscillator *osc) {
 	osc->phase += osc->phase_inc;							// Increment phase
 	if (osc->phase >= 4096)
 		osc->phase = osc->phase - 4096.0;		// Loop through LUT
-	return (uint16_t) (osc->amp * (float) wave_LUT[osc->wave][(int) osc->phase]);// Get LUT value;
+	return (int16_t) (osc->amp * (float) wave_LUT[osc->wave][(int) osc->phase]);// Get LUT value;
 }
 
 void osc_init_default(Oscillator *osc) {
@@ -26,7 +26,14 @@ void osc_change_midi_note(Oscillator *osc, uint8_t midi_note) {
 	osc->phase_inc = midi_to_phase_inc[midi_note];
 }
 
-// Cubic Hermite spline interpollation
+/**
+ * \brief Cubic Hermite spline interpollation
+ *
+ * \param ip input array
+ * \param ipsz number of elements in input array
+ * \param op output array
+ * \param op number of elements in output array
+ */
 static void cubic_Intrpl(float *ip, int ipsz, float *op, int opsz) {
 	int j;
 	float map;
@@ -53,5 +60,6 @@ static void cubic_Intrpl(float *ip, int ipsz, float *op, int opsz) {
 }
 
 void osc_arb_wave_interpolate(uint16_t *values) {
-	cubic_Intrpl((float*)values, sizeof(values) / sizeof(values[0]), (float*)wave_LUT[ARB], 4096);
+	cubic_Intrpl((float*) values, sizeof(values) / sizeof(values[0]),
+			(float*) wave_LUT[ARB], 4096);
 }
