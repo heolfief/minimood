@@ -47,7 +47,7 @@ TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
 
-Audio_core ac;
+extern Audio_core ac;
 
 /* USER CODE END PV */
 
@@ -106,30 +106,39 @@ int main(void)
 
   // The following code is for test purpose ////////////////
 
-  ac.env.attack=0.02;
-  ac.env.decay=0.005;
-  ac.env.sustain=0.8;
-  ac.env.release=0;
+  ac.sys_param.env.attack = 0.5;
+  ac.sys_param.env.decay = 0;
+  ac.sys_param.env.sustain = 1;
+  ac.sys_param.env.release = 0.5;
 
-  ac.note.osc1.onoff=ON;
-  ac.note.osc2.onoff=ON;
-  ac.note.osc3.onoff=ON;
+  ac.sys_param.osc1.onoff = ON;
+  ac.sys_param.osc2.onoff = ON;
+  ac.sys_param.osc3.onoff = ON;
 
-  ac.note.osc1.wave=SIN;
-  ac.note.osc2.wave=SQR;
-  ac.note.osc3.wave=SAW;
+  ac.sys_param.osc1.wave = SIN;
+  ac.sys_param.osc2.wave = SQR;
+  ac.sys_param.osc3.wave = TRI;
 
-  ac.note.velocity_amp = 1;
+  ac.sys_param.osc1.amp = 1;
+  ac.sys_param.osc2.amp = 1;
+  ac.sys_param.osc3.amp = 1;
 
-  osc_change_midi_note(&ac.note.osc1, 48-12);
-  osc_change_midi_note(&ac.note.osc2, 60-12);
-  osc_change_midi_note(&ac.note.osc3, 72-12);
+  ac.sys_param.osc1.detune = 0;
+  ac.sys_param.osc2.detune = 0;
+  ac.sys_param.osc3.detune = 0;
 
-  note_on(&ac.note);
+  copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
 
-  HAL_Delay(100);
+  int testmidinotes[POLYPHONY_MAX]={60,64,67,71,72,64+12,67+12,71+12,72+12,64+24};
 
-  note_off(&ac.note);
+  for(int i=0;i<POLYPHONY_MAX;++i){
+	  midi_note_ON(ac.note, testmidinotes[i], 127);
+	  HAL_Delay(1000);
+  }
+  for(int j=0;j<POLYPHONY_MAX;++j){
+  	  midi_note_OFF(ac.note, testmidinotes[j]);
+  	  HAL_Delay(1000);
+  }
 
   // End of test code		////////////////////////////////
 
