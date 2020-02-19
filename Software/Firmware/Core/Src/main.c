@@ -106,10 +106,10 @@ int main(void)
 
   // The following code is for test purpose ////////////////
 
-  ac.sys_param.env.attack = 0.02;
-  ac.sys_param.env.decay = 0.005;
-  ac.sys_param.env.sustain = 0.8;
-  ac.sys_param.env.release = 0.01;
+  ac.sys_param.env.attack = 0.5;
+  ac.sys_param.env.decay = 0;
+  ac.sys_param.env.sustain = 1;
+  ac.sys_param.env.release = 0.5;
 
   ac.sys_param.osc1.onoff = ON;
   ac.sys_param.osc2.onoff = ON;

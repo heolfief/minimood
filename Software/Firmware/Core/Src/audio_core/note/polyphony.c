@@ -43,7 +43,7 @@ int16_t poly_get_next_sample(Polyphony *p, const Envelope *env) {
 
 	//Get data range back to normal
 	if (number_of_active_notes != 0) {
-		sample = sample / number_of_active_notes;
+		sample = sample / POLYPHONY_MAX;		// or number_of_active_notes;
 	} else
 		sample = 0;
 
