@@ -100,6 +100,7 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim6);	// start TIM6, IT mode
   HAL_DAC_Start(&hdac,DAC_CHANNEL_1);	// Start DAC on channel 1
+  HAL_DAC_Start(&hdac,DAC_CHANNEL_2);	// Start DAC on channel 2
 
   synth_core_start(&ac);	// Start synthesis core
 
@@ -129,7 +130,7 @@ int main(void)
 
   copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
 
-  int testmidinotes[POLYPHONY_MAX]={60,64,67,71,72,64+12,67+12,71+12,72+12,64+24};
+  int testmidinotes[POLYPHONY_MAX]={60,64,67};
 
   for(int i=0;i<POLYPHONY_MAX;++i){
 	  midi_note_ON(ac.note, testmidinotes[i], 127);
