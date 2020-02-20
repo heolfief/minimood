@@ -1,0 +1,9 @@
+
+# Created by https://www.gitignore.io/api/orcad
+# Edit at https://www.gitignore.io/?templates=orcad
+
+### OrCAD ###
+### Cadence Design Systm's OrCAD ###
+*.dat
+
+# End of https://www.gitignore.io/api/orcad

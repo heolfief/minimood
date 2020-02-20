@@ -1,0 +1,3 @@
+ lib="C:\Program Files\Orcad\tools\PSpice\Library\ebipolar.lib", offset=7160, size=365
+ lib="C:\Program Files\Orcad\tools\PSpice\Library\breakout.lib", offset=9201, size=133
+ lib="C:\Program Files\Orcad\tools\PSpice\Library\microchip_opamp.lib", offset=2789, size=3092
