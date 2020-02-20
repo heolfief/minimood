@@ -22,17 +22,28 @@ typedef struct {
 	Oscillator_param osc1; /*!<the first oscillator */
 	Oscillator_param osc2; /*!<the second oscillator */
 	Oscillator_param osc3; /*!<the third oscillator */
+
+	Oscillator_param lfo; /*!<the LFO */
+
 	Envelope env; /*!<the sound envelope */
 } Sys_param;
 
 /**
- * \fn int copy_osc_sys_param_to_notes_osc(Sys_param *sys_param_to_copy, Polyphony p[])
+ * \fn void copy_osc_sys_param_to_notes_osc(Sys_param *sys_param_to_copy, Polyphony *p);
  * \brief Function to copy oscillator settings to notes oscillators settings
  *
  * \param sys_param_to_copy The system parameters to copy to the note oscillators
  * \param p The Polyphony array to copy settings to
  */
-void copy_osc_sys_param_to_notes_osc(Sys_param *sys_param_to_copy,
-		Polyphony *p);
+void copy_osc_sys_param_to_notes_osc(Sys_param *sys_param_to_copy, Polyphony *p);
+
+/**
+ * \fn void copy_osc_sys_param_to_lfo(Sys_param *sys_param_to_copy,Oscillator lfo)
+ * \brief Function to copy LFO settings to actual LFO
+ *
+ * \param sys_param_to_copy The system parameters to copy to the LFO
+ * \param lfo The LFO to copy settings to
+ */
+void copy_osc_sys_param_to_lfo(Sys_param *sys_param_to_copy, Oscillator *lfo);
 
 #endif //AUDIO_SYNTH_SYS_PARAM_H

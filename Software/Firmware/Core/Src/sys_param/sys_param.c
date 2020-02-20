@@ -29,3 +29,12 @@ void copy_osc_sys_param_to_notes_osc(Sys_param *sys_param_to_copy, Polyphony *p)
 
     }
 }
+
+void copy_osc_sys_param_to_lfo(Sys_param *sys_param_to_copy, Oscillator *lfo){
+	lfo->onoff = sys_param_to_copy->osc1.onoff;
+	lfo->amp = sys_param_to_copy->osc1.amp;
+	lfo->wave = sys_param_to_copy->osc1.wave;
+	lfo->detune = sys_param_to_copy->osc1.detune;
+
+	osc_change_LFO_freq(lfo, sys_param_to_copy->lfo.freq);
+}

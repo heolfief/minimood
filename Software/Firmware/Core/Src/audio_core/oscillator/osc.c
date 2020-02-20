@@ -20,10 +20,15 @@ void osc_init_default(Oscillator *osc) {
 	osc->phase = 0;
 	osc->phase_inc = 1;
 	osc->wave = SIN;
+	osc->detune = 0;
 }
 
 void osc_change_midi_note(Oscillator *osc, uint8_t midi_note) {
 	osc->phase_inc = midi_to_phase_inc[midi_note];
+}
+
+void osc_change_LFO_freq(Oscillator *osc, uint16_t normalized_freq) {
+	osc->phase_inc = LFO_phase_inc[normalized_freq];
 }
 
 /**

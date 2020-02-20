@@ -8,9 +8,15 @@
 ringbuf audiobuf_str; // Audio data output buffer, filled in here and read from main timer ISR
 uint16_t audiobuf[AUDIO_BUF_SIZE];		// the actual data buffer
 
+ringbuf lfobuf_str; // LFO data output buffer, filled in here and read from main timer ISR
+uint16_t lfobuf[AUDIO_BUF_SIZE];		// the actual data buffer
+
 void synth_core_start(Audio_core *ac) {
 	// initialize audio output buffer
 	rb_buffer_init(&audiobuf_str, AUDIO_BUF_SIZE);
+
+
+	osc_init_default(&ac->lfo);
 
 	// initialize oscillators with default values
 	for (int i = 0; i < POLYPHONY_MAX; ++i) {
@@ -27,9 +33,19 @@ void synth_core_start(Audio_core *ac) {
 	}
 }
 
-void core_render_audio(Audio_core *ac) {
+void core_render(Audio_core *ac) {
 
 	uint16_t sample = DAC_ZERO;
+
+	while (rb_is_writeable(&lfobuf_str)) {// do work while there is space in the audio buffer
+
+			sample = osc_get_next_sample(&ac->lfo);
+
+			// write audio frame to output buffer
+			__disable_irq();// make sure we have exclusive access to buffer while writing
+			rb_write_16(&lfobuf_str, &lfobuf[0], (uint16_t) sample);// Write sample to buffer
+			__enable_irq();
+		}
 
 	while (rb_is_writeable(&audiobuf_str)) {// do work while there is space in the audio buffer
 
@@ -42,9 +58,17 @@ void core_render_audio(Audio_core *ac) {
 	}
 }
 
-uint32_t read_audio_buffer() {
+uint16_t read_audio_buffer() {
 	if (rb_is_readable(&audiobuf_str)) {	// return next audio buffer word
 		return (DAC_ZERO + rb_read_16(&audiobuf_str, &audiobuf[0]));	// center output around DAC_ZERO
+	} else {
+		return (DAC_ZERO);	// if underrun, return zero
+	}
+}
+
+uint16_t read_LFO_buffer() {
+	if (rb_is_readable(&lfobuf_str)) {	// return next lfo buffer word
+		return (DAC_ZERO + rb_read_16(&lfobuf_str, &lfobuf[0]));	// center output around DAC_ZERO
 	} else {
 		return (DAC_ZERO);	// if underrun, return zero
 	}

@@ -7,6 +7,9 @@
 #define MAX_LUT_VALUE 4000.0
 #define SAMPLE_RATE 44094.48819
 
+#define NUMBER_OF_LFO_FREQS 1024
+#define MAX_LFO_FREQ 20.0
+
 double get_freq_from_note_nbr(int note_nbr, double ref_freq)
 {
     static const double chromatic_ratio = 1.059463094359295264562;
@@ -18,6 +21,7 @@ double get_freq_from_note_nbr(int note_nbr, double ref_freq)
 void main(){
 	float freq[127];
 	float phase_inc[127];
+	float phase_inc_LFO[NUMBER_OF_LFO_FREQS];
 	
 	int rows = 32;
 	
@@ -26,11 +30,21 @@ void main(){
 		phase_inc[x] = ((freq[x]*(float)NUMBER_OF_SAMPLES_IN_LUT)/SAMPLE_RATE);
 	}
 	
+	for(int i=0;i<1024;++i){
+		phase_inc_LFO[i] = (((((float)i*(float)MAX_LFO_FREQ)/(float)NUMBER_OF_LFO_FREQS)*(float)NUMBER_OF_SAMPLES_IN_LUT)/SAMPLE_RATE);
+	}
 	
 	// MIDI PHASE
 	printf("\n\n\nMIDI PHASE\n");
 	for(int i =0; i<=127; ++i){
 		printf("%f,",phase_inc[i]);
+	}
+	
+	
+	// LFO PHASE
+	printf("\n\n\nLFO PHASE\n");
+	for(int i =0; i<NUMBER_OF_LFO_FREQS; ++i){
+		printf("%f,",phase_inc_LFO[i]);
 	}
 	
 	

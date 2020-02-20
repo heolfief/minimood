@@ -58,6 +58,7 @@ typedef struct {
 	float amp; /*!<the amplitude from 0 to 1 */
 	int8_t detune; /*!<the detune amount in number of notes */
 	OnOff onoff; /*!<the on/off value */
+	float freq; /*!< frequency, only used for LFO */
 } Oscillator_param;
 
 /**
@@ -79,9 +80,18 @@ void osc_init_default(Oscillator *osc);
 /**
  * \brief Change MIDI note number (and so, frequency) of the oscillator
  *
- * \param ac The audio core structure of the system
+ * \param osc The Oscillator structure
+ * \param midi_note the MIDI note number (range from 0 to 127)
  */
 void osc_change_midi_note(Oscillator *osc, uint8_t midi_note);
+
+/**
+ * \brief Change MIDI note number (and so, frequency) of the oscillator
+ *
+ * \param osc The Oscillator structure
+ * \param normalized_freq the normalized frequency of the LFO (range from 0 to 1024, corresponds to 0 to 20Hz)
+ */
+void osc_change_LFO_freq(Oscillator *osc, uint16_t normalized_freq);
 
 /**
  * \brief Interpolate values to fill ARB waveform in wave_LUT

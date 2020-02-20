@@ -213,10 +213,14 @@ void TIM6_DAC_IRQHandler(void)
   HAL_TIM_IRQHandler(&htim6);
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
 
-  core_render_audio(&ac);	// Actual sound synthesis here
+  core_render(&ac);	// Actual sound synthesis here
 
   // Give DAC actual value from the buffer
+  // Audio from CHANNEL 1
   HAL_DAC_SetValue(&hdac,DAC_CHANNEL_1,DAC_ALIGN_12B_R,read_audio_buffer());
+
+  // LFO from CHANNEL 2
+  HAL_DAC_SetValue(&hdac,DAC_CHANNEL_1,DAC_ALIGN_12B_R,read_LFO_buffer());
 
   /* USER CODE END TIM6_DAC_IRQn 1 */
 }
