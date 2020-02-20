@@ -105,26 +105,29 @@
   (GlobalState
     (FileView
       (Path "Design Resources")
-      (Path "Design Resources" "C:\Users\Heol\Downloads\VCF\vcf.dsn")
-      (Path "Design Resources" "C:\Users\Heol\Downloads\VCF\vcf.dsn"
+      (Path "Design Resources"
+         "C:\Users\Heol\Documents\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vcf.dsn")
+      (Path "Design Resources"
+         "C:\Users\Heol\Documents\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vcf.dsn"
          "SCHEMATIC1")
-      (Path "Design Resources" "C:\Users\Heol\Downloads\VCF\vcf.dsn"
-         "Design Cache")
-      (Path "Outputs"))
-    (HierarchyView
-      (Path "SCHEMATIC1"))
+      (Path "Outputs")
+      (Select "Design Resources"
+         "C:\Users\Heol\Documents\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vcf.dsn"
+         "SCHEMATIC1" "PAGE1"))
+    (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 0 181 0 795"))
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 795"))
       (Tab 0))
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 1412 24 813")
-        (Scroll "367 245")
+        (Placement "44 0 1 -1 -1 -1 -1 5 1674 24 813")
+        (Scroll "0 115")
         (Zoom "206")
         (Occurrence "/"))
-      (Path "C:\USERS\HEOL\DOWNLOADS\VCF\VCF.DSN")
+      (Path
+         "C:\USERS\HEOL\DOCUMENTS\PROJETPLURI\MINIMOOD\HARDWARE\VCF_ORCAD_SIMULATION\VCF.DSN")
       (Schematic "SCHEMATIC1")
       (Page "PAGE1"))))
