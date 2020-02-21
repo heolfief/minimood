@@ -128,9 +128,9 @@ int main(void)
   ac.sys_param.osc2.detune = 0;
   ac.sys_param.osc3.detune = 0;
 
-  ac.sys_param.lfo.amp = 1;
+  ac.sys_param.lfo.amp = 0.5;
   ac.sys_param.lfo.wave = SIN;
-  ac.sys_param.lfo.freq = 100; // ranges from 0 to 1024, corresponding to 0 to 20Hz
+  ac.sys_param.lfo.freq = 51; // ranges from 0 to 1023, corresponding to 0 to 20Hz
 
   copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
   copy_osc_sys_param_to_lfo(&ac.sys_param, &ac.lfo);

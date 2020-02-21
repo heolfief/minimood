@@ -14,9 +14,9 @@ uint16_t lfobuf[AUDIO_BUF_SIZE];		// the actual data buffer
 void synth_core_start(Audio_core *ac) {
 	// initialize audio output buffer
 	rb_buffer_init(&audiobuf_str, AUDIO_BUF_SIZE);
+	rb_buffer_init(&lfobuf_str, AUDIO_BUF_SIZE);
 
-
-	osc_init_default(&ac->lfo);
+	lfo_init_default(&ac->lfo);
 
 	// initialize oscillators with default values
 	for (int i = 0; i < POLYPHONY_MAX; ++i) {
@@ -39,17 +39,17 @@ void core_render(Audio_core *ac) {
 
 	while (rb_is_writeable(&lfobuf_str)) {// do work while there is space in the audio buffer
 
-			sample = osc_get_next_sample(&ac->lfo);
+		sample = osc_get_next_sample(&ac->lfo) + ac->lfo.offset;
 
-			// write audio frame to output buffer
-			__disable_irq();// make sure we have exclusive access to buffer while writing
-			rb_write_16(&lfobuf_str, &lfobuf[0], (uint16_t) sample);// Write sample to buffer
-			__enable_irq();
-		}
+		// write audio frame to output buffer
+		__disable_irq();// make sure we have exclusive access to buffer while writing
+		rb_write_16(&lfobuf_str, &lfobuf[0], (uint16_t) sample);// Write sample to buffer
+		__enable_irq();
+	}
 
 	while (rb_is_writeable(&audiobuf_str)) {// do work while there is space in the audio buffer
 
-		sample = poly_get_next_sample(ac->note, &ac->sys_param.env);
+		sample = poly_get_next_sample(ac->note, &ac->sys_param.env) + DAC_ZERO;
 
 		// write audio frame to output buffer
 		__disable_irq();// make sure we have exclusive access to buffer while writing
@@ -60,16 +60,16 @@ void core_render(Audio_core *ac) {
 
 uint16_t read_audio_buffer() {
 	if (rb_is_readable(&audiobuf_str)) {	// return next audio buffer word
-		return (DAC_ZERO + rb_read_16(&audiobuf_str, &audiobuf[0]));	// center output around DAC_ZERO
+		return (rb_read_16(&audiobuf_str, &audiobuf[0]));// center output around DAC_ZERO
 	} else {
-		return (DAC_ZERO);	// if underrun, return zero
+		return (DAC_ZERO);	// if underrun, return dac zero
 	}
 }
 
 uint16_t read_LFO_buffer() {
 	if (rb_is_readable(&lfobuf_str)) {	// return next lfo buffer word
-		return (DAC_ZERO + rb_read_16(&lfobuf_str, &lfobuf[0]));	// center output around DAC_ZERO
+		return (rb_read_16(&lfobuf_str, &lfobuf[0]));// always have lowest part of waveform on 0
 	} else {
-		return (DAC_ZERO);	// if underrun, return zero
+		return (0);	// if underrun, return zero
 	}
 }

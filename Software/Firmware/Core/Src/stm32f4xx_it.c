@@ -220,7 +220,7 @@ void TIM6_DAC_IRQHandler(void)
   HAL_DAC_SetValue(&hdac,DAC_CHANNEL_1,DAC_ALIGN_12B_R,read_audio_buffer());
 
   // LFO from CHANNEL 2
-  HAL_DAC_SetValue(&hdac,DAC_CHANNEL_1,DAC_ALIGN_12B_R,read_LFO_buffer());
+  HAL_DAC_SetValue(&hdac,DAC_CHANNEL_2,DAC_ALIGN_12B_R,read_LFO_buffer());
 
   /* USER CODE END TIM6_DAC_IRQn 1 */
 }

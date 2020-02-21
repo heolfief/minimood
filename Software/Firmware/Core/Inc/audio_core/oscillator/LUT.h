@@ -33,7 +33,7 @@ const float midi_to_phase_inc[128] = { 0.750191, 0.794800, 0.842061, 0.892132,
 		967.865662, 1025.417969, 1086.392456, 1150.992676 };
 
 /**
- * \brief look up table to associate LFO frequency (0 to 20Hz coded between 0 and 1024) to phase increment (to be used in the wave_LUT)
+ * \brief look up table to associate LFO frequency (0 to 20Hz coded between 0 and 1023) to phase increment (to be used in the wave_LUT)
  */
 const float LFO_phase_inc[1024] = { 0.000000, 0.001814, 0.003629, 0.005443,
 		0.007257, 0.009071, 0.010886, 0.012700, 0.014514, 0.016329, 0.018143,
