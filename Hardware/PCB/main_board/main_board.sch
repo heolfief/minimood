@@ -38,35 +38,35 @@ $EndComp
 $Comp
 L Amplifier_Operational:MCP6002-xSN U1
 U 3 1 5E4F25DF
-P 3550 2400
-F 0 "U1" H 3508 2400 50  0001 L CNN
-F 1 "MCP6002-xSN" H 3508 2355 50  0001 L CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 3550 2400 50  0001 C CNN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" H 3550 2400 50  0001 C CNN
-	3    3550 2400
-	1    0    0    -1  
+P 2400 3200
+F 0 "U1" H 2358 3200 50  0001 L CNN
+F 1 "MCP6002-xSN" H 2358 3155 50  0001 L CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 2400 3200 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" H 2400 3200 50  0001 C CNN
+	3    2400 3200
+	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR08
 U 1 1 5E4F8294
-P 3450 2700
-F 0 "#PWR08" H 3450 2450 50  0001 C CNN
-F 1 "GND" H 3455 2527 50  0000 C CNN
-F 2 "" H 3450 2700 50  0001 C CNN
-F 3 "" H 3450 2700 50  0001 C CNN
-	1    3450 2700
-	1    0    0    -1  
+P 2750 3100
+F 0 "#PWR08" H 2750 2850 50  0001 C CNN
+F 1 "GND" H 2755 2927 50  0000 C CNN
+F 2 "" H 2750 3100 50  0001 C CNN
+F 3 "" H 2750 3100 50  0001 C CNN
+	1    2750 3100
+	0    -1   -1   0   
 $EndComp
 $Comp
 L power:+5VA #PWR07
 U 1 1 5E4F8A5C
-P 3450 2100
-F 0 "#PWR07" H 3450 1950 50  0001 C CNN
-F 1 "+5VA" H 3465 2273 50  0000 C CNN
-F 2 "" H 3450 2100 50  0001 C CNN
-F 3 "" H 3450 2100 50  0001 C CNN
-	1    3450 2100
-	1    0    0    -1  
+P 2000 3100
+F 0 "#PWR07" H 2000 2950 50  0001 C CNN
+F 1 "+5VA" H 2015 3273 50  0000 C CNN
+F 2 "" H 2000 3100 50  0001 C CNN
+F 3 "" H 2000 3100 50  0001 C CNN
+	1    2000 3100
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R R6
@@ -378,7 +378,7 @@ Connection ~ 4550 1200
 Wire Wire Line
 	3150 2900 3150 2950
 Text GLabel 1150 900  0    50   Input ~ 0
-DAC_CH2
+CV_IN
 Text GLabel 1150 2300 0    50   Input ~ 0
 AUDIO_IN
 Text GLabel 4650 2400 2    50   Output ~ 0
@@ -393,4 +393,29 @@ Wire Notes Line
 	650  3450 650  650 
 Text Notes 4400 3400 0    118  ~ 24
 VCF\nlow pass
+$Comp
+L Device:C C5
+U 1 1 5E5083A9
+P 2400 3100
+F 0 "C5" V 2148 3100 50  0000 C CNN
+F 1 "4.7u" V 2239 3100 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 2438 2950 50  0001 C CNN
+F 3 "~" H 2400 3100 50  0001 C CNN
+	1    2400 3100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2100 3300 2100 3100
+Wire Wire Line
+	2100 3100 2000 3100
+Wire Wire Line
+	2250 3100 2100 3100
+Connection ~ 2100 3100
+Wire Wire Line
+	2550 3100 2700 3100
+Wire Wire Line
+	2700 3300 2700 3100
+Connection ~ 2700 3100
+Wire Wire Line
+	2700 3100 2750 3100
 $EndSCHEMATC
