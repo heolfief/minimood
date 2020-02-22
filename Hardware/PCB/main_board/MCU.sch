@@ -91,4 +91,21 @@ Text Label 7650 3350 2    50   ~ 0
 SWO
 Text Notes 3050 6750 2    50   ~ 0
 Programming connector,\nto be used with nucleo's\nST_link SWD connector
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5E519977
+P 4500 1950
+F 0 "#PWR?" H 4500 1800 50  0001 C CNN
+F 1 "+3.3V" H 4515 2123 50  0000 C CNN
+F 2 "" H 4500 1950 50  0001 C CNN
+F 3 "" H 4500 1950 50  0001 C CNN
+	1    4500 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4350 2050 4500 2050
+Wire Wire Line
+	4500 2050 4500 1950
+Text Notes 4600 2050 0    50   Italic 0
++3.3V is sourced from\nthe Nucleo board
 $EndSCHEMATC
