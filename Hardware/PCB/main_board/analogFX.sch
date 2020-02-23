@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 7
+Sheet 6 7
 Title ""
 Date ""
 Rev ""
@@ -252,8 +252,8 @@ L Device:R_POT RV?
 U 1 1 5E64D300
 P 1550 1450
 AR Path="/5E64D300" Ref="RV?"  Part="1" 
-AR Path="/5E632F77/5E64D300" Ref="RV1"  Part="1" 
-F 0 "RV1" H 1480 1496 50  0000 R CNN
+AR Path="/5E632F77/5E64D300" Ref="RV_HPF_CUT1"  Part="1" 
+F 0 "RV_HPF_CUT1" H 1480 1496 50  0000 R CNN
 F 1 "10k" H 1480 1405 50  0000 R CNN
 F 2 "Potentiometer_THT:Potentiometer_Alps_RK09K_Single_Vertical" H 1550 1450 50  0001 C CNN
 F 3 "~" H 1550 1450 50  0001 C CNN
@@ -291,8 +291,8 @@ L Device:R_POT RV?
 U 1 1 5E64D312
 P 4300 1250
 AR Path="/5E64D312" Ref="RV?"  Part="1" 
-AR Path="/5E632F77/5E64D312" Ref="RV2"  Part="1" 
-F 0 "RV2" V 4185 1250 50  0000 C CNN
+AR Path="/5E632F77/5E64D312" Ref="RV_HPF_RES1"  Part="1" 
+F 0 "RV_HPF_RES1" V 4185 1250 50  0000 C CNN
 F 1 "10k" V 4094 1250 50  0000 C CNN
 F 2 "Potentiometer_THT:Potentiometer_Alps_RK09K_Single_Vertical" H 4300 1250 50  0001 C CNN
 F 3 "~" H 4300 1250 50  0001 C CNN
@@ -495,4 +495,65 @@ Wire Wire Line
 	2800 4450 2800 4400
 Wire Wire Line
 	2800 4400 3100 4400
+$Comp
+L Device:R_POT RV?
+U 1 1 5E58F714
+P 7850 1950
+AR Path="/5E58F714" Ref="RV?"  Part="1" 
+AR Path="/5E632F77/5E58F714" Ref="RV_DIST_DRIVE1"  Part="1" 
+F 0 "RV_DIST_DRIVE1" V 7735 1950 50  0000 C CNN
+F 1 "10k" V 7644 1950 50  0000 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Alps_RK09K_Single_Vertical" H 7850 1950 50  0001 C CNN
+F 3 "~" H 7850 1950 50  0001 C CNN
+	1    7850 1950
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_POT RV?
+U 1 1 5E590192
+P 8450 1950
+AR Path="/5E590192" Ref="RV?"  Part="1" 
+AR Path="/5E632F77/5E590192" Ref="RV_DIST_TONE1"  Part="1" 
+F 0 "RV_DIST_TONE1" V 8335 1950 50  0000 C CNN
+F 1 "10k" V 8244 1950 50  0000 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Alps_RK09K_Single_Vertical" H 8450 1950 50  0001 C CNN
+F 3 "~" H 8450 1950 50  0001 C CNN
+	1    8450 1950
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_POT RV?
+U 1 1 5E59052A
+P 9000 1950
+AR Path="/5E59052A" Ref="RV?"  Part="1" 
+AR Path="/5E632F77/5E59052A" Ref="RV_DIST_MIX1"  Part="1" 
+F 0 "RV_DIST_MIX1" V 8885 1950 50  0000 C CNN
+F 1 "10k" V 8794 1950 50  0000 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Alps_RK09K_Single_Vertical" H 9000 1950 50  0001 C CNN
+F 3 "~" H 9000 1950 50  0001 C CNN
+	1    9000 1950
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_POT_Dual RV_VOL1
+U 1 1 5E599706
+P 8400 2650
+F 0 "RV_VOL1" H 8400 2417 50  0000 C CNN
+F 1 "R_POT_Dual" H 8400 2326 50  0000 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Alps_RK09L_Double_Vertical" H 8650 2575 50  0001 C CNN
+F 3 "~" H 8650 2575 50  0001 C CNN
+	1    8400 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED:HDSP-4840_2 BAR1
+U 1 1 5E5A0C61
+P 8350 4250
+F 0 "BAR1" H 8350 4917 50  0000 C CNN
+F 1 "HDSP-4840_2" H 8350 4826 50  0000 C CNN
+F 2 "Display:HDSP-4840" H 8350 3450 50  0001 C CNN
+F 3 "https://docs.broadcom.com/docs/AV02-1798EN" H 6350 4450 50  0001 C CNN
+	1    8350 4250
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
