@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 5
+Sheet 1 6
 Title ""
 Date ""
 Rev ""
@@ -48,5 +48,13 @@ S 2000 1500 1300 600
 U 5E57C92D
 F0 "power" 50
 F1 "power.sch" 50
+$EndSheet
+$Sheet
+S 2450 5050 1600 2150
+U 5E525BAF
+F0 "HMI" 50
+F1 "HMI.sch" 50
+F2 "I2C_display_SDA" B R 4050 5150 50 
+F3 "I2C_display_SCL" I R 4050 5250 50 
 $EndSheet
 $EndSCHEMATC

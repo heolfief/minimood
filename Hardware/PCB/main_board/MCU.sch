@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 5
+Sheet 4 6
 Title ""
 Date ""
 Rev ""
@@ -92,10 +92,10 @@ SWO
 Text Notes 3050 6750 2    50   ~ 0
 Programming connector,\nto be used with nucleo's\nST_link SWD connector
 $Comp
-L power:+3.3V #PWR?
+L power:+3.3V #PWR0113
 U 1 1 5E519977
 P 4500 1950
-F 0 "#PWR?" H 4500 1800 50  0001 C CNN
+F 0 "#PWR0113" H 4500 1800 50  0001 C CNN
 F 1 "+3.3V" H 4515 2123 50  0000 C CNN
 F 2 "" H 4500 1950 50  0001 C CNN
 F 3 "" H 4500 1950 50  0001 C CNN
