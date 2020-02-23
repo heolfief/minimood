@@ -522,19 +522,6 @@ F 3 "~" H 8450 1950 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Device:R_POT RV?
-U 1 1 5E59052A
-P 9000 1950
-AR Path="/5E59052A" Ref="RV?"  Part="1" 
-AR Path="/5E632F77/5E59052A" Ref="RV_DIST_MIX1"  Part="1" 
-F 0 "RV_DIST_MIX1" V 8885 1950 50  0000 C CNN
-F 1 "10k" V 8794 1950 50  0000 C CNN
-F 2 "Potentiometer_THT:Potentiometer_Alps_RK09K_Single_Vertical" H 9000 1950 50  0001 C CNN
-F 3 "~" H 9000 1950 50  0001 C CNN
-	1    9000 1950
-	0    -1   -1   0   
-$EndComp
-$Comp
 L Device:R_POT_Dual RV_VOL1
 U 1 1 5E599706
 P 8400 2650
