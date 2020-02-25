@@ -8,10 +8,13 @@
  ******************************************************************************
  */
 
-#include "usbh_core.h"
+
 
 #ifndef INC_MIDI_APPLICATION_MIDI_APPLICATION_H_
 #define INC_MIDI_APPLICATION_MIDI_APPLICATION_H_
+
+/* Includes ------------------------------------------------------------------*/
+#include "usbh_core.h"
 
 
 //------------------------------------exported types-----------------------------
@@ -46,7 +49,14 @@ typedef enum {
 	Chn16
 } midi_chn_t;
 
+typedef struct{
+	midi_event_t event;
+	midi_chn_t channel;
+	uint8_t note;
+	uint8_t velocity;
+}MidiMessage;
 
-void ReadNote(uint8_t * buffer);
+
+void ReadNote(MidiMessage  m);
 
 #endif /* INC_MIDI_APPLICATION_MIDI_APPLICATION_H_ */

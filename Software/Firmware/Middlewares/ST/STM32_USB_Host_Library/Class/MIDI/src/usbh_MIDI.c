@@ -30,11 +30,11 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbh_MIDI.h"
+
+
 #define RX_BUFF_SIZE   64  /* Max Received data 64 bytes */
 
-
 uint8_t MIDI_RX_Buffer[RX_BUFF_SIZE]; // MIDI reception buffer
-
 /*------------------------------------------------------------------------------------------------------------------------------*/
 
 
@@ -532,8 +532,13 @@ __weak void USBH_MIDI_TransmitCallback(USBH_HandleTypeDef *phost)
 void USBH_MIDI_ReceiveCallback(USBH_HandleTypeDef *phost)
 {
 	uint16_t numberOfPackets = USBH_MIDI_GetLastReceivedDataSize(phost) / 4;
+	MidiMessage MidiBuffer;
+		MidiBuffer->event = MIDI_RX_Buffer[0];
+		MidiBuffer->channel = MIDI_RX_Buffer[1];
+		MidiBuffer->note = MIDI_RXBuffer[2];
+		MidiBuffer->velocity = MIDI_RXBuffer[3];
 		if(numberOfPackets != 0){
-
+			ReadNote(MidiBuffer);
 		}
 		USBH_MIDI_Receive(phost, MIDI_RX_Buffer, RX_BUFF_SIZE);
 }

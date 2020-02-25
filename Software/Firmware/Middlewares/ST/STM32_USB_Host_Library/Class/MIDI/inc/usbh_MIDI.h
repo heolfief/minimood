@@ -65,11 +65,6 @@ extern USBH_ClassTypeDef  MIDI_Class;
 /* -------------------- Exported_Types ------------------------------------------*/
 
 
-
-
-
-
-
 typedef union {
 	struct {
 		uint32_t ALL;

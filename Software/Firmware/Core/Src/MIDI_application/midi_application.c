@@ -12,7 +12,7 @@
 
 #include "midi_application.h"
 
-void ReadNote(uint8_t * buffer)
+void ReadNote(MidiMessage  m)
 {
 
 }
