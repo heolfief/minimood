@@ -22,6 +22,8 @@
 #include"display_core/ssd1306.h"
 #include"display_core/fonts.h"
 #include "display_core/test.h"
+#include "audio_core/oscillator/osc.h"
+
 #include <stdbool.h>
 
 //#include "display_core/bitmap.h"
@@ -44,13 +46,33 @@ typedef struct {
 
 } ADSR_point;
 
+enum wave {sine, square, triangle};
+
+typedef struct {
+	uint16_t Vol_pos;
+	enum wave onde;
+	bool is_on;
+	uint16_t detune;
+	uint16_t det_pos;
+
+} oscillator_display;
+
 ADSR_point First_point; // creating the five point variables of the ADSR structure
 ADSR_point Attack_pt;
 ADSR_point Decay_pt;
 ADSR_point Sustain_pt;
 ADSR_point Release_pt;
 
+oscillator_display osc1;
+oscillator_display osc2;
+oscillator_display osc3;
+
+
 void Init_Displays(void);
+
+void Booting_Screens(void);
+
+void Home_Menu(void);
 
 void Init_ADSR_points(void);
 
@@ -66,5 +88,18 @@ void ADSR_Shift_Select_Left(void);
 
 void ADSR_Update_Select(void);
 
+void ADSR_display_update(void);
+
 void ADSR_value_update(float attack_val, float decay_val, float sustain_val, float release_val);
+
+void Draw_OSC_frame(void);
+
+void Remove_OSC_variables_displayed(void);
+
+void Update_value_OSC_1(float amp, Waveform wave, float phase, OnOff onoff);
+void Update_value_OSC_2(float amp, Waveform wave, float phase, OnOff onoff);
+void Update_value_OSC_3(float amp, Waveform wave, float phase, OnOff onoff);
+void Draw_OSC_Var_displayed(void);
+
+
 #endif /* INC_DISPLAY_SYNTH_H_ */

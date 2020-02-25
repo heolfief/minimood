@@ -21,6 +21,7 @@
 
 
 #include "display_core/display_synth.h"
+#include <math.h>
 
 void Init_Displays(void){
 	SSD1306_Init();  // initialise
@@ -28,6 +29,147 @@ void Init_Displays(void){
 
 	SSD1306_Clear();
 	SSD1306_Clear_2();
+}
+
+void Home_Menu(void){
+	SSD1306_Clear();
+	SSD1306_Clear_2();
+
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("   Home  of", &Font_11x18, 1);
+	SSD1306_DrawLine(0, 19, 128, 19, SSD1306_COLOR_WHITE);
+
+	SSD1306_GotoXY(47, 25);
+	SSD1306_Puts("Mini-", &Font_16x26, 1);
+
+	// drawing onto the second screen
+	SSD1306_GotoXY_2(0, 0);
+	SSD1306_Puts_2("the famous", &Font_11x18, 1);
+	SSD1306_DrawLine_2(0, 19, 128, 19, SSD1306_COLOR_WHITE);
+
+	SSD1306_GotoXY_2(0, 25);
+	SSD1306_Puts_2("MOOD", &Font_16x26, 1);
+
+	SSD1306_GotoXY_2(44, 53);
+	SSD1306_Puts_2("INSA Rennes", &Font_7x10, 1);
+
+
+	SSD1306_UpdateScreen(); //display
+	SSD1306_UpdateScreen_2();
+
+
+}
+
+void Booting_Screens(void){
+		SSD1306_Clear();
+		SSD1306_Clear_2();
+
+		SSD1306_GotoXY(0, 0);
+		SSD1306_Puts("Systems are", &Font_11x18, 1);
+		SSD1306_DrawLine(0, 19, 128, 19, SSD1306_COLOR_WHITE);
+		// drawing onto the second screen
+		SSD1306_GotoXY_2(0, 0);
+		SSD1306_Puts_2("loading", &Font_11x18, 1);
+		SSD1306_DrawLine_2(0, 19, 128, 19, SSD1306_COLOR_WHITE);
+
+		SSD1306_GotoXY(0, 22);
+		SSD1306_Puts("Display_core ", &Font_7x10, 1);
+		SSD1306_GotoXY_2(0, 22);
+		SSD1306_Puts_2("loading  ", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+
+		SSD1306_GotoXY(0, 33);
+		SSD1306_Puts("Displays set", &Font_7x10, 1);
+		SSD1306_GotoXY_2(0, 33);
+		SSD1306_Puts_2("checking  ", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2("OK.", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+
+
+		SSD1306_GotoXY(0, 43);
+		SSD1306_Puts("Audio_core", &Font_7x10, 1);
+		SSD1306_GotoXY_2(0, 43);
+		SSD1306_Puts_2("loading  ", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+
+		SSD1306_GotoXY(0, 53);
+		SSD1306_Puts("Audio set", &Font_7x10, 1);
+		SSD1306_GotoXY_2(0, 53);
+		SSD1306_Puts_2("checking  ", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2(".", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+		SSD1306_Puts_2("OK.", &Font_7x10, 1);
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+		HAL_Delay(400);
+
+
+		SSD1306_UpdateScreen(); //display
+		SSD1306_UpdateScreen_2();
+
+		HAL_Delay(2000);
+		Home_Menu();
+
+
+
 }
 
 void Init_ADSR_points(void){
@@ -128,21 +270,6 @@ void Draw_ADSR_frame(void) {
 	SSD1306_DrawLine(76+5, 61-2, 76+5, 61+2, SSD1306_COLOR_WHITE); //adding the grade viewers
 	SSD1306_DrawTriangle(120, 61-2, 120, 61+2, 125, 61, SSD1306_COLOR_WHITE);
 
-	// drawing onto the second screen
-	SSD1306_GotoXY_2(0, 0);
-	SSD1306_Puts_2("OCS screens", &Font_7x10, 1);
-	SSD1306_DrawLine_2(0, 12, 128, 12, SSD1306_COLOR_WHITE);
-
-	SSD1306_GotoXY_2(0, 14);
-	SSD1306_Puts_2("work in prgress", &Font_7x10, 1);
-
-	SSD1306_DrawLine_2(0, 12, 128, 12, SSD1306_COLOR_WHITE);
-
-	//SSD1306_GotoXY (10, 30);
-	// SSD1306_Puts ("  Mood :)", &Font_11x18, 1);
-	SSD1306_UpdateScreen(); //display
-	SSD1306_UpdateScreen_2();
-	// SSD1306_ScrollLeft(0x00, 0x0f);
 
 }
 
@@ -185,15 +312,153 @@ void ADSR_value_update(float attack_val, float decay_val, float sustain_val, flo
 	int release_pos_x_relative=(release_val*30)/2;
 	int sustain_pos_y_relative=28*sustain_val;
 	int attack_pos_x_relative=(23*attack_val)/2;
-	int decay_pos_x_relatve=(38*decay_val)/2;
+	int decay_pos_x_relatve=(30*decay_val)/2;
 
 	Attack_pt.X_pos=attack_pos_x_relative+20;
 	Decay_pt.X_pos=decay_pos_x_relatve+38+15;
 	Sustain_pt.Y_pos=(31+(28-sustain_pos_y_relative));
 	Release_pt.X_pos=release_pos_x_relative+92;
 
+
+}
+
+void ADSR_display_update(void){
 	SSD1306_Clear();
 	Draw_ADSR_frame();
 	Draw_ADSR_points();
 	Draw_ADSR_lines();
 }
+
+void Draw_OSC_frame(void){
+	SSD1306_DrawLine(42, 0, 42, 63, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(85, 0, 85, 63, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(0, 21, 127, 21, SSD1306_COLOR_WHITE);
+
+	SSD1306_GotoXY(	5, 0);
+	SSD1306_Puts("OSC 1", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY(	47, 0);
+	SSD1306_Puts("OSC 2", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY(	90, 0);
+	SSD1306_Puts("OSC 3", &Font_7x10, SSD1306_COLOR_WHITE);
+
+	//drawing frame for the first Oscill
+	SSD1306_GotoXY(5, 23);
+	SSD1306_Puts("XTune", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(0, 38, 40, 38, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(20, 38, 20, 41, SSD1306_COLOR_WHITE); //little bar for the 0
+	SSD1306_GotoXY(20, 41);
+	SSD1306_Putc('0', &Font_7x10, SSD1306_COLOR_WHITE);
+
+	//SSD1306_DrawLine(15, 34, 15, 42, SSD1306_COLOR_WHITE); //test cursor
+
+
+	/*SSD1306_GotoXY(0, 41);
+	SSD1306_Puts("-12", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY(27, 41);
+	SSD1306_Puts("12", &Font_7x10, SSD1306_COLOR_WHITE);*/
+
+	//vol display
+
+	SSD1306_GotoXY(0, 47);
+	SSD1306_Puts("Vol", &Font_7x10, SSD1306_COLOR_WHITE);
+
+	SSD1306_DrawRectangle(0, 58, 38, 5, SSD1306_COLOR_WHITE);
+	//SSD1306_DrawFilledRectangle(0, 58, 20, 5, SSD1306_COLOR_WHITE); //test for volume
+
+	//drawing frame for the Second Oscill
+	SSD1306_GotoXY(5+43, 23);
+	SSD1306_Puts("XTune", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(44+0, 38, 43+40, 38, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(44+20, 38, 44+20, 41, SSD1306_COLOR_WHITE); //little bar for the 0
+	SSD1306_GotoXY(44+20, 41);
+	SSD1306_Putc('0', &Font_7x10, SSD1306_COLOR_WHITE);
+
+	//SSD1306_DrawLine(43+15, 34, 43+15, 42, SSD1306_COLOR_WHITE); //test cursor
+
+	/*SSD1306_GotoXY(43+0, 41);
+	 SSD1306_Puts("-12", &Font_7x10, SSD1306_COLOR_WHITE);
+	 SSD1306_GotoXY(43+27, 41);
+	 SSD1306_Puts("12", &Font_7x10, SSD1306_COLOR_WHITE);*/
+
+	//vol display
+	SSD1306_GotoXY(43+0, 47);
+	SSD1306_Puts("Vol", &Font_7x10, SSD1306_COLOR_WHITE);
+
+	SSD1306_DrawRectangle(44+0, 58, 38, 5, SSD1306_COLOR_WHITE);
+	//SSD1306_DrawFilledRectangle(44+0, 58, 20, 5, SSD1306_COLOR_WHITE); //test for volume
+
+	//drawing frame for the third Oscill
+	SSD1306_GotoXY(5 + 86, 23);
+	SSD1306_Puts("XTune", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(87 + 0, 38, 86 + 40, 38, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(87 + 20, 38, 87 + 20, 41, SSD1306_COLOR_WHITE); //little bar for the 0
+	SSD1306_GotoXY(87 + 20, 41);
+	SSD1306_Putc('0', &Font_7x10, SSD1306_COLOR_WHITE);
+
+	//SSD1306_DrawLine(86 + 15, 34, 86 + 15, 42, SSD1306_COLOR_WHITE); //test cursor
+
+	/*SSD1306_GotoXY(86+0, 41);
+	 SSD1306_Puts("-12", &Font_7x10, SSD1306_COLOR_WHITE);
+	 SSD1306_GotoXY(86+27, 41);
+	 SSD1306_Puts("12", &Font_7x10, SSD1306_COLOR_WHITE);*/
+
+	//vol display
+	SSD1306_GotoXY(86 + 0, 47);
+	SSD1306_Puts("Vol", &Font_7x10, SSD1306_COLOR_WHITE);
+
+	SSD1306_DrawRectangle(87 + 0, 58, 38, 5, SSD1306_COLOR_WHITE);
+	//SSD1306_DrawFilledRectangle(87 + 0, 58, 20, 5, SSD1306_COLOR_WHITE); //test for volume
+
+
+SSD1306_UpdateScreen();
+}
+
+void Remove_OSC_variables_displayed(void){
+	//osc1:
+	SSD1306_DrawLine(osc1.det_pos, 34, osc1.det_pos, 42, SSD1306_COLOR_BLACK); //remove cursor
+	SSD1306_DrawFilledRectangle(0, 58, osc1.Vol_pos, 5, SSD1306_COLOR_BLACK); //remove volume
+	SSD1306_DrawRectangle(0, 58, 38, 5, SSD1306_COLOR_WHITE); //redraw the vol frame
+	//osc2:
+	SSD1306_DrawLine(osc2.det_pos, 34, osc2.det_pos, 42, SSD1306_COLOR_BLACK); //remove cursor
+	SSD1306_DrawFilledRectangle(44 + 0, 58, osc2.Vol_pos, 5,
+			SSD1306_COLOR_BLACK); //test for volume
+	SSD1306_DrawRectangle(44 + 0, 58, 38, 5, SSD1306_COLOR_WHITE); //redraw the vol frame
+	//osc3:
+	SSD1306_DrawLine(osc3.det_pos, 34, osc3.det_pos, 42, SSD1306_COLOR_BLACK); //remove cursor
+	SSD1306_DrawFilledRectangle(87 + 0, 58, osc3.Vol_pos, 5,
+			SSD1306_COLOR_BLACK); //test for volume
+	SSD1306_DrawRectangle(87 + 0, 58, 38, 5, SSD1306_COLOR_WHITE); //redraw the vol frame
+
+
+}
+
+void Draw_OSC_Var_displayed(void){
+	//osc1:
+	SSD1306_DrawLine(osc1.det_pos, 34, osc1.det_pos, 42, SSD1306_COLOR_WHITE); // cursor
+	SSD1306_DrawFilledRectangle(0, 58, osc1.Vol_pos, 5, SSD1306_COLOR_WHITE); // volume
+
+	//osc2:
+	SSD1306_DrawLine(osc2.det_pos, 34, osc2.det_pos, 42, SSD1306_COLOR_WHITE); //remove cursor
+	SSD1306_DrawFilledRectangle(44 + 0, 58, osc2.Vol_pos, 5,
+			SSD1306_COLOR_WHITE); //volume
+
+	//osc3:
+	SSD1306_DrawLine(osc3.det_pos, 34, osc3.det_pos, 42, SSD1306_COLOR_WHITE); //cursor
+	SSD1306_DrawFilledRectangle(87 + 0, 58, osc3.Vol_pos, 5,
+			SSD1306_COLOR_WHITE); //volume
+
+}
+
+void Update_value_OSC_1(float amp,  Waveform wave, float phase,  OnOff onoff){
+	osc1.Vol_pos = floor(amp*39);
+}
+
+void Update_value_OSC_2(float amp,  Waveform wave, float phase,  OnOff onoff){
+	osc2.Vol_pos = floor(amp*39);
+}
+
+void Update_value_OSC_3(float amp,  Waveform wave, float phase,  OnOff onoff){
+	osc3.Vol_pos = floor(amp*39);
+}
+
+

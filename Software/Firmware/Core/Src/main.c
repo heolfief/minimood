@@ -25,6 +25,8 @@
 /* USER CODE BEGIN Includes */
 #include "audio_core/audio_core.h"
 #include "display_core/display_synth.h"
+#include "audio_core/oscillator/osc.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -113,8 +115,22 @@ int main(void)
 */
 
   //test of display code
-	Init_Displays();
 
+  Init_Displays();
+
+  //test for Menu display :
+  //Booting_Screens();
+  Draw_OSC_frame();
+  Remove_OSC_variables_displayed();
+  Update_value_OSC_1(0.7, SIN, 0, ON);
+  Update_value_OSC_2(0.3, SIN, 0, ON);
+  Update_value_OSC_3(1, SIN, 0, ON);
+  Draw_OSC_Var_displayed();
+
+ // HAL_Delay(2000);
+ // Home_Menu();
+
+/* test for ADSR display
 	Init_ADSR_points();
 
 	Draw_ADSR_frame();
@@ -123,12 +139,16 @@ int main(void)
 
 	Draw_ADSR_lines();
 	HAL_Delay(1000);
-	ADSR_value_update(0.01, 0.01, 0.5, 1);
+	ADSR_value_update(0.01, 0.01, 0.5, 0.5);
 
 	HAL_Delay(1000);
-	ADSR_value_update(0.01, 0.01, 1, 1);
+	ADSR_value_update(0.01, 1, 0.5, 0.5);
 	HAL_Delay(1000);
-	ADSR_value_update(0.5, 0.01, 0, 1);
+	ADSR_value_update(2, 0,1, 0.5);
+
+	*/
+
+
   /* USER CODE END 2 */
  
  
