@@ -51,7 +51,7 @@ U 1 1 5E51B937
 P 2200 6150
 F 0 "J1" H 2308 6531 50  0000 C CNN
 F 1 "SWD" H 2308 6440 50  0000 C CNN
-F 2 "Connector_PinHeader_1.27mm:PinHeader_1x06_P1.27mm_Vertical" H 2200 6150 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 2200 6150 50  0001 C CNN
 F 3 "~" H 2200 6150 50  0001 C CNN
 	1    2200 6150
 	1    0    0    -1  

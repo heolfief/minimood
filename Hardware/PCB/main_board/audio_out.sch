@@ -19,7 +19,7 @@ U 1 1 5E6845CE
 P 7550 1800
 F 0 "J5" H 7650 1775 50  0000 L CNN
 F 1 "Conn_Coaxial" H 7650 1684 50  0000 L CNN
-F 2 "" H 7550 1800 50  0001 C CNN
+F 2 "lib:rca_black" H 7550 1800 50  0001 C CNN
 F 3 " ~" H 7550 1800 50  0001 C CNN
 	1    7550 1800
 	1    0    0    -1  
@@ -37,17 +37,6 @@ F 3 "" H 7550 2050 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7550 2050 7550 2000
-$Comp
-L Connector:AudioJack2 J6
-U 1 1 5E685921
-P 7550 3100
-F 0 "J6" H 7370 3083 50  0000 R CNN
-F 1 "AudioJack2" H 7370 3174 50  0000 R CNN
-F 2 "" H 7550 3100 50  0001 C CNN
-F 3 "~" H 7550 3100 50  0001 C CNN
-	1    7550 3100
-	-1   0    0    1   
-$EndComp
 $Comp
 L power:GND #PWR018
 U 1 1 5E686603
@@ -67,4 +56,19 @@ Text Notes 7750 2250 0    118  ~ 24
 Audio LINE level
 Text Notes 7750 3450 0    118  ~ 24
 Audio headphones level
+$Comp
+L Connector:AudioJack3 J6
+U 1 1 5E55D40F
+P 7550 3100
+F 0 "J6" H 7270 3033 50  0000 R CNN
+F 1 "AudioJack3" H 7270 3124 50  0000 R CNN
+F 2 "lib:audio_jack_3.5mm_KYCON_STX-3000" H 7550 3100 50  0001 C CNN
+F 3 "~" H 7550 3100 50  0001 C CNN
+	1    7550 3100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7350 3000 6950 3000
+Text Notes 7350 3100 2    50   ~ 0
+mono -> ring unused
 $EndSCHEMATC
