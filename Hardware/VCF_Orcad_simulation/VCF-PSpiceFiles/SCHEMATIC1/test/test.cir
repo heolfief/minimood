@@ -1,4 +1,4 @@
-** Profile: "SCHEMATIC1-test"  [ C:\Users\Heol\Documents\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vcf-pspicefiles\schematic1\test.sim ] 
+** Profile: "SCHEMATIC1-test"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vcf-pspicefiles\schematic1\test.sim ] 
 
 ** Creating circuit file "test.cir" 
 ** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
@@ -6,12 +6,11 @@
 *Libraries: 
 * Profile Libraries :
 * Local Libraries :
-* From [PSPICE NETLIST] section of C:\Users\Heol\AppData\Roaming\SPB_Data\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
+* From [PSPICE NETLIST] section of C:\Users\Julien\AppData\Roaming\SPB_Data\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
 .lib "nom.lib" 
 
 *Analysis directives: 
-.AC DEC 1k 20 20k
-.STEP LIN PARAM k 0 3 0.03 
+.TRAN  0 3m 0 1u 
 .OPTIONS ADVCONV
 .PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
 .INC "..\SCHEMATIC1.net" 

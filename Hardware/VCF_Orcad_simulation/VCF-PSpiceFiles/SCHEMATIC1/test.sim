@@ -1,6 +1,6 @@
 @OrCAD Simulation Server Version: 1.0
 
-@Settings: 2 1
+@Settings: 0 1
 @General:
 ProfileName= "test" 
 ProfileFile= "test.sim" 
@@ -12,17 +12,17 @@ Notes=
 @#$BEGINNOTES
 @#$ENDNOTES
 @End General
-@Analysis: 0 0
+@Analysis: 0 1
 +0 0 0 0 
-+0 "1000ns" 
++0 "3m" 
 +1 "" 
 +2 "0" 
-+3 "" 
++3 "1u" 
 +4 "" 
 +5 "" 
 +6 "" 
 @End Analysis
-@Analysis: 1 1
+@Analysis: 1 0
 +2 0 0
 +0 "1k" 
 +1 "20" 
@@ -49,7 +49,7 @@ Notes=
 +2 "" 
 @End Analysis
 @Analysis: 4 0
-+0 0 1 0 0 0 2 0 0 0 1
++0 0 1 0 0 0 0 0 0 0 1
 +0 "" 
 +1 "" 
 +2 "" 
@@ -61,15 +61,15 @@ Notes=
 LoadFile 0 "" 
 SaveFile 0 "" 
 @End Analysis
-@Analysis: 5 1
+@Analysis: 5 0
 +0 2
 +0 "" 
-+1 "k" 
++1 "Freq" 
 +2 "" 
 +3 "" 
 +4 "0" 
-+5 "3" 
-+6 "0.03" 
++5 "1" 
++6 "0.1" 
 +7 "" 
 @End Analysis
 @Analysis: 6 0
