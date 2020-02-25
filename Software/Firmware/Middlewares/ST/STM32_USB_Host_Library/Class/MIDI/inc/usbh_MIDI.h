@@ -11,7 +11,7 @@
 /**
  ******************************************************************************
  * @file    usbh_MIDI.h
- * @author  Xavier Halgand
+ * @author  Xavier Halgand & Colombel Vincent
  * @version
  * @date
  * @brief   This file contains all the prototypes for the usbh_MIDI.c
@@ -36,7 +36,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbh_core.h"
-
+#include "midi_application.h"
 
 /*-------------------------------------------------------------------------------*/
 // buffer size (should be at least >= MIOS32_USB_MIDI_DESC_DATA_*_SIZE/4)
@@ -64,35 +64,10 @@ extern USBH_ClassTypeDef  MIDI_Class;
 
 /* -------------------- Exported_Types ------------------------------------------*/
 
-typedef enum {
-	NoteOff       = 0x8,
-	NoteOn        = 0x9,
-	PolyPressure  = 0xa,
-	CC            = 0xb,
-	ProgramChange = 0xc,
-	Aftertouch    = 0xd,
-	PitchBend     = 0xe
-} midi_event_t;
 
 
-typedef enum {
-	Chn1,
-	Chn2,
-	Chn3,
-	Chn4,
-	Chn5,
-	Chn6,
-	Chn7,
-	Chn8,
-	Chn9,
-	Chn10,
-	Chn11,
-	Chn12,
-	Chn13,
-	Chn14,
-	Chn15,
-	Chn16
-} midi_chn_t;
+
+
 
 
 typedef union {

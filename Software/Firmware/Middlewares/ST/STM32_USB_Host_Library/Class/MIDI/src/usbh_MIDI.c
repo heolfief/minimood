@@ -533,7 +533,7 @@ void USBH_MIDI_ReceiveCallback(USBH_HandleTypeDef *phost)
 {
 	uint16_t numberOfPackets = USBH_MIDI_GetLastReceivedDataSize(phost) / 4;
 		if(numberOfPackets != 0){
-			printf("marcheeeeee");
+
 		}
 		USBH_MIDI_Receive(phost, MIDI_RX_Buffer, RX_BUFF_SIZE);
 }
