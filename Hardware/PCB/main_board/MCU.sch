@@ -112,4 +112,8 @@ Text HLabel 7650 3650 0    50   Output ~ 0
 I2C_display_SCL
 Text HLabel 2550 3850 0    50   BiDi ~ 0
 I2C_display_SDA
+Text HLabel 7650 2950 0    50   BiDi ~ 0
+USB_OTG_FS_DP
+Text HLabel 7650 2850 0    50   BiDi ~ 0
+USB_OTG_FS_DM
 $EndSCHEMATC
