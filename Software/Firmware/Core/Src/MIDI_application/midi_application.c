@@ -12,7 +12,20 @@
 
 #include "midi_application.h"
 
-void ReadNote(MidiMessage  m)
+void ReadNote(MidiMessage * m)
 {
-
+	int a =0;
+	if (m->event == NoteOn)
+		a++;
+	/*switch (m->event)
+	{
+	case NoteOn:
+		a++;
+		break;
+	case NoteOff:
+		a++;
+		break;
+	default :
+		break;
+	}*/
 }

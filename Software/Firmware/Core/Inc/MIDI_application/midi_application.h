@@ -57,6 +57,6 @@ typedef struct{
 }MidiMessage;
 
 
-void ReadNote(MidiMessage  m);
+void ReadNote(MidiMessage * m);
 
 #endif /* INC_MIDI_APPLICATION_MIDI_APPLICATION_H_ */
