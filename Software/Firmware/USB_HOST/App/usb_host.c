@@ -25,13 +25,17 @@
 #include "usbh_core.h"
 #include "usbh_audio.h"
 
-/* USER CODE BEGIN Includes */
 
+/* USER CODE BEGIN Includes */
+#include "usbh_MIDI.h"
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+#define RX_BUFF_SIZE   64  /* Max Received data 64 bytes */
+int i = 0;
 
+uint8_t MIDI_RX_Buffer[RX_BUFF_SIZE]; // MIDI reception buffer
 /* USER CODE END PV */
 
 /* USER CODE BEGIN PFP */
@@ -77,7 +81,7 @@ void MX_USB_HOST_Init(void)
   {
     Error_Handler();
   }
-  if (USBH_RegisterClass(&hUsbHostFS, USBH_AUDIO_CLASS) != USBH_OK)
+  if (USBH_RegisterClass(&hUsbHostFS, USBH_MIDI_CLASS) != USBH_OK)
   {
     Error_Handler();
   }
@@ -97,6 +101,10 @@ void MX_USB_HOST_Process(void)
 {
   /* USB Host Background task */
   USBH_Process(&hUsbHostFS);
+  if (hUsbHostFS.gState == HOST_CLASS && i< 1){
+  	  USBH_MIDI_Receive(&hUsbHostFS, MIDI_RX_Buffer, RX_BUFF_SIZE); // start a new reception
+  	  i++;
+    }
 }
 /*
  * user callback definition
