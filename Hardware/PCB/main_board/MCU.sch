@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 7
+Sheet 7 7
 Title ""
 Date ""
 Rev ""
@@ -108,4 +108,8 @@ Wire Wire Line
 	4500 2050 4500 1950
 Text Notes 4600 2050 0    50   Italic 0
 +3.3V is sourced from\nthe Nucleo board
+Text HLabel 7650 3650 0    50   Output ~ 0
+I2C_display_SCL
+Text HLabel 2550 3850 0    50   BiDi ~ 0
+I2C_display_SDA
 $EndSCHEMATC
