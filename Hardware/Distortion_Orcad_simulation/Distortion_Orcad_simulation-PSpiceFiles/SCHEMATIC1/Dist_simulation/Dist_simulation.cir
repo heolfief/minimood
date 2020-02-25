@@ -1,0 +1,20 @@
+** Profile: "SCHEMATIC1-Dist_simulation"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri-HORS_GIT\Distortion_Orcad_simulation\Distortion_Orcad_simulation-PSpiceFiles\SCHEMATIC1\Dist_simulation.sim ] 
+
+** Creating circuit file "Dist_simulation.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\Users\Julien\AppData\Roaming\SPB_Data\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 1m 0 1u 
+.STEP PARAM Dist LIST 0.0001 0.001 0.01 0.1 0.99 
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+.END

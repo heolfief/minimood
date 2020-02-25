@@ -1,0 +1,529 @@
+
+**** 02/10/20 17:11:55 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Dist_simulation"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri-HORS_GIT\Distortion_Orcad_simu
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "Dist_simulation.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\Users\Julien\AppData\Roaming\SPB_Data\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 1m 0 1u 
+.STEP PARAM Dist LIST 0.0001 0.001 0.01 0.1 0.99 
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source DISTORTION_ORCAD_SIMULATION
+V_V7         INPUT 0  AC 1
++SIN 3 0.5 2k 0 0 0
+X_R44         N29369 N29209 N29363 POT PARAMS: SET={Tone} VALUE=20k
+V_V6         VCC/2 0 2.5Vdc
+R_R4         VCC/2 N29887  10k TC=0,0 
+R_R43         N29369 N29383  1k TC=0,0 
+X_U9         N29887 N29099 VCC 0 OUTCLIPPAMP RC4558/301/TI
+V_V4         VCC 0 5Vdc
+C_C6         N29383 N295991  1u  TC=0,0 
+R_R42         0 N29203  220 TC=0,0 
+R_R45         VCC/2 N29363  10k TC=0,0 
+C_C1         N29099 OUTCLIPPAMP  51p  TC=0,0 
+R_R3         0 N29665  4.7k TC=0,0 
+D_D4         N29099 OUTCLIPPAMP D1N4148_1 
+X_U8         N29363 N29369 VCC 0 N29383 RC4558/301/TI
+C_C11         N29209 N29203  0.22u  TC=0,0 
+R_R47         OUT N295991  1k TC=0,0 
+C_C7         INPUT N29887  1u  TC=0,0 
+R_R1         N29099 N29107  500 TC=0,0 
+X_R41         OUTCLIPPAMP OUTCLIPPAMP N29107 POT PARAMS: SET={Dist} VALUE=500k
+C_C10         0 N29363  0.22u  TC=0,0 
+D_D3         OUTCLIPPAMP N29099 D1N4148_1 
+C_C2         N29665 N29099  0.047u  TC=0,0 
+R_R46         N29363 OUTCLIPPAMP  1k TC=0,0 
+R_R48         0 OUT  100k TC=0,0 
+.PARAM  dist=0.0001  tone=0.9 level=0.1 distortion=0.5
+
+**** RESUMING Dist_simulation.cir ****
+.END
+
+**** 02/10/20 17:11:55 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Dist_simulation"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri-HORS_GIT\Distortion_Orcad_simu
+
+
+ ****     Diode MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               D1N4148_1       X_U9.DX         X_U8.DX         
+          IS    2.682000E-09  800.000000E-18  800.000000E-18 
+           N    1.836                                        
+         ISR    1.565000E-09                                 
+         IKF     .04417                                      
+          BV  100                                            
+         IBV  100.000000E-06                                 
+          RS     .5664                                       
+          TT   11.540000E-09                                 
+         CJO    4.000000E-12                                 
+          VJ     .5                                          
+           M     .3333                                       
+
+
+**** 02/10/20 17:11:55 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Dist_simulation"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri-HORS_GIT\Distortion_Orcad_simu
+
+
+ ****     BJT MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U9.QX         X_U8.QX         
+               PNP             PNP             
+       LEVEL    1               1            
+          IS  800.000000E-18  800.000000E-18 
+          BF  121.4           121.4          
+          NF    1               1            
+          BR    1               1            
+          NR    1               1            
+         ISS    0               0            
+          RE    0               0            
+          RC    0               0            
+         CJE    0               0            
+         VJE     .75             .75         
+         CJC    0               0            
+         VJC     .75             .75         
+         MJC     .33             .33         
+        XCJC    1               1            
+         CJS    0               0            
+         VJS     .75             .75         
+          KF    0               0            
+          AF    1               1            
+          CN    2.2             2.2          
+           D     .52             .52         
+
+
+**** 02/10/20 17:11:55 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Dist_simulation"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri-HORS_GIT\Distortion_Orcad_simu
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+ ****     CURRENT STEP                     PARAM DIST =  100.0000E-06
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(  OUT)    0.0000  (  VCC)    5.0000  (INPUT)    3.0000  (VCC/2)    2.5000      
+
+(N29099)    2.5014 (N29107)    2.5013 (N29203)    0.0000 (N29209)    2.5013     
+
+(N29363)    2.5013 (N29369)    2.5013 (N29383)    2.5012 (N29665)    0.0000     
+
+(N29887)    2.5014 (X_U8.6)-142.6E-09 (X_U8.7)    2.5011 (X_U8.8)    2.5011     
+
+(X_U8.9)    0.0000 (X_U9.6)-160.5E-09 (X_U9.7)    2.5013 (X_U9.8)    2.5013     
+
+(X_U9.9)    0.0000 (N295991)    0.0000                   (X_U8.10)    3.1354    
+
+(X_U8.11)     .0449                   (X_U8.12)     .0449                       
+
+(X_U8.13)    3.1163                   (X_U8.14)    3.1163                       
+
+(X_U8.53)    2.4000                   (X_U8.54)    2.6000                       
+
+(X_U8.90)-140.1E-06                   (X_U8.91)   25.0000                       
+
+(X_U8.92)  -25.0000                   (X_U8.99)    2.5000                       
+
+(X_U9.10)    3.1355                   (X_U9.11)     .0449                       
+
+(X_U9.12)     .0449                   (X_U9.13)    3.1163                       
+
+(X_U9.14)    3.1164                   (X_U9.53)    2.4000                       
+
+(X_U9.54)    2.6000                   (X_U9.90)-147.0E-06                       
+
+(X_U9.91)   25.0000                   (X_U9.92)  -25.0000                       
+
+(X_U9.99)    2.5000                   (OUTCLIPPAMP)    2.5013               
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V7         0.000E+00
+    V_V6         2.712E-07
+    V_V4        -4.739E-04
+    X_U9.VB     -1.605E-12
+    X_U9.VC     -1.407E-13
+    X_U9.VE     -1.342E-13
+    X_U9.VLIM   -1.470E-07
+    X_U9.VLP    -2.500E-11
+    X_U9.VLN    -2.500E-11
+    X_U8.VB     -1.426E-12
+    X_U8.VC     -1.403E-13
+    X_U8.VE     -1.346E-13
+    X_U8.VLIM   -1.401E-07
+    X_U8.VLP    -2.500E-11
+    X_U8.VLN    -2.500E-11
+
+    TOTAL POWER DISSIPATION   2.37E-03  WATTS
+
+
+**** 02/10/20 17:11:55 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Dist_simulation"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri-HORS_GIT\Distortion_Orcad_simu
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+ ****     CURRENT STEP                     PARAM DIST =    1.0000E-03
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(  OUT)    0.0000  (  VCC)    5.0000  (INPUT)    3.0000  (VCC/2)    2.5000      
+
+(N29099)    2.5014 (N29107)    2.5013 (N29203)    0.0000 (N29209)    2.5013     
+
+(N29363)    2.5013 (N29369)    2.5012 (N29383)    2.5011 (N29665)    0.0000     
+
+(N29887)    2.5014 (X_U8.6)-135.4E-09 (X_U8.7)    2.5011 (X_U8.8)    2.5011     
+
+(X_U8.9)    0.0000 (X_U9.6)-152.3E-09 (X_U9.7)    2.5012 (X_U9.8)    2.5012     
+
+(X_U9.9)    0.0000 (N295991)    0.0000                   (X_U8.10)    3.1354    
+
+(X_U8.11)     .0449                   (X_U8.12)     .0449                       
+
+(X_U8.13)    3.1162                   (X_U8.14)    3.1162                       
+
+(X_U8.53)    2.4000                   (X_U8.54)    2.6000                       
+
+(X_U8.90)-140.1E-06                   (X_U8.91)   25.0000                       
+
+(X_U8.92)  -25.0000                   (X_U8.99)    2.5000                       
+
+(X_U9.10)    3.1355                   (X_U9.11)     .0449                       
+
+(X_U9.12)     .0449                   (X_U9.13)    3.1163                       
+
+(X_U9.14)    3.1164                   (X_U9.53)    2.4000                       
+
+(X_U9.54)    2.6000                   (X_U9.90)-152.8E-06                       
+
+(X_U9.91)   25.0000                   (X_U9.92)  -25.0000                       
+
+(X_U9.99)    2.5000                   (OUTCLIPPAMP)    2.5012               
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V7         0.000E+00
+    V_V6         2.655E-07
+    V_V4        -4.739E-04
+    X_U9.VB     -1.523E-12
+    X_U9.VC     -1.405E-13
+    X_U9.VE     -1.344E-13
+    X_U9.VLIM   -1.528E-07
+    X_U9.VLP    -2.500E-11
+    X_U9.VLN    -2.500E-11
+    X_U8.VB     -1.354E-12
+    X_U8.VC     -1.402E-13
+    X_U8.VE     -1.347E-13
+    X_U8.VLIM   -1.401E-07
+    X_U8.VLP    -2.500E-11
+    X_U8.VLN    -2.500E-11
+
+    TOTAL POWER DISSIPATION   2.37E-03  WATTS
+
+
+**** 02/10/20 17:11:55 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Dist_simulation"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri-HORS_GIT\Distortion_Orcad_simu
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+ ****     CURRENT STEP                     PARAM DIST =     .01  
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(  OUT)    0.0000  (  VCC)    5.0000  (INPUT)    3.0000  (VCC/2)    2.5000      
+
+(N29099)    2.5014 (N29107)    2.5013 (N29203)    0.0000 (N29209)    2.5007     
+
+(N29363)    2.5007 (N29369)    2.5007 (N29383)    2.5005 (N29665)    0.0000     
+
+(N29887)    2.5014 (X_U8.6)-63.48E-09 (X_U8.7)    2.5005 (X_U8.8)    2.5005     
+
+(X_U8.9)    0.0000 (X_U9.6)-71.38E-09 (X_U9.7)    2.5006 (X_U9.8)    2.5006     
+
+(X_U9.9)    0.0000 (N295991)    0.0000                   (X_U8.10)    3.1348    
+
+(X_U8.11)     .0449                   (X_U8.12)     .0449                       
+
+(X_U8.13)    3.1156                   (X_U8.14)    3.1156                       
+
+(X_U8.53)    2.4000                   (X_U8.54)    2.6000                       
+
+(X_U8.90)-140.1E-06                   (X_U8.91)   25.0000                       
+
+(X_U8.92)  -25.0000                   (X_U8.99)    2.5000                       
+
+(X_U9.10)    3.1355                   (X_U9.11)     .0449                       
+
+(X_U9.12)     .0449                   (X_U9.13)    3.1163                       
+
+(X_U9.14)    3.1164                   (X_U9.53)    2.4000                       
+
+(X_U9.54)    2.6000                   (X_U9.90)-209.8E-06                       
+
+(X_U9.91)   25.0000                   (X_U9.92)  -25.0000                       
+
+(X_U9.99)    2.5000                   (OUTCLIPPAMP)    2.5006               
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V7         0.000E+00
+    V_V6         2.084E-07
+    V_V4        -4.739E-04
+    X_U9.VB     -7.138E-13
+    X_U9.VC     -1.390E-13
+    X_U9.VE     -1.359E-13
+    X_U9.VLIM   -2.098E-07
+    X_U9.VLP    -2.500E-11
+    X_U9.VLN    -2.500E-11
+    X_U8.VB     -6.348E-13
+    X_U8.VC     -1.388E-13
+    X_U8.VE     -1.361E-13
+    X_U8.VLIM   -1.401E-07
+    X_U8.VLP    -2.500E-11
+    X_U8.VLN    -2.500E-11
+
+    TOTAL POWER DISSIPATION   2.37E-03  WATTS
+
+
+**** 02/10/20 17:11:55 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Dist_simulation"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri-HORS_GIT\Distortion_Orcad_simu
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+ ****     CURRENT STEP                     PARAM DIST =     .1   
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(  OUT)    0.0000  (  VCC)    5.0000  (INPUT)    3.0000  (VCC/2)    2.5000      
+
+(N29099)    2.5014 (N29107)    2.5013 (N29203)    0.0000 (N29209)    2.4950     
+
+(N29363)    2.4950 (N29369)    2.4950 (N29383)    2.4949 (N29665)    0.0000     
+
+(N29887)    2.5014 (X_U8.6) 650.0E-09 (X_U8.7)    2.4949 (X_U8.8)    2.4949     
+
+(X_U8.9)    0.0000 (X_U9.6) 731.4E-09 (X_U9.7)    2.4943 (X_U9.8)    2.4943     
+
+(X_U9.9)    0.0000 (N295991)    0.0000                   (X_U8.10)    3.1292    
+
+(X_U8.11)     .0449                   (X_U8.12)     .0449                       
+
+(X_U8.13)    3.1100                   (X_U8.14)    3.1100                       
+
+(X_U8.53)    2.4000                   (X_U8.54)    2.6000                       
+
+(X_U8.90)-140.1E-06                   (X_U8.91)   25.0000                       
+
+(X_U8.92)  -25.0000                   (X_U8.99)    2.5000                       
+
+(X_U9.10)    3.1355                   (X_U9.11)     .0449                       
+
+(X_U9.12)     .0449                   (X_U9.13)    3.1163                       
+
+(X_U9.14)    3.1164                   (X_U9.53)    2.4000                       
+
+(X_U9.54)    2.6000                   (X_U9.90)-775.4E-06                       
+
+(X_U9.91)   25.0000                   (X_U9.92)  -25.0000                       
+
+(X_U9.99)    2.5000                   (OUTCLIPPAMP)    2.4944               
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V7         0.000E+00
+    V_V6        -3.571E-07
+    V_V4        -4.739E-04
+    X_U9.VB      7.314E-12
+    X_U9.VC     -1.244E-13
+    X_U9.VE     -1.523E-13
+    X_U9.VLIM   -7.754E-07
+    X_U9.VLP    -2.500E-11
+    X_U9.VLN    -2.500E-11
+    X_U8.VB      6.500E-12
+    X_U8.VC     -1.254E-13
+    X_U8.VE     -1.509E-13
+    X_U8.VLIM   -1.401E-07
+    X_U8.VLP    -2.500E-11
+    X_U8.VLN    -2.500E-11
+
+    TOTAL POWER DISSIPATION   2.37E-03  WATTS
+
+
+**** 02/10/20 17:11:55 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Dist_simulation"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri-HORS_GIT\Distortion_Orcad_simu
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+ ****     CURRENT STEP                     PARAM DIST =     .99  
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(  OUT)    0.0000  (  VCC)    5.0000  (INPUT)    3.0000  (VCC/2)    2.5000      
+
+(N29099)    2.5014 (N29107)    2.5013 (N29203)    0.0000 (N29209)    2.4447     
+
+(N29363)    2.4448 (N29369)    2.4447 (N29383)    2.4446 (N29665)    0.0000     
+
+(N29887)    2.5014 (X_U8.6) 7.008E-06 (X_U8.7)    2.4446 (X_U8.8)    2.4446     
+
+(X_U8.9)    0.0000 (X_U9.6) 7.888E-06 (X_U9.7)    2.4384 (X_U9.8)    2.4384     
+
+(X_U9.9)    0.0000 (N295991)    0.0000                   (X_U8.10)    3.0789    
+
+(X_U8.11)     .0450                   (X_U8.12)     .0449                       
+
+(X_U8.13)    3.0597                   (X_U8.14)    3.0597                       
+
+(X_U8.53)    2.4000                   (X_U8.54)    2.6000                       
+
+(X_U8.90)-140.1E-06                   (X_U8.91)   25.0000                       
+
+(X_U8.92)  -25.0000                   (X_U8.99)    2.5000                       
+
+(X_U9.10)    3.1355                   (X_U9.11)     .0449                       
+
+(X_U9.12)     .0449                   (X_U9.13)    3.1163                       
+
+(X_U9.14)    3.1164                   (X_U9.53)    2.4000                       
+
+(X_U9.54)    2.6000                   (X_U9.90)    -.0058                       
+
+(X_U9.91)   25.0000                   (X_U9.92)  -25.0000                       
+
+(X_U9.99)    2.5000                   (OUTCLIPPAMP)    2.4391               
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V7         0.000E+00
+    V_V6        -5.385E-06
+    V_V4        -4.739E-04
+    X_U9.VB      7.888E-11
+    X_U9.VC     -4.191E-14
+    X_U9.VE     -5.628E-13
+    X_U9.VLIM   -5.804E-06
+    X_U9.VLP    -2.501E-11
+    X_U9.VLN    -2.500E-11
+    X_U8.VB      7.008E-11
+    X_U8.VC     -4.829E-14
+    X_U8.VE     -4.800E-13
+    X_U8.VLIM   -1.401E-07
+    X_U8.VLP    -2.500E-11
+    X_U8.VLN    -2.500E-11
+
+    TOTAL POWER DISSIPATION   2.38E-03  WATTS
+
+
+
+          JOB CONCLUDED
+
+**** 02/10/20 17:11:55 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Dist_simulation"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri-HORS_GIT\Distortion_Orcad_simu
+
+
+ ****     JOB STATISTICS SUMMARY
+
+ ****     CURRENT STEP                     PARAM DIST =     .99  
+
+
+******************************************************************************
+
+
+
+  License check-out time            =        1.63
+  Total job time (using Solver 1)   =        1.03
+
