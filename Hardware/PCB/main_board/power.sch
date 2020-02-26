@@ -51,8 +51,8 @@ L Device:Ferrite_Bead FB1
 U 1 1 5E57DA71
 P 3600 2900
 F 0 "FB1" V 3326 2900 50  0000 C CNN
-F 1 "BLM18pg221sn1d - Ferrite_Bead" V 3417 2900 50  0000 C CNN
-F 2 "Inductor_SMD:L_0603_1608Metric" V 3530 2900 50  0001 C CNN
+F 1 "BLM21PG221SH1D - Ferrite_Bead" V 3417 2900 50  0000 C CNN
+F 2 "Inductor_SMD:L_0805_2012Metric" V 3530 2900 50  0001 C CNN
 F 3 "~" H 3600 2900 50  0001 C CNN
 	1    3600 2900
 	0    1    1    0   
@@ -144,8 +144,8 @@ L Device:Ferrite_Bead FB2
 U 1 1 5E587793
 P 5400 2900
 F 0 "FB2" V 5126 2900 50  0000 C CNN
-F 1 "BLM18pg221sn1d - Ferrite_Bead" V 5217 2900 50  0000 C CNN
-F 2 "Inductor_SMD:L_0603_1608Metric" V 5330 2900 50  0001 C CNN
+F 1 "BLM21PG221SH1D - Ferrite_Bead" V 5217 2900 50  0000 C CNN
+F 2 "Inductor_SMD:L_0805_2012Metric" V 5330 2900 50  0001 C CNN
 F 3 "~" H 5400 2900 50  0001 C CNN
 	1    5400 2900
 	0    1    1    0   
@@ -196,8 +196,11 @@ Wire Wire Line
 Connection ~ 6200 2900
 Wire Wire Line
 	6200 2900 6700 2900
+NoConn ~ 1800 3500
 Text HLabel 2200 3100 2    50   BiDi ~ 0
 USB_B_D+
 Text HLabel 2200 3200 2    50   BiDi ~ 0
 USB_B_D-
+Text Label 2300 2900 0    50   ~ 0
+PWR_RAW
 $EndSCHEMATC

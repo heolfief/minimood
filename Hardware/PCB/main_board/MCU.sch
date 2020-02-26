@@ -106,8 +106,8 @@ Wire Wire Line
 	4350 2050 4500 2050
 Wire Wire Line
 	4500 2050 4500 1950
-Text Notes 4600 2050 0    50   Italic 0
-+3.3V is sourced from\nthe Nucleo board
+Text Notes 4650 1850 0    50   Italic 0
++3.3V power output\n(+3.3V is sourced from\nthe Nucleo board)
 Text HLabel 7650 3650 0    50   Output ~ 0
 I2C_display_SCL
 Text HLabel 2550 3850 0    50   BiDi ~ 0
@@ -168,4 +168,79 @@ Text HLabel 7650 3550 0    50   Input ~ 0
 GPIO_PB5
 Text HLabel 7650 3950 0    50   Input ~ 0
 GPIO_PB10
+Wire Wire Line
+	9050 4550 9150 4550
+Wire Wire Line
+	9150 4550 9150 4650
+Wire Wire Line
+	9150 4650 9050 4650
+Wire Wire Line
+	9150 4650 9150 4700
+Connection ~ 9150 4650
+$Comp
+L power:GND #PWR0121
+U 1 1 5E925AA7
+P 9150 4700
+F 0 "#PWR0121" H 9150 4450 50  0001 C CNN
+F 1 "GND" H 9155 4527 50  0000 C CNN
+F 2 "" H 9150 4700 50  0001 C CNN
+F 3 "" H 9150 4700 50  0001 C CNN
+	1    9150 4700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4350 5150 4450 5150
+Wire Wire Line
+	4450 5150 4450 5250
+$Comp
+L power:GND #PWR0122
+U 1 1 5E9284C5
+P 4450 5250
+F 0 "#PWR0122" H 4450 5000 50  0001 C CNN
+F 1 "GND" H 4455 5077 50  0000 C CNN
+F 2 "" H 4450 5250 50  0001 C CNN
+F 3 "" H 4450 5250 50  0001 C CNN
+	1    4450 5250
+	1    0    0    -1  
+$EndComp
+NoConn ~ 2550 2850
+NoConn ~ 2550 3550
+NoConn ~ 2550 4450
+NoConn ~ 2550 4550
+NoConn ~ 2550 4650
+NoConn ~ 4350 3150
+NoConn ~ 4350 3050
+NoConn ~ 4350 2850
+NoConn ~ 4350 2750
+NoConn ~ 4350 2550
+NoConn ~ 4350 2350
+NoConn ~ 4350 2450
+NoConn ~ 4350 2150
+NoConn ~ 7650 2550
+NoConn ~ 7650 3250
+NoConn ~ 7650 3750
+NoConn ~ 7650 3850
+NoConn ~ 9050 1750
+NoConn ~ 9050 1850
+NoConn ~ 9050 2250
+NoConn ~ 9050 2350
+NoConn ~ 9050 2450
+NoConn ~ 9050 2550
+Wire Wire Line
+	4350 2250 4750 2250
+Wire Wire Line
+	4750 2250 4750 2200
+$Comp
+L power:+5V #PWR?
+U 1 1 5E9D24A0
+P 4750 2200
+F 0 "#PWR?" H 4750 2050 50  0001 C CNN
+F 1 "+5V" H 4765 2373 50  0000 C CNN
+F 2 "" H 4750 2200 50  0001 C CNN
+F 3 "" H 4750 2200 50  0001 C CNN
+	1    4750 2200
+	1    0    0    -1  
+$EndComp
+Text Notes 4850 2200 0    50   Italic 0
+nucleo power input
 $EndSCHEMATC
