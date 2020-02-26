@@ -116,4 +116,56 @@ Text HLabel 7650 2950 0    50   BiDi ~ 0
 USB_OTG_FS_DP
 Text HLabel 7650 2850 0    50   BiDi ~ 0
 USB_OTG_FS_DM
+Text HLabel 7650 2650 0    50   Output ~ 0
+MIDI_UART_TX
+Text HLabel 7650 2750 0    50   Input ~ 0
+MIDI_UART_RX
+Text HLabel 7650 4050 0    50   Input ~ 0
+MIDI_USB_VBUS
+Text HLabel 2550 4050 0    50   Input ~ 0
+ADC1_IN10
+Text HLabel 2550 4150 0    50   Input ~ 0
+ADC1_IN11
+Text HLabel 2550 4250 0    50   Input ~ 0
+ADC1_IN12
+Text HLabel 2550 4350 0    50   Input ~ 0
+ADC1_IN13
+Text HLabel 7650 2050 0    50   Input ~ 0
+ADC1_IN2
+Text HLabel 7650 2150 0    50   Input ~ 0
+ADC1_IN3
+Text HLabel 7650 2350 0    50   Input ~ 0
+ADC1_IN6
+Text HLabel 7650 2450 0    50   Input ~ 0
+ADC1_IN7
+Text HLabel 9050 2050 2    50   Input ~ 0
+ADC1_IN14
+Text HLabel 9050 2150 2    50   Input ~ 0
+ADC1_IN15
+Text HLabel 7650 3150 0    50   Input ~ 0
+ADC1_IN9
+Text HLabel 2550 3750 0    50   Input ~ 0
+ADC1_IN8
+Text HLabel 2550 3050 0    50   Input ~ 0
+GPIO_PA0
+Text HLabel 2550 3150 0    50   Input ~ 0
+GPIO_PA1
+Text HLabel 2550 4750 0    50   Input ~ 0
+GPIO_PC13
+Text HLabel 2550 4850 0    50   Input ~ 0
+GPIO_PC14
+Text HLabel 2550 4950 0    50   Input ~ 0
+GPIO_PC15
+Text HLabel 7650 4150 0    50   Input ~ 0
+GPIO_PB13
+Text HLabel 7650 4250 0    50   Input ~ 0
+GPIO_PB14
+Text HLabel 7650 4350 0    50   Input ~ 0
+GPIO_PB15
+Text HLabel 7650 3450 0    50   Input ~ 0
+GPIO_PB4
+Text HLabel 7650 3550 0    50   Input ~ 0
+GPIO_PB5
+Text HLabel 7650 3950 0    50   Input ~ 0
+GPIO_PB10
 $EndSCHEMATC
