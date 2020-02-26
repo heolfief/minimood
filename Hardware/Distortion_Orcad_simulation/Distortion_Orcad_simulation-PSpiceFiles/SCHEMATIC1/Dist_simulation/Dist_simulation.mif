@@ -1,0 +1,3 @@
+ lib=C:\Cadence\SPB_17.4\tools\PSpice\Library\ediode.lib, offset=20702, size=217
+ lib=C:\Cadence\SPB_17.4\tools\PSpice\Library\breakout.lib, offset=9201, size=133
+ lib=C:\Cadence\SPB_17.4\tools\PSpice\Library\tex_inst.lib, offset=60209, size=1229

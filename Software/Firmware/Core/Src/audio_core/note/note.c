@@ -22,8 +22,8 @@ void note_off(Note *n) {
 	n->deathtime = n->lifetime;
 }
 
-uint16_t note_get_next_sample(Note *n, const Envelope *env) {
-	uint16_t sample = 0;
+int16_t note_get_next_sample(Note *n, const Envelope *env) {
+	int16_t sample = 0;
 	uint8_t number_of_active_osc = 0;
 
 	// Mix the 3 oscillators
@@ -41,9 +41,9 @@ uint16_t note_get_next_sample(Note *n, const Envelope *env) {
 	}
 
 	if (number_of_active_osc != 0)
-		sample = (uint16_t) (sample / number_of_active_osc);
+		sample = (int16_t) (sample / number_of_active_osc);
 	else
-		sample = DAC_ZERO;
+		sample = 0;
 
 	// Apply the note velocity
 	sample = (int16_t) ((float) sample * n->velocity_amp);
@@ -62,9 +62,9 @@ uint16_t note_get_next_sample(Note *n, const Envelope *env) {
 
 void update_envelope(Note *n, const Envelope *env, float sample_rate) {
 	// Convert times to number of samples based on sample rate
-	int samples_attack = (int) (env->attack * sample_rate);
-	int samples_decay = (int) (env->decay * sample_rate);
-	int samples_release = (int) (env->release * sample_rate);
+	uint32_t samples_attack = (uint32_t) (env->attack * sample_rate);
+	uint32_t samples_decay = (uint32_t) (env->decay * sample_rate);
+	uint32_t samples_release = (uint32_t) (env->release * sample_rate);
 
 	if (env->sustain < 0 || env->sustain > 1) {
 		return; // Parameter is out of range

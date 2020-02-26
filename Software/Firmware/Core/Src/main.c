@@ -52,7 +52,7 @@ TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
 
-Audio_core ac;
+extern Audio_core ac;
 
 /* USER CODE END PV */
 
@@ -107,17 +107,28 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim6);	// start TIM6, IT mode
   HAL_DAC_Start(&hdac,DAC_CHANNEL_1);	// Start DAC on channel 1
-/*
+  HAL_DAC_Start(&hdac,DAC_CHANNEL_2);	// Start DAC on channel 2
+
   synth_core_start(&ac);	// Start synthesis core
 
 
   // The following code is for test purpose ////////////////
 */
 
+  ac.sys_param.env.attack = 0.5;
+  ac.sys_param.env.decay = 0;
+  ac.sys_param.env.sustain = 1;
+  ac.sys_param.env.release = 0.5;
   //test of display code
 
   Init_Displays();
+  ac.sys_param.osc1.onoff = ON;
+  ac.sys_param.osc2.onoff = ON;
+  ac.sys_param.osc3.onoff = ON;
 
+  ac.sys_param.osc1.wave = SIN;
+  ac.sys_param.osc2.wave = SQR;
+  ac.sys_param.osc3.wave = TRI;
   //test for Menu display :
   //Booting_Screens();
   Draw_OSC_frame();
@@ -127,24 +138,46 @@ int main(void)
   Update_value_OSC_3(1, SIN, 0, ON);
   Draw_OSC_Var_displayed();
 
+  ac.sys_param.osc1.amp = 1;
+  ac.sys_param.osc2.amp = 1;
+  ac.sys_param.osc3.amp = 1;
  // HAL_Delay(2000);
  // Home_Menu();
 
+  ac.sys_param.osc1.detune = 0;
+  ac.sys_param.osc2.detune = 0;
+  ac.sys_param.osc3.detune = 0;
 /* test for ADSR display
 	Init_ADSR_points();
 
 	Draw_ADSR_frame();
+  ac.sys_param.lfo.amp = 0.5;
+  ac.sys_param.lfo.wave = SIN;
+  ac.sys_param.lfo.freq = 51; // ranges from 0 to 1023, corresponding to 0 to 20Hz
 
 	Draw_ADSR_points();
+  copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
+  copy_osc_sys_param_to_lfo(&ac.sys_param, &ac.lfo);
 
 	Draw_ADSR_lines();
 	HAL_Delay(1000);
 	ADSR_value_update(0.01, 0.01, 0.5, 0.5);
+  int testmidinotes[POLYPHONY_MAX]={60,64,67};
 
 	HAL_Delay(1000);
 	ADSR_value_update(0.01, 1, 0.5, 0.5);
 	HAL_Delay(1000);
 	ADSR_value_update(2, 0,1, 0.5);
+  for(int i=0;i<POLYPHONY_MAX;++i){
+	  midi_note_ON(ac.note, testmidinotes[i], 127);
+	  HAL_Delay(1000);
+  }
+  for(int j=0;j<POLYPHONY_MAX;++j){
+  	  midi_note_OFF(ac.note, testmidinotes[j]);
+  	  HAL_Delay(1000);
+  }
+
+  // End of test code		////////////////////////////////
 
 	*/
 
@@ -240,6 +273,12 @@ static void MX_DAC_Init(void)
   {
     Error_Handler();
   }
+  /** DAC channel OUT2 config 
+  */
+  if (HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
   /* USER CODE BEGIN DAC_Init 2 */
 
   /* USER CODE END DAC_Init 2 */
@@ -325,13 +364,11 @@ static void MX_TIM6_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
