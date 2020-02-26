@@ -25,6 +25,7 @@
 #include "audio_core/oscillator/osc.h"
 
 #include <stdbool.h>
+#include <stdlib.h>
 
 //#include "display_core/bitmap.h"
 
@@ -52,7 +53,7 @@ typedef struct {
 	uint16_t Vol_pos;
 	enum wave onde;
 	bool is_on;
-	uint16_t detune;
+	int8_t detune;
 	uint16_t det_pos;
 
 } oscillator_display;
@@ -96,9 +97,9 @@ void Draw_OSC_frame(void);
 
 void Remove_OSC_variables_displayed(void);
 
-void Update_value_OSC_1(float amp, Waveform wave, float phase, OnOff onoff);
-void Update_value_OSC_2(float amp, Waveform wave, float phase, OnOff onoff);
-void Update_value_OSC_3(float amp, Waveform wave, float phase, OnOff onoff);
+void Update_value_OSC_1(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
+void Update_value_OSC_2(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
+void Update_value_OSC_3(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
 void Draw_OSC_Var_displayed(void);
 
 

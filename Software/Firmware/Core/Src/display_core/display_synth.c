@@ -167,6 +167,7 @@ void Booting_Screens(void){
 
 		HAL_Delay(2000);
 		Home_Menu();
+		HAL_Delay(2000);
 
 
 
@@ -330,6 +331,8 @@ void ADSR_display_update(void){
 }
 
 void Draw_OSC_frame(void){
+	SSD1306_Clear();
+
 	SSD1306_DrawLine(42, 0, 42, 63, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(85, 0, 85, 63, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(0, 21, 127, 21, SSD1306_COLOR_WHITE);
@@ -342,20 +345,13 @@ void Draw_OSC_frame(void){
 	SSD1306_Puts("OSC 3", &Font_7x10, SSD1306_COLOR_WHITE);
 
 	//drawing frame for the first Oscill
-	SSD1306_GotoXY(5, 23);
-	SSD1306_Puts("XTune", &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(0, 38, 40, 38, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(20, 38, 20, 41, SSD1306_COLOR_WHITE); //little bar for the 0
-	SSD1306_GotoXY(20, 41);
-	SSD1306_Putc('0', &Font_7x10, SSD1306_COLOR_WHITE);
-
-	//SSD1306_DrawLine(15, 34, 15, 42, SSD1306_COLOR_WHITE); //test cursor
-
-
-	/*SSD1306_GotoXY(0, 41);
+	SSD1306_GotoXY(1, 23);
+	SSD1306_Puts("Det.", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(0, 43, 40, 43, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(20, 43, 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
+	SSD1306_GotoXY(1 + 20, 30);
 	SSD1306_Puts("-12", &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_GotoXY(27, 41);
-	SSD1306_Puts("12", &Font_7x10, SSD1306_COLOR_WHITE);*/
+	//SSD1306_DrawLine(15, 34, 15, 42, SSD1306_COLOR_WHITE); //test cursor
 
 	//vol display
 
@@ -366,19 +362,15 @@ void Draw_OSC_frame(void){
 	//SSD1306_DrawFilledRectangle(0, 58, 20, 5, SSD1306_COLOR_WHITE); //test for volume
 
 	//drawing frame for the Second Oscill
-	SSD1306_GotoXY(5+43, 23);
-	SSD1306_Puts("XTune", &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(44+0, 38, 43+40, 38, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(44+20, 38, 44+20, 41, SSD1306_COLOR_WHITE); //little bar for the 0
-	SSD1306_GotoXY(44+20, 41);
-	SSD1306_Putc('0', &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY(1+43, 23);
+	SSD1306_Puts("Det.", &Font_7x10, SSD1306_COLOR_WHITE);
+
+
+	SSD1306_DrawLine(44+0, 43, 43+40, 43, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(44+20, 43, 44+20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
+
 
 	//SSD1306_DrawLine(43+15, 34, 43+15, 42, SSD1306_COLOR_WHITE); //test cursor
-
-	/*SSD1306_GotoXY(43+0, 41);
-	 SSD1306_Puts("-12", &Font_7x10, SSD1306_COLOR_WHITE);
-	 SSD1306_GotoXY(43+27, 41);
-	 SSD1306_Puts("12", &Font_7x10, SSD1306_COLOR_WHITE);*/
 
 	//vol display
 	SSD1306_GotoXY(43+0, 47);
@@ -388,23 +380,21 @@ void Draw_OSC_frame(void){
 	//SSD1306_DrawFilledRectangle(44+0, 58, 20, 5, SSD1306_COLOR_WHITE); //test for volume
 
 	//drawing frame for the third Oscill
-	SSD1306_GotoXY(5 + 86, 23);
-	SSD1306_Puts("XTune", &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(87 + 0, 38, 86 + 40, 38, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(87 + 20, 38, 87 + 20, 41, SSD1306_COLOR_WHITE); //little bar for the 0
-	SSD1306_GotoXY(87 + 20, 41);
-	SSD1306_Putc('0', &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY(1 + 86, 23);
+	SSD1306_Puts("Det.", &Font_7x10, SSD1306_COLOR_WHITE);
+
+
+	SSD1306_DrawLine(87 + 0, 43, 86 + 40, 43, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(87 + 20, 43, 87 + 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
+	//SSD1306_GotoXY(87 + 20, 41);
+	//SSD1306_Putc('0', &Font_7x10, SSD1306_COLOR_WHITE);
 
 	//SSD1306_DrawLine(86 + 15, 34, 86 + 15, 42, SSD1306_COLOR_WHITE); //test cursor
 
-	/*SSD1306_GotoXY(86+0, 41);
-	 SSD1306_Puts("-12", &Font_7x10, SSD1306_COLOR_WHITE);
-	 SSD1306_GotoXY(86+27, 41);
-	 SSD1306_Puts("12", &Font_7x10, SSD1306_COLOR_WHITE);*/
 
 	//vol display
 	SSD1306_GotoXY(86 + 0, 47);
-	SSD1306_Puts("Vol", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_Puts("vol", &Font_7x10, SSD1306_COLOR_WHITE);
 
 	SSD1306_DrawRectangle(87 + 0, 58, 38, 5, SSD1306_COLOR_WHITE);
 	//SSD1306_DrawFilledRectangle(87 + 0, 58, 20, 5, SSD1306_COLOR_WHITE); //test for volume
@@ -415,50 +405,112 @@ SSD1306_UpdateScreen();
 
 void Remove_OSC_variables_displayed(void){
 	//osc1:
-	SSD1306_DrawLine(osc1.det_pos, 34, osc1.det_pos, 42, SSD1306_COLOR_BLACK); //remove cursor
+	SSD1306_DrawLine(osc1.det_pos, 39, osc1.det_pos, 45, SSD1306_COLOR_BLACK); //remove cursor
 	SSD1306_DrawFilledRectangle(0, 58, osc1.Vol_pos, 5, SSD1306_COLOR_BLACK); //remove volume
 	SSD1306_DrawRectangle(0, 58, 38, 5, SSD1306_COLOR_WHITE); //redraw the vol frame
+	SSD1306_DrawLine(0, 43, 40, 43, SSD1306_COLOR_WHITE); //redraw the detune line
+	SSD1306_DrawLine(20, 43, 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
+
 	//osc2:
-	SSD1306_DrawLine(osc2.det_pos, 34, osc2.det_pos, 42, SSD1306_COLOR_BLACK); //remove cursor
+	SSD1306_DrawLine(44+osc2.det_pos, 39,44+ osc2.det_pos, 45, SSD1306_COLOR_BLACK); //remove cursor
 	SSD1306_DrawFilledRectangle(44 + 0, 58, osc2.Vol_pos, 5,
 			SSD1306_COLOR_BLACK); //test for volume
 	SSD1306_DrawRectangle(44 + 0, 58, 38, 5, SSD1306_COLOR_WHITE); //redraw the vol frame
+	SSD1306_DrawLine(44+0, 43, 43+40, 43, SSD1306_COLOR_WHITE); //redraw the detune line
+	SSD1306_DrawLine(44+20, 43, 44+20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
+
 	//osc3:
-	SSD1306_DrawLine(osc3.det_pos, 34, osc3.det_pos, 42, SSD1306_COLOR_BLACK); //remove cursor
+	SSD1306_DrawLine(87+osc3.det_pos, 39, 87+osc3.det_pos, 47, SSD1306_COLOR_BLACK); //remove cursor
 	SSD1306_DrawFilledRectangle(87 + 0, 58, osc3.Vol_pos, 5,
 			SSD1306_COLOR_BLACK); //test for volume
 	SSD1306_DrawRectangle(87 + 0, 58, 38, 5, SSD1306_COLOR_WHITE); //redraw the vol frame
+	SSD1306_DrawLine(87 + 0, 43, 86 + 40, 43, SSD1306_COLOR_WHITE); //redraw the detune line
+	SSD1306_DrawLine(87 + 20, 43, 87 + 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
+	SSD1306_GotoXY(86 + 0, 47);
+	SSD1306_Puts("vol", &Font_7x10, SSD1306_COLOR_WHITE);
+
+   /* char buffer3[3];
+    itoa(osc3.detune,buffer3,10);   // here 10 means decimal
+    if(osc3.detune>0)buffer3[2]=' ';
+	SSD1306_GotoXY(1 + 105, 30);
+	SSD1306_Puts(buffer3, &Font_7x10, SSD1306_COLOR_BLACK);*/
 
 
 }
 
 void Draw_OSC_Var_displayed(void){
 	//osc1:
-	SSD1306_DrawLine(osc1.det_pos, 34, osc1.det_pos, 42, SSD1306_COLOR_WHITE); // cursor
+	SSD1306_DrawLine(osc1.det_pos, 39, osc1.det_pos, 45, SSD1306_COLOR_WHITE); // cursor
 	SSD1306_DrawFilledRectangle(0, 58, osc1.Vol_pos, 5, SSD1306_COLOR_WHITE); // volume
 
 	//osc2:
-	SSD1306_DrawLine(osc2.det_pos, 34, osc2.det_pos, 42, SSD1306_COLOR_WHITE); //remove cursor
+	SSD1306_DrawLine(44+osc2.det_pos, 39, 44+osc2.det_pos, 45, SSD1306_COLOR_WHITE); //remove cursor
 	SSD1306_DrawFilledRectangle(44 + 0, 58, osc2.Vol_pos, 5,
 			SSD1306_COLOR_WHITE); //volume
 
+	char buffer2[11];
+    itoa(osc2.detune,buffer2,10);   // here 10 means decimal
+    if(osc2.detune>0)buffer2[2]=' ';
+    if(osc2.detune==0)buffer2[1]=' ';
+    if(osc2.detune>0&&osc2.detune<10){
+    	buffer2[2]=' ';
+    	buffer2[1]=' ';
+    }
+    if(osc2.detune<0&&osc2.detune>-10){
+    	buffer2[2]=' ';
+    }
+
+	SSD1306_GotoXY(1 + 63, 30);
+	SSD1306_Putc(buffer2[0], &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_Putc(buffer2[1], &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_Putc(buffer2[2], &Font_7x10, SSD1306_COLOR_WHITE);
+
 	//osc3:
-	SSD1306_DrawLine(osc3.det_pos, 34, osc3.det_pos, 42, SSD1306_COLOR_WHITE); //cursor
+	SSD1306_DrawLine(87+osc3.det_pos, 39,87+ osc3.det_pos, 45, SSD1306_COLOR_WHITE); //cursor detune
 	SSD1306_DrawFilledRectangle(87 + 0, 58, osc3.Vol_pos, 5,
 			SSD1306_COLOR_WHITE); //volume
 
+    char buffer3[4];
+    itoa(osc3.detune,buffer3,10);   // here 10 means decimal
+    if(osc3.detune>0)buffer3[2]=' ';
+    if(osc3.detune==0)buffer3[1]=' ';
+    if(osc3.detune>0&&osc3.detune<10){
+    	buffer3[2]=' ';
+    	buffer3[1]=' ';
+    }
+    if(osc3.detune<0&&osc3.detune>-10){
+    	buffer3[2]=' ';
+    }
+
+	SSD1306_GotoXY(1 + 105, 30);
+	SSD1306_Putc(buffer3[0], &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_Putc(buffer3[1], &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_Putc(buffer3[2], &Font_7x10, SSD1306_COLOR_WHITE);
+
+
+	SSD1306_UpdateScreen();
+
 }
 
-void Update_value_OSC_1(float amp,  Waveform wave, float phase,  OnOff onoff){
+void Update_value_OSC_1(float amp,  Waveform wave, int8_t detune,  OnOff onoff){
 	osc1.Vol_pos = floor(amp*39);
+	osc1.det_pos = ((detune+12)*40)/24;
+	osc1.detune = detune;
+
 }
 
-void Update_value_OSC_2(float amp,  Waveform wave, float phase,  OnOff onoff){
+void Update_value_OSC_2(float amp,  Waveform wave, int8_t detune,  OnOff onoff){
 	osc2.Vol_pos = floor(amp*39);
+	osc2.det_pos = ((detune+12)*40)/24;
+	osc2.detune = detune;
+
+
 }
 
-void Update_value_OSC_3(float amp,  Waveform wave, float phase,  OnOff onoff){
+void Update_value_OSC_3(float amp,  Waveform wave, int8_t detune,  OnOff onoff){
 	osc3.Vol_pos = floor(amp*39);
+	osc3.det_pos = ((detune+12)*40)/24;
+	osc3.detune = detune;
 }
 
 

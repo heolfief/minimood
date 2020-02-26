@@ -113,7 +113,7 @@ int main(void)
 
 
   // The following code is for test purpose ////////////////
-*/
+
 
   ac.sys_param.env.attack = 0.5;
   ac.sys_param.env.decay = 0;
@@ -129,45 +129,84 @@ int main(void)
   ac.sys_param.osc1.wave = SIN;
   ac.sys_param.osc2.wave = SQR;
   ac.sys_param.osc3.wave = TRI;
-  //test for Menu display :
-  //Booting_Screens();
-  Draw_OSC_frame();
-  Remove_OSC_variables_displayed();
-  Update_value_OSC_1(0.7, SIN, 0, ON);
-  Update_value_OSC_2(0.3, SIN, 0, ON);
-  Update_value_OSC_3(1, SIN, 0, ON);
-  Draw_OSC_Var_displayed();
-
   ac.sys_param.osc1.amp = 1;
   ac.sys_param.osc2.amp = 1;
   ac.sys_param.osc3.amp = 1;
- // HAL_Delay(2000);
- // Home_Menu();
 
   ac.sys_param.osc1.detune = 0;
   ac.sys_param.osc2.detune = 0;
   ac.sys_param.osc3.detune = 0;
-/* test for ADSR display
-	Init_ADSR_points();
-
-	Draw_ADSR_frame();
+ // HAL_Delay(2000);
   ac.sys_param.lfo.amp = 0.5;
   ac.sys_param.lfo.wave = SIN;
   ac.sys_param.lfo.freq = 51; // ranges from 0 to 1023, corresponding to 0 to 20Hz
 
-	Draw_ADSR_points();
+
   copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
   copy_osc_sys_param_to_lfo(&ac.sys_param, &ac.lfo);
+
+  //test for Menu display :
+  //Booting_Screens();
+
+  //test for osc display :
+	Draw_OSC_frame();
+	Remove_OSC_variables_displayed();
+	Update_value_OSC_1(0.7, SIN, -11, ON);
+	Update_value_OSC_2(0.3, SIN, -12, ON);
+	Update_value_OSC_3(1, SIN, -10, ON);
+	Draw_OSC_Var_displayed();
+	HAL_Delay(3000);
+	Remove_OSC_variables_displayed();
+	Update_value_OSC_1(0.4, SIN, -8, ON);
+	Update_value_OSC_2(0.0, SIN, -11, ON);
+	Update_value_OSC_3(0.8, SIN,4, ON);
+	Draw_OSC_Var_displayed();
+	HAL_Delay(3000);
+	float inc=0;
+	for (int i = 0; i < 11; ++i) {
+		for (int det = -12; det < 13; det++) {
+
+			inc = (float) i / 10.0;
+			Remove_OSC_variables_displayed();
+			Update_value_OSC_1(inc, SIN, det, ON);
+			Update_value_OSC_2(inc, SIN, det, ON);
+			Update_value_OSC_3(inc, SIN, det, ON);
+			Draw_OSC_Var_displayed();
+			HAL_Delay(100);
+		}
+	}
+
+
+
+ // Home_Menu();
+
+
+// test for ADSR display
+	/*
+	Init_ADSR_points();
+
+	Draw_ADSR_frame();
+
+
+	Draw_ADSR_points();
+
 
 	Draw_ADSR_lines();
 	HAL_Delay(1000);
 	ADSR_value_update(0.01, 0.01, 0.5, 0.5);
-  int testmidinotes[POLYPHONY_MAX]={60,64,67};
+	ADSR_display_update();
+ // int testmidinotes[POLYPHONY_MAX]={60,64,67};
 
 	HAL_Delay(1000);
 	ADSR_value_update(0.01, 1, 0.5, 0.5);
+	ADSR_display_update();
+
 	HAL_Delay(1000);
 	ADSR_value_update(2, 0,1, 0.5);
+	ADSR_display_update();
+
+*/ //end of adsr test display
+	/*
   for(int i=0;i<POLYPHONY_MAX;++i){
 	  midi_note_ON(ac.note, testmidinotes[i], 127);
 	  HAL_Delay(1000);
@@ -176,10 +215,10 @@ int main(void)
   	  midi_note_OFF(ac.note, testmidinotes[j]);
   	  HAL_Delay(1000);
   }
-
+*/
   // End of test code		////////////////////////////////
 
-	*/
+
 
 
   /* USER CODE END 2 */
@@ -366,25 +405,9 @@ static void MX_GPIO_Init(void)
 {
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : PC13 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PB0 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
 }
 

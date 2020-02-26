@@ -504,7 +504,7 @@ void SSD1306_GotoXY_2(uint16_t x, uint16_t y) {
 
 char SSD1306_Putc(char ch, FontDef_t* Font, SSD1306_COLOR_t color) {
 	uint32_t i, b, j;
-	
+	if(ch=='\0')return 0;
 	/* Check available space in LCD */
 	if (
 		SSD1306_WIDTH <= (SSD1306.CurrentX + Font->FontWidth) ||
