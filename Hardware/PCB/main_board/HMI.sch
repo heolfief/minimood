@@ -774,7 +774,7 @@ CTRL_DOWN
 Wire Wire Line
 	4600 6300 4750 6300
 Text HLabel 4750 6300 2    50   Output ~ 0
-OSC2_OK
+CTRL_OK
 Wire Wire Line
 	4200 5900 4100 5900
 Wire Wire Line

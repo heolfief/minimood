@@ -58,6 +58,56 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define CTRL_DOWN_Pin GPIO_PIN_13
+#define CTRL_DOWN_GPIO_Port GPIOC
+#define CTRL_RIGHT_Pin GPIO_PIN_14
+#define CTRL_RIGHT_GPIO_Port GPIOC
+#define CTRL_OK_Pin GPIO_PIN_15
+#define CTRL_OK_GPIO_Port GPIOC
+#define ADSR_D_Pin GPIO_PIN_0
+#define ADSR_D_GPIO_Port GPIOC
+#define ADSR_A_Pin GPIO_PIN_1
+#define ADSR_A_GPIO_Port GPIOC
+#define ADSR_R_Pin GPIO_PIN_2
+#define ADSR_R_GPIO_Port GPIOC
+#define ADSR_S_Pin GPIO_PIN_3
+#define ADSR_S_GPIO_Port GPIOC
+#define CTRL_LEFT_Pin GPIO_PIN_0
+#define CTRL_LEFT_GPIO_Port GPIOA
+#define CTRL_UP_Pin GPIO_PIN_1
+#define CTRL_UP_GPIO_Port GPIOA
+#define OSC1_AMP_Pin GPIO_PIN_2
+#define OSC1_AMP_GPIO_Port GPIOA
+#define OSC2_AMP_Pin GPIO_PIN_3
+#define OSC2_AMP_GPIO_Port GPIOA
+#define AUDIO_OUT_Pin GPIO_PIN_4
+#define AUDIO_OUT_GPIO_Port GPIOA
+#define LFO_CV_OUT_Pin GPIO_PIN_5
+#define LFO_CV_OUT_GPIO_Port GPIOA
+#define LFO_RATE_Pin GPIO_PIN_6
+#define LFO_RATE_GPIO_Port GPIOA
+#define OSC3_DET_Pin GPIO_PIN_7
+#define OSC3_DET_GPIO_Port GPIOA
+#define OSC1_DET_Pin GPIO_PIN_4
+#define OSC1_DET_GPIO_Port GPIOC
+#define LFO_DEPTH_Pin GPIO_PIN_5
+#define LFO_DEPTH_GPIO_Port GPIOC
+#define OSC3_AMP_Pin GPIO_PIN_0
+#define OSC3_AMP_GPIO_Port GPIOB
+#define OSC2_DET_Pin GPIO_PIN_1
+#define OSC2_DET_GPIO_Port GPIOB
+#define OSC3_ON_Pin GPIO_PIN_10
+#define OSC3_ON_GPIO_Port GPIOB
+#define OSC3_WAVE_Pin GPIO_PIN_13
+#define OSC3_WAVE_GPIO_Port GPIOB
+#define OSC1_ON_Pin GPIO_PIN_4
+#define OSC1_ON_GPIO_Port GPIOB
+#define OSC2_WAVE_Pin GPIO_PIN_5
+#define OSC2_WAVE_GPIO_Port GPIOB
+#define OSC1_WAVE_Pin GPIO_PIN_8
+#define OSC1_WAVE_GPIO_Port GPIOB
+#define OSC2_ON_Pin GPIO_PIN_9
+#define OSC2_ON_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -44,7 +44,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 
-Audio_core ac;
+extern Audio_core ac;
 
 /* USER CODE END PV */
 

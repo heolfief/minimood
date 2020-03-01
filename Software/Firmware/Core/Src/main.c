@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "audio_core/audio_core.h"
+#include "HMI/HMI.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,9 +51,8 @@ TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
 
-extern Audio_core ac;
-
-uint8_t adc_raw_data[12];
+Audio_core ac;
+Hmi hmi;
 
 /* USER CODE END PV */
 
@@ -110,7 +110,7 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim6);	// start TIM6, IT mode
   HAL_DAC_Start(&hdac,DAC_CHANNEL_1);	// Start DAC on channel 1
   HAL_DAC_Start(&hdac,DAC_CHANNEL_2);	// Start DAC on channel 2
-  HAL_ADC_Start_DMA(&hadc1, adc_raw_data, 12);
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)hmi.adc_raw_data, NBR_OF_POTS);
 
   synth_core_start(&ac);	// Start synthesis core
 
@@ -469,20 +469,22 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
-  /*Configure GPIO pins : PC13 PC14 PC15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+  /*Configure GPIO pins : CTRL_DOWN_Pin CTRL_RIGHT_Pin CTRL_OK_Pin */
+  GPIO_InitStruct.Pin = CTRL_DOWN_Pin|CTRL_RIGHT_Pin|CTRL_OK_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA0 PA1 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+  /*Configure GPIO pins : CTRL_LEFT_Pin CTRL_UP_Pin */
+  GPIO_InitStruct.Pin = CTRL_LEFT_Pin|CTRL_UP_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB10 PB13 PB4 PB5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_13|GPIO_PIN_4|GPIO_PIN_5;
+  /*Configure GPIO pins : OSC3_ON_Pin OSC3_WAVE_Pin OSC1_ON_Pin OSC2_WAVE_Pin 
+                           OSC1_WAVE_Pin OSC2_ON_Pin */
+  GPIO_InitStruct.Pin = OSC3_ON_Pin|OSC3_WAVE_Pin|OSC1_ON_Pin|OSC2_WAVE_Pin 
+                          |OSC1_WAVE_Pin|OSC2_ON_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
