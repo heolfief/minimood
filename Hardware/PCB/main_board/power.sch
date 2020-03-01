@@ -4,11 +4,11 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 7
-Title ""
-Date ""
-Rev ""
-Comp ""
-Comment1 ""
+Title "MiniMood"
+Date "2020"
+Rev "A"
+Comp "INSA Rennes"
+Comment1 "Heol Fief, Vincent Colombel, Julien le Pelve, Loïc Scotto"
 Comment2 ""
 Comment3 ""
 Comment4 ""

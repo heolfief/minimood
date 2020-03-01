@@ -4,11 +4,11 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 7 7
-Title ""
-Date ""
-Rev ""
-Comp ""
-Comment1 ""
+Title "MiniMood"
+Date "2020"
+Rev "A"
+Comp "INSA Rennes"
+Comment1 "Heol Fief, Vincent Colombel, Julien le Pelve, Loïc Scotto"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -158,10 +158,10 @@ Text HLabel 2550 4950 0    50   Input ~ 0
 GPIO_PC15
 Text HLabel 7650 4150 0    50   Input ~ 0
 GPIO_PB13
-Text HLabel 7650 4250 0    50   Input ~ 0
-GPIO_PB14
-Text HLabel 7650 4350 0    50   Input ~ 0
-GPIO_PB15
+Text HLabel 7650 3750 0    50   Input ~ 0
+GPIO_PB8
+Text HLabel 7650 3850 0    50   Input ~ 0
+GPIO_PB9
 Text HLabel 7650 3450 0    50   Input ~ 0
 GPIO_PB4
 Text HLabel 7650 3550 0    50   Input ~ 0
@@ -218,8 +218,6 @@ NoConn ~ 4350 2450
 NoConn ~ 4350 2150
 NoConn ~ 7650 2550
 NoConn ~ 7650 3250
-NoConn ~ 7650 3750
-NoConn ~ 7650 3850
 NoConn ~ 9050 1750
 NoConn ~ 9050 1850
 NoConn ~ 9050 2250
@@ -231,10 +229,10 @@ Wire Wire Line
 Wire Wire Line
 	4750 2250 4750 2200
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0123
 U 1 1 5E9D24A0
 P 4750 2200
-F 0 "#PWR?" H 4750 2050 50  0001 C CNN
+F 0 "#PWR0123" H 4750 2050 50  0001 C CNN
 F 1 "+5V" H 4765 2373 50  0000 C CNN
 F 2 "" H 4750 2200 50  0001 C CNN
 F 3 "" H 4750 2200 50  0001 C CNN
@@ -243,4 +241,8 @@ F 3 "" H 4750 2200 50  0001 C CNN
 $EndComp
 Text Notes 4850 2200 0    50   Italic 0
 nucleo power input
+Text HLabel 7650 4250 0    50   BiDi ~ 0
+USB_DEV_HS_DM
+Text HLabel 7650 4350 0    50   BiDi ~ 0
+USB_DEV_HS_DP
 $EndSCHEMATC
