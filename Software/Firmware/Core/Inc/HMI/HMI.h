@@ -20,6 +20,8 @@ typedef struct {
 	GPIO_TypeDef *port; /*!<GPIO PORT */
 	uint16_t pin; /*!<GPIO PIN */
 	uint16_t log_cnt; /*!<Counter for number of valid sample read, used for debouncing */
+	uint8_t waiting;	/*!<indicate if we are in a debounce waiting state after an edge is detecteds */
+	uint8_t last_state;	/*!<Last state of the button */
 	uint8_t state;	/*!<Debounced state of the button */
 } Button;
 
@@ -46,5 +48,13 @@ void hmi_init(Hmi *hmi);
  * \param bts the Button structure array
  */
 void hmi_debounce_buttons(Button *bts);
+
+/**
+ * \brief Process the buttons state and modify system param accordingly
+ *
+ * \param bts the Button structure array
+ * \param sys_param the system parameters structure
+ */
+void hmi_process_buttons(Button *bts, Sys_param sys_param);
 
 #endif /* INC_HMI_HMI_H_ */

@@ -33,6 +33,8 @@ void hmi_init(Hmi *hmi) {
 
 	for (int i = 0; i < NBR_OF_BUTTONS; ++i) {
 		hmi->bts[i].log_cnt = 0;
+		hmi->bts[i].waiting = 0;
+		hmi->bts[i].last_state = 0;
 		hmi->bts[i].state = 0;
 	}
 
@@ -73,16 +75,31 @@ void hmi_init(Hmi *hmi) {
 
 void hmi_debounce_buttons(Button *bts) {
 	for (int i = 0; i < NBR_OF_BUTTONS; ++i) {
-		if (HAL_GPIO_ReadPin(bts[i].port, bts[i].pin) == 0) {
-			bts[i].log_cnt++;
-		} else {
-			bts[i].log_cnt = 0;
+		uint8_t current_reading = HAL_GPIO_ReadPin(bts[i].port, bts[i].pin);
+
+		// detect falling edge
+		if (current_reading == 0 && bts[i].last_state == 1) { //Buttons are GND (= 0) when pressed
+			bts[i].waiting = 1;
+			bts[i].log_cnt = 0;	// reset counter
 		}
 
-		if (bts[i].log_cnt == DEBOUNCE_NBR_OF_SAMPLES) {
-			bts[i].state = 1;
-		} else {
-			bts[i].state = 0;
+		if (bts[i].waiting == 1) {
+			bts[i].log_cnt++;
+
+			if (bts[i].log_cnt >= DEBOUNCE_NBR_OF_SAMPLES
+					&& current_reading == 0) {
+				bts[i].state = 1;
+				bts[i].log_cnt = 0;
+				bts[i].waiting = 0;
+			} else {
+				bts[i].state = 0;
+			}
+
 		}
+		bts[i].last_state = bts[i].state;
 	}
+}
+
+void hmi_process_buttons(Button *bts, Sys_param sys_param) {
+
 }
