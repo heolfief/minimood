@@ -73,18 +73,16 @@ void hmi_init(Hmi *hmi) {
 
 void hmi_debounce_buttons(Button *bts) {
 	for (int i = 0; i < NBR_OF_BUTTONS; ++i) {
-		if (HAL_GPIO_ReadPin(bts->port, bts->pin) == 0) {
-			bts->log_cnt++;
+		if (HAL_GPIO_ReadPin(bts[i].port, bts[i].pin) == 0) {
+			bts[i].log_cnt++;
 		} else {
-			bts->log_cnt = 0;
+			bts[i].log_cnt = 0;
 		}
 
-		if (bts->log_cnt == DEBOUNCE_NBR_OF_SAMPLES) {
-			bts->state = 1;
+		if (bts[i].log_cnt == DEBOUNCE_NBR_OF_SAMPLES) {
+			bts[i].state = 1;
 		} else {
-			bts->state = 0;
+			bts[i].state = 0;
 		}
 	}
 }
-
-//temp=HAL_GPIO_ReadPin(OSC1_ON_GPIO_Port, OSC1_ON_Pin);
