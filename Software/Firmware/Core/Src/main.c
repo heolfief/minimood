@@ -112,7 +112,8 @@ int main(void)
   HAL_DAC_Start(&hdac,DAC_CHANNEL_2);	// Start DAC on channel 2
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)hmi.adc_raw_data, NBR_OF_POTS);
 
-  synth_core_start(&ac);	// Start synthesis core
+  hmi_init(&hmi);
+  synth_core_start(&ac);
 
 
   // The following code is for test purpose ////////////////
