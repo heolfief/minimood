@@ -16,6 +16,8 @@
 
 #define SAMPLE_RATE 44094.48819			// Cannot be changed, depends on TIM6 settings and LUT values depend on sample rate
 
+#define NUMBER_OF_WAVES 5
+
 /**
  * \enum Waveform
  * \brief various waveform types

@@ -8,6 +8,9 @@
 
 #include <stm32f4xx.h>
 
+#include "main.h"
+#include "sys_param/sys_param.h"
+
 #define NBR_OF_POTS 				12
 #define NBR_OF_BUTTONS 				11
 #define DEBOUNCE_NBR_OF_SAMPLES		5
@@ -65,7 +68,9 @@ void hmi_debounce_buttons(Button *bts);
  *
  * \param bts the Button structure array
  * \param sys_param the system parameters structure
+ *
+ * \return 1 if sys_param has been modified, 0 otherwise
  */
-void hmi_process_buttons(Button *bts, Sys_param sys_param);
+uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param);
 
 #endif /* INC_HMI_HMI_H_ */

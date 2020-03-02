@@ -5,9 +5,6 @@
 
 #include "HMI/HMI.h"
 
-#include "main.h"
-#include "sys_param/sys_param.h"
-
 /**
  * \brief Re-maps a number from one range to another.
  * That is, a value of fromLow would get mapped to toLow, a value
@@ -100,27 +97,51 @@ void hmi_debounce_buttons(Button *bts) {
 	}
 }
 
-void hmi_process_buttons(Button *bts, Sys_param sys_param) {
+uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
+	uint8_t param_changed = 0;
+
 	if (bts[BT_OSC1_ON].state == 1) {
-		if (sys_param->osc1.onoff = OFF)
+		if (sys_param->osc1.onoff == OFF) {
 			sys_param->osc1.onoff = ON;
-		else
+		} else {
 			sys_param->osc1.onoff = OFF;
+		}
 		bts[BT_OSC1_ON].state = 0;	// reset state
+		param_changed = 1;
 	}
 	if (bts[BT_OSC2_ON].state == 1) {
-		if (sys_param->osc2.onoff = OFF)
+		if (sys_param->osc2.onoff == OFF) {
 			sys_param->osc2.onoff = ON;
-		else
+		} else {
 			sys_param->osc2.onoff = OFF;
+		}
 		bts[BT_OSC2_ON].state = 0;	// reset state
+		param_changed = 1;
 	}
 	if (bts[BT_OSC3_ON].state == 1) {
-		if (sys_param->osc3.onoff = OFF)
+		if (sys_param->osc3.onoff == OFF) {
 			sys_param->osc3.onoff = ON;
-		else
+		} else {
 			sys_param->osc3.onoff = OFF;
+		}
 		bts[BT_OSC3_ON].state = 0;	// reset state
+		param_changed = 1;
 	}
-	// WIP : WAVE
+
+	if (bts[BT_OSC1_WAVE].state == 1) {
+		sys_param->osc1.wave = (sys_param->osc1.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
+		bts[BT_OSC1_WAVE].state = 0;	// reset state
+		param_changed = 1;
+	}
+	if (bts[BT_OSC2_WAVE].state == 1) {
+		sys_param->osc2.wave = (sys_param->osc2.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
+		bts[BT_OSC2_WAVE].state = 0;	// reset state
+		param_changed = 1;
+	}
+	if (bts[BT_OSC3_WAVE].state == 1) {
+		sys_param->osc3.wave = (sys_param->osc3.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
+		bts[BT_OSC3_WAVE].state = 0;	// reset state
+		param_changed = 1;
+	}
+	return param_changed;
 }
