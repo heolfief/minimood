@@ -38,38 +38,38 @@ void hmi_init(Hmi *hmi) {
 		hmi->bts[i].state = 0;
 	}
 
-	hmi->bts[0].port = OSC1_ON_GPIO_Port;
-	hmi->bts[0].pin = OSC1_ON_Pin;
+	hmi->bts[BT_OSC1_ON].port = OSC1_ON_GPIO_Port;
+	hmi->bts[BT_OSC1_ON].pin = OSC1_ON_Pin;
 
-	hmi->bts[1].port = OSC2_ON_GPIO_Port;
-	hmi->bts[1].pin = OSC2_ON_Pin;
+	hmi->bts[BT_OSC2_ON].port = OSC2_ON_GPIO_Port;
+	hmi->bts[BT_OSC2_ON].pin = OSC2_ON_Pin;
 
-	hmi->bts[2].port = OSC3_ON_GPIO_Port;
-	hmi->bts[2].pin = OSC3_ON_Pin;
+	hmi->bts[BT_OSC3_ON].port = OSC3_ON_GPIO_Port;
+	hmi->bts[BT_OSC3_ON].pin = OSC3_ON_Pin;
 
-	hmi->bts[3].port = OSC1_WAVE_GPIO_Port;
-	hmi->bts[3].pin = OSC1_WAVE_Pin;
+	hmi->bts[BT_OSC1_WAVE].port = OSC1_WAVE_GPIO_Port;
+	hmi->bts[BT_OSC1_WAVE].pin = OSC1_WAVE_Pin;
 
-	hmi->bts[4].port = OSC2_WAVE_GPIO_Port;
-	hmi->bts[4].pin = OSC2_WAVE_Pin;
+	hmi->bts[BT_OSC2_WAVE].port = OSC2_WAVE_GPIO_Port;
+	hmi->bts[BT_OSC2_WAVE].pin = OSC2_WAVE_Pin;
 
-	hmi->bts[5].port = OSC3_WAVE_GPIO_Port;
-	hmi->bts[5].pin = OSC3_WAVE_Pin;
+	hmi->bts[BT_OSC3_WAVE].port = OSC3_WAVE_GPIO_Port;
+	hmi->bts[BT_OSC3_WAVE].pin = OSC3_WAVE_Pin;
 
-	hmi->bts[6].port = CTRL_UP_GPIO_Port;
-	hmi->bts[6].pin = CTRL_UP_Pin;
+	hmi->bts[BT_CTRL_UP].port = CTRL_UP_GPIO_Port;
+	hmi->bts[BT_CTRL_UP].pin = CTRL_UP_Pin;
 
-	hmi->bts[7].port = CTRL_RIGHT_GPIO_Port;
-	hmi->bts[7].pin = CTRL_RIGHT_Pin;
+	hmi->bts[BT_CTRL_RIGHT].port = CTRL_RIGHT_GPIO_Port;
+	hmi->bts[BT_CTRL_RIGHT].pin = CTRL_RIGHT_Pin;
 
-	hmi->bts[8].port = CTRL_DOWN_GPIO_Port;
-	hmi->bts[8].pin = CTRL_DOWN_Pin;
+	hmi->bts[BT_CTRL_DOWN].port = CTRL_DOWN_GPIO_Port;
+	hmi->bts[BT_CTRL_DOWN].pin = CTRL_DOWN_Pin;
 
-	hmi->bts[9].port = CTRL_LEFT_GPIO_Port;
-	hmi->bts[9].pin = CTRL_LEFT_Pin;
+	hmi->bts[BT_CTRL_LEFT].port = CTRL_LEFT_GPIO_Port;
+	hmi->bts[BT_CTRL_LEFT].pin = CTRL_LEFT_Pin;
 
-	hmi->bts[10].port = CTRL_OK_GPIO_Port;
-	hmi->bts[10].pin = CTRL_OK_Pin;
+	hmi->bts[BT_CTRL_OK].port = CTRL_OK_GPIO_Port;
+	hmi->bts[BT_CTRL_OK].pin = CTRL_OK_Pin;
 
 }
 
@@ -101,5 +101,26 @@ void hmi_debounce_buttons(Button *bts) {
 }
 
 void hmi_process_buttons(Button *bts, Sys_param sys_param) {
-
+	if (bts[BT_OSC1_ON].state == 1) {
+		if (sys_param->osc1.onoff = OFF)
+			sys_param->osc1.onoff = ON;
+		else
+			sys_param->osc1.onoff = OFF;
+		bts[BT_OSC1_ON].state = 0;	// reset state
+	}
+	if (bts[BT_OSC2_ON].state == 1) {
+		if (sys_param->osc2.onoff = OFF)
+			sys_param->osc2.onoff = ON;
+		else
+			sys_param->osc2.onoff = OFF;
+		bts[BT_OSC2_ON].state = 0;	// reset state
+	}
+	if (bts[BT_OSC3_ON].state == 1) {
+		if (sys_param->osc3.onoff = OFF)
+			sys_param->osc3.onoff = ON;
+		else
+			sys_param->osc3.onoff = OFF;
+		bts[BT_OSC3_ON].state = 0;	// reset state
+	}
+	// WIP : WAVE
 }
