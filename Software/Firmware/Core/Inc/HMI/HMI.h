@@ -11,10 +11,39 @@
 #include "main.h"
 #include "sys_param/sys_param.h"
 
+
+///////// SOFTWARE DEFINES FOR SETTINGS
+#define OSC_AMP_MIN					0.0
+#define OSC_AMP_MAX					1.0
+
+#define OSC_DET_MIN					-12.0
+#define OSC_DET_MAX					12.0
+
+#define ADSR_A_MIN					0.0
+#define ADSR_A_MAX					2.0
+
+#define ADSR_D_MIN					0.0
+#define ADSR_D_MAX					2.0
+
+#define ADSR_S_MIN					0.0
+#define ADSR_S_MAX					1.0
+
+#define ADSR_R_MIN					0.0
+#define ADSR_R_MAX					2.0
+
+#define LFO_RATE_MIN				0.01
+#define LFO_RATE_MAX				20.0
+
+#define LFO_DEPTH_MIN				0.0
+#define LFO_DEPTH_MAX				1.0
+
 #define NBR_OF_POTS 				12
 #define NBR_OF_BUTTONS 				11
 #define DEBOUNCE_NBR_OF_SAMPLES		5
+/////////////////////////////////////
 
+
+////////// HARDWARE DEPENDANT DEFINES
 #define BT_OSC1_ON					0
 #define BT_OSC2_ON					1
 #define BT_OSC3_ON					2
@@ -39,6 +68,7 @@
 #define POT_ADSR_S					9
 #define POT_OSC1_DET				10
 #define POT_LFO_DEPTH				11
+//////////////////////////////////////
 
 /**
  * \struct Button
@@ -58,11 +88,8 @@ typedef struct {
  * \brief define a potentiometer
  */
 typedef struct {
-	GPIO_TypeDef *port; /*!<GPIO PORT */
-	uint16_t pin; /*!<GPIO PIN */
-	void* min_value; /*!<Counter for number of valid sample read, used for debouncing */
-	void* max_value; /*!<Last state of the button */
-	void* value; /*!<Value for potentiometer */
+	float min_value; /*!<min vaue for pot parameter*/
+	float max_value; /*!<max value for pot parameter */
 } Potentiometer;
 
 /**
@@ -105,9 +132,7 @@ uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param);
  * \param rawdata array containing raw data from ADC
  * \param pots the Potentiometer structure array
  * \param sys_param the system parameters structure
- *
- * \return 1 if sys_param has been modified, 0 otherwise
  */
-uint8_t hmi_process_pots(uint8_t *rawdata, Potentiometer *pots, Sys_param *sys_param);
+void hmi_process_pots(uint8_t *rawdata, Potentiometer *pots, Sys_param *sys_param);
 
 #endif /* INC_HMI_HMI_H_ */

@@ -65,6 +65,35 @@ void hmi_init(Hmi *hmi) {
 	hmi->bts[BT_CTRL_OK].port = CTRL_OK_GPIO_Port;
 	hmi->bts[BT_CTRL_OK].pin = CTRL_OK_Pin;
 
+	hmi->pots[POT_OSC1_AMP].min_value = OSC_AMP_MIN;
+	hmi->pots[POT_OSC1_AMP].max_value = OSC_AMP_MAX;
+	hmi->pots[POT_OSC2_AMP].min_value = OSC_AMP_MIN;
+	hmi->pots[POT_OSC2_AMP].max_value = OSC_AMP_MAX;
+	hmi->pots[POT_OSC3_AMP].min_value = OSC_AMP_MIN;
+	hmi->pots[POT_OSC3_AMP].max_value = OSC_AMP_MAX;
+
+	hmi->pots[POT_OSC1_DET].min_value = OSC_DET_MIN;
+	hmi->pots[POT_OSC1_DET].max_value = OSC_DET_MAX;
+	hmi->pots[POT_OSC2_DET].min_value = OSC_DET_MIN;
+	hmi->pots[POT_OSC2_DET].max_value = OSC_DET_MAX;
+	hmi->pots[POT_OSC3_DET].min_value = OSC_DET_MIN;
+	hmi->pots[POT_OSC3_DET].max_value = OSC_DET_MAX;
+
+	hmi->pots[POT_ADSR_A].min_value = ADSR_A_MIN;
+	hmi->pots[POT_ADSR_A].max_value = ADSR_A_MAX;
+	hmi->pots[POT_ADSR_D].min_value = ADSR_D_MIN;
+	hmi->pots[POT_ADSR_D].max_value = ADSR_D_MAX;
+	hmi->pots[POT_ADSR_S].min_value = ADSR_S_MIN;
+	hmi->pots[POT_ADSR_S].max_value = ADSR_S_MAX;
+	hmi->pots[POT_ADSR_R].min_value = ADSR_R_MIN;
+	hmi->pots[POT_ADSR_R].max_value = ADSR_R_MAX;
+
+	hmi->pots[POT_LFO_RATE].min_value = LFO_RATE_MIN;
+	hmi->pots[POT_LFO_RATE].max_value = LFO_RATE_MAX;
+
+	hmi->pots[POT_LFO_DEPTH].min_value = LFO_DEPTH_MIN;
+	hmi->pots[POT_LFO_DEPTH].max_value = LFO_DEPTH_MIN;
+
 }
 
 void hmi_debounce_buttons(Button *bts) {
@@ -143,46 +172,54 @@ uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
 	return param_changed;
 }
 
-uint8_t hmi_process_pots(uint8_t *rawdata, Potentiometer *pots,
+void hmi_process_pots(uint8_t *rawdata, Potentiometer *pots,
 		Sys_param *sys_param) {
-	uint8_t param_changed = 0;
 
-	sys_param->osc1.amp = MAP(rawdata[POT_OSC1_AMP], 0, 255,
-			pots[POT_OSC1_AMP].min_value, pots[POT_OSC1_AMP].max_value);
+	sys_param->osc1.amp = (float) MAP((float)rawdata[POT_OSC1_AMP], 0.0, 255.0,
+			(float)pots[POT_OSC1_AMP].min_value,
+			(float)pots[POT_OSC1_AMP].max_value);
 
-	sys_param->osc2.amp = MAP(rawdata[POT_OSC2_AMP], 0, 255,
-				pots[POT_OSC2_AMP].min_value, pots[POT_OSC2_AMP].max_value);
+	sys_param->osc2.amp = (float) MAP(rawdata[POT_OSC2_AMP], 0.0, 255.0,
+			(float)pots[POT_OSC2_AMP].min_value,
+			(float)pots[POT_OSC2_AMP].max_value);
 
-	sys_param->osc3.amp = MAP(rawdata[POT_OSC3_AMP], 0, 255,
-				pots[POT_OSC3_AMP].min_value, pots[POT_OSC3_AMP].max_value);
+	sys_param->osc3.amp = (float) MAP(rawdata[POT_OSC3_AMP], 0.0, 255.0,
+			(float)pots[POT_OSC3_AMP].min_value,
+			(float)pots[POT_OSC3_AMP].max_value);
 
+	sys_param->osc1.detune = (int8_t) MAP((float)rawdata[POT_OSC1_DET], 0.0,
+			255.0, (float)pots[POT_OSC1_DET].min_value,
+			(float)pots[POT_OSC1_DET].max_value);
 
-	sys_param->osc1.det = MAP(rawdata[POT_OSC1_DET], 0, 255,
-				pots[POT_OSC1_DET].min_value, pots[POT_OSC1_DET].max_value);
+	sys_param->osc2.detune = (int8_t) MAP((float)rawdata[POT_OSC2_DET], 0.0,
+			255.0, (float)pots[POT_OSC2_DET].min_value,
+			(float)pots[POT_OSC2_DET].max_value);
 
-	sys_param->osc2.det = MAP(rawdata[POT_OSC2_DET], 0, 255,
-				pots[POT_OSC2_DET].min_value, pots[POT_OSC2_DET].max_value);
+	sys_param->osc3.detune = (int8_t) MAP((float)rawdata[POT_OSC3_DET], 0.0,
+			255.0, (float)pots[POT_OSC3_DET].min_value,
+			(float)pots[POT_OSC3_DET].max_value);
 
-	sys_param->osc3.det = MAP(rawdata[POT_OSC3_DET], 0, 255,
-				pots[POT_OSC3_DET].min_value, pots[POT_OSC3_DET].max_value);
+	sys_param->env.attack = (float) MAP((float)rawdata[POT_ADSR_A], 0.0, 255.0,
+			(float)pots[POT_ADSR_A].min_value,
+			(float)pots[POT_ADSR_A].max_value);
 
-	sys_param->env.attack = MAP(rawdata[POT_ADSR_A], 0, 255,
-				pots[POT_ADSR_A].min_value, pots[POT_ADSR_A].max_value);
+	sys_param->env.decay = (float) MAP((float)rawdata[POT_ADSR_D], 0.0, 255.0,
+			(float)pots[POT_ADSR_D].min_value,
+			(float)pots[POT_ADSR_D].max_value);
 
-	sys_param->env.decay = MAP(rawdata[POT_ADSR_D], 0, 255,
-				pots[POT_ADSR_D].min_value, pots[POT_ADSR_D].max_value);
+	sys_param->env.sustain = (float) MAP((float)rawdata[POT_ADSR_S], 0.0, 255.0,
+			(float)pots[POT_ADSR_S].min_value,
+			(float)pots[POT_ADSR_S].max_value);
 
-	sys_param->env.sustain = MAP(rawdata[POT_ADSR_S], 0, 255,
-				pots[POT_ADSR_S].min_value, pots[POT_ADSR_S].max_value);
+	sys_param->env.release = (float) MAP((float)rawdata[POT_ADSR_R], 0.0, 255.0,
+			(float)pots[POT_ADSR_R].min_value,
+			(float)pots[POT_ADSR_R].max_value);
 
-	sys_param->env.release = MAP(rawdata[POT_ADSR_R], 0, 255,
-				pots[POT_ADSR_R].min_value, pots[POT_ADSR_R].max_value);
+	sys_param->lfo.freq = (float) MAP((float)rawdata[POT_LFO_RATE], 0.0, 255.0,
+			(float)pots[POT_LFO_RATE].min_value,
+			(float)pots[POT_LFO_RATE].max_value);
 
-	sys_param->lfo.freq = MAP(rawdata[POT_LFO_RATE], 0, 255,
-				pots[POT_LFO_RATE].min_value, pots[POT_LFO_RATE].max_value);
-
-	sys_param->lfo.amp = MAP(rawdata[POT_LFO_DEPTH], 0, 255,
-				pots[POT_LFO_DEPTH].min_value, pots[POT_LFO_DEPTH].max_value);
-
-	return param_changed;
+	sys_param->lfo.amp = (float) MAP((float)rawdata[POT_LFO_DEPTH], 0.0, 255.0,
+			(float)pots[POT_LFO_DEPTH].min_value,
+			(float)pots[POT_LFO_DEPTH].max_value);
 }
