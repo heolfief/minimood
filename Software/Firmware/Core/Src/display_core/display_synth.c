@@ -21,6 +21,8 @@
 
 
 #include "display_core/display_synth.h"
+#include "display_core/sin.h"
+
 #include <math.h>
 
 void Init_Displays(void){
@@ -344,13 +346,13 @@ void Draw_OSC_frame(void){
 	SSD1306_GotoXY(	90, 0);
 	SSD1306_Puts("OSC 3", &Font_7x10, SSD1306_COLOR_WHITE);
 
+	SSD1306_DrawBitmap(0, 10, square_bmp, 40, 8, 1);
+
 	//drawing frame for the first Oscill
 	SSD1306_GotoXY(1, 23);
 	SSD1306_Puts("Det.", &Font_7x10, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(0, 43, 40, 43, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(20, 43, 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
-	SSD1306_GotoXY(1 + 20, 30);
-	SSD1306_Puts("-12", &Font_7x10, SSD1306_COLOR_WHITE);
 	//SSD1306_DrawLine(15, 34, 15, 42, SSD1306_COLOR_WHITE); //test cursor
 
 	//vol display
@@ -442,6 +444,23 @@ void Draw_OSC_Var_displayed(void){
 	//osc1:
 	SSD1306_DrawLine(osc1.det_pos, 39, osc1.det_pos, 45, SSD1306_COLOR_WHITE); // cursor
 	SSD1306_DrawFilledRectangle(0, 58, osc1.Vol_pos, 5, SSD1306_COLOR_WHITE); // volume
+
+	char buffer1[11];
+    itoa(osc1.detune,buffer1,10);   // here 10 means decimal
+    if(osc1.detune>0)buffer1[2]=' ';
+    if(osc1.detune==0)buffer1[1]=' ';
+    if(osc1.detune>0&&osc1.detune<10){
+    	buffer1[2]=' ';
+    	buffer1[1]=' ';
+    }
+    if(osc1.detune<0&&osc1.detune>-10){
+    	buffer1[2]=' ';
+    }
+
+	SSD1306_GotoXY(1 + 20, 30);
+	SSD1306_Putc(buffer1[0], &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_Putc(buffer1[1], &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_Putc(buffer1[2], &Font_7x10, SSD1306_COLOR_WHITE);
 
 	//osc2:
 	SSD1306_DrawLine(44+osc2.det_pos, 39, 44+osc2.det_pos, 45, SSD1306_COLOR_WHITE); //remove cursor
