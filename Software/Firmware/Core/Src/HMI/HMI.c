@@ -18,10 +18,7 @@
  *
  * \return the mapped value
  */
-static float map(float x, float in_min, float in_max, float out_min,
-		float out_max) {
-	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
+#define MAP(X, IN_MIN, IN_MAX, OUT_MIN, OUT_MAX) (X-IN_MIN)*(OUT_MAX-OUT_MIN)/(IN_MAX-IN_MIN)+OUT_MIN
 
 void hmi_init(Hmi *hmi) {
 	for (int i = 0; i < NBR_OF_POTS; ++i) {
@@ -143,5 +140,49 @@ uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
 		bts[BT_OSC3_WAVE].state = 0;	// reset state
 		param_changed = 1;
 	}
+	return param_changed;
+}
+
+uint8_t hmi_process_pots(uint8_t *rawdata, Potentiometer *pots,
+		Sys_param *sys_param) {
+	uint8_t param_changed = 0;
+
+	sys_param->osc1.amp = MAP(rawdata[POT_OSC1_AMP], 0, 255,
+			pots[POT_OSC1_AMP].min_value, pots[POT_OSC1_AMP].max_value);
+
+	sys_param->osc2.amp = MAP(rawdata[POT_OSC2_AMP], 0, 255,
+				pots[POT_OSC2_AMP].min_value, pots[POT_OSC2_AMP].max_value);
+
+	sys_param->osc3.amp = MAP(rawdata[POT_OSC3_AMP], 0, 255,
+				pots[POT_OSC3_AMP].min_value, pots[POT_OSC3_AMP].max_value);
+
+
+	sys_param->osc1.det = MAP(rawdata[POT_OSC1_DET], 0, 255,
+				pots[POT_OSC1_DET].min_value, pots[POT_OSC1_DET].max_value);
+
+	sys_param->osc2.det = MAP(rawdata[POT_OSC2_DET], 0, 255,
+				pots[POT_OSC2_DET].min_value, pots[POT_OSC2_DET].max_value);
+
+	sys_param->osc3.det = MAP(rawdata[POT_OSC3_DET], 0, 255,
+				pots[POT_OSC3_DET].min_value, pots[POT_OSC3_DET].max_value);
+
+	sys_param->env.attack = MAP(rawdata[POT_ADSR_A], 0, 255,
+				pots[POT_ADSR_A].min_value, pots[POT_ADSR_A].max_value);
+
+	sys_param->env.decay = MAP(rawdata[POT_ADSR_D], 0, 255,
+				pots[POT_ADSR_D].min_value, pots[POT_ADSR_D].max_value);
+
+	sys_param->env.sustain = MAP(rawdata[POT_ADSR_S], 0, 255,
+				pots[POT_ADSR_S].min_value, pots[POT_ADSR_S].max_value);
+
+	sys_param->env.release = MAP(rawdata[POT_ADSR_R], 0, 255,
+				pots[POT_ADSR_R].min_value, pots[POT_ADSR_R].max_value);
+
+	sys_param->lfo.freq = MAP(rawdata[POT_LFO_RATE], 0, 255,
+				pots[POT_LFO_RATE].min_value, pots[POT_LFO_RATE].max_value);
+
+	sys_param->lfo.amp = MAP(rawdata[POT_LFO_DEPTH], 0, 255,
+				pots[POT_LFO_DEPTH].min_value, pots[POT_LFO_DEPTH].max_value);
+
 	return param_changed;
 }
