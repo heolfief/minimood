@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "audio_core/audio_core.h"
+#include "HMI/HMI.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,12 +48,12 @@ DMA_HandleTypeDef hdma_adc1;
 DAC_HandleTypeDef hdac;
 
 TIM_HandleTypeDef htim6;
+TIM_HandleTypeDef htim7;
 
 /* USER CODE BEGIN PV */
 
-extern Audio_core ac;
-
-uint8_t adc_raw_data[12];
+Audio_core ac;
+Hmi hmi;
 
 /* USER CODE END PV */
 
@@ -63,6 +64,7 @@ static void MX_DMA_Init(void);
 static void MX_DAC_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_TIM7_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -105,14 +107,17 @@ int main(void)
   MX_DAC_Init();
   MX_TIM6_Init();
   MX_ADC1_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
   HAL_TIM_Base_Start_IT(&htim6);	// start TIM6, IT mode
+  HAL_TIM_Base_Start_IT(&htim7);	// start TIM7, IT mode
   HAL_DAC_Start(&hdac,DAC_CHANNEL_1);	// Start DAC on channel 1
   HAL_DAC_Start(&hdac,DAC_CHANNEL_2);	// Start DAC on channel 2
-  HAL_ADC_Start_DMA(&hadc1, adc_raw_data, 12);
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)hmi.adc_raw_data, NBR_OF_POTS);
 
-  synth_core_start(&ac);	// Start synthesis core
+  hmi_init(&hmi);
+  synth_core_start(&ac);
 
 
   // The following code is for test purpose ////////////////
@@ -438,6 +443,44 @@ static void MX_TIM6_Init(void)
 
 }
 
+/**
+  * @brief TIM7 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM7_Init(void)
+{
+
+  /* USER CODE BEGIN TIM7_Init 0 */
+
+  /* USER CODE END TIM7_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM7_Init 1 */
+
+  /* USER CODE END TIM7_Init 1 */
+  htim7.Instance = TIM7;
+  htim7.Init.Prescaler = 8400;
+  htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim7.Init.Period = 199;
+  htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim7, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM7_Init 2 */
+
+  /* USER CODE END TIM7_Init 2 */
+
+}
+
 /** 
   * Enable DMA controller clock
   */
@@ -469,20 +512,22 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
-  /*Configure GPIO pins : PC13 PC14 PC15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+  /*Configure GPIO pins : CTRL_DOWN_Pin CTRL_RIGHT_Pin CTRL_OK_Pin */
+  GPIO_InitStruct.Pin = CTRL_DOWN_Pin|CTRL_RIGHT_Pin|CTRL_OK_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA0 PA1 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+  /*Configure GPIO pins : CTRL_LEFT_Pin CTRL_UP_Pin */
+  GPIO_InitStruct.Pin = CTRL_LEFT_Pin|CTRL_UP_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB10 PB13 PB4 PB5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_13|GPIO_PIN_4|GPIO_PIN_5;
+  /*Configure GPIO pins : OSC3_ON_Pin OSC3_WAVE_Pin OSC1_ON_Pin OSC2_WAVE_Pin 
+                           OSC1_WAVE_Pin OSC2_ON_Pin */
+  GPIO_InitStruct.Pin = OSC3_ON_Pin|OSC3_WAVE_Pin|OSC1_ON_Pin|OSC2_WAVE_Pin 
+                          |OSC1_WAVE_Pin|OSC2_ON_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
