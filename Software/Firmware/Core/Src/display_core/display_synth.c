@@ -345,7 +345,7 @@ void Draw_OSC_frame(void){
 	SSD1306_GotoXY(	90, 0);
 	SSD1306_Puts("OSC 3", &Font_7x10, SSD1306_COLOR_WHITE);
 
-	SSD1306_DrawBitmap(0, 10, sin_bits, bmp_width, bmp_height, 1);
+	SSD1306_DrawBitmap(0, 10, arb_bmp, bmp_width, bmp_height, 1);
 
 	//drawing frame for the first Oscill
 	SSD1306_GotoXY(1, 23);
