@@ -20,9 +20,8 @@
  */
 
 
+#include <display_core/waveforms_bmp.h>
 #include "display_core/display_synth.h"
-#include "display_core/sin.h"
-
 #include <math.h>
 
 void Init_Displays(void){
@@ -346,7 +345,7 @@ void Draw_OSC_frame(void){
 	SSD1306_GotoXY(	90, 0);
 	SSD1306_Puts("OSC 3", &Font_7x10, SSD1306_COLOR_WHITE);
 
-	SSD1306_DrawBitmap(0, 10, square_bmp, 40, 8, 1);
+	SSD1306_DrawBitmap(0, 10, sin_bits, bmp_width, bmp_height, 1);
 
 	//drawing frame for the first Oscill
 	SSD1306_GotoXY(1, 23);
