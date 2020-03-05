@@ -239,13 +239,22 @@ void TIM7_IRQHandler(void)
   /* USER CODE END TIM7_IRQn 0 */
   HAL_TIM_IRQHandler(&htim7);
   /* USER CODE BEGIN TIM7_IRQn 1 */
+  uint8_t param_changed = NO_PARAM_CHANGED;
 
   hmi_debounce_buttons(hmi.bts);
-  hmi_process_osc_buttons(hmi.bts, &ac.sys_param);
-  hmi_process_pots(hmi.adc_raw_data, hmi.pots, &ac.sys_param);
+  param_changed = hmi_process_osc_buttons(hmi.bts, &ac.sys_param);
+  if(param_changed == OSC_PARAM_CHANGED){
+	  copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
+  }
 
-  copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
-  copy_osc_sys_param_to_lfo(&ac.sys_param, &ac.lfo);
+  param_changed = hmi_process_pots(hmi.adc_raw_data, hmi.pots, &ac.sys_param);
+
+  if(param_changed == OSC_PARAM_CHANGED){
+  	  copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
+  }
+  if(param_changed == LFO_PARAM_CHANGED){
+	  copy_osc_sys_param_to_lfo(&ac.sys_param, &ac.lfo);
+  }
 
   /* USER CODE END TIM7_IRQn 1 */
 }

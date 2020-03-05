@@ -161,6 +161,8 @@ int main(void)
   	  HAL_Delay(1000);
   }
 
+  midi_note_ON(ac.note, 60, 127);
+
   // End of test code		////////////////////////////////
 
 

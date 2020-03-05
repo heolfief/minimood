@@ -102,7 +102,7 @@ void hmi_debounce_buttons(Button *bts) {
 		uint8_t current_reading = HAL_GPIO_ReadPin(bts[i].port, bts[i].pin);
 
 		// detect falling edge
-		if (current_reading == 0 && bts[i].last_state == 1) { //Buttons are GND (= 0) when pressed
+		if (current_reading == 0 && bts[i].last_state == 0) { //Buttons are GND (= 0) when pressed
 			bts[i].waiting = 1;
 			bts[i].log_cnt = 0;	// reset counter
 		}
@@ -120,7 +120,7 @@ void hmi_debounce_buttons(Button *bts) {
 			}
 
 		}
-		bts[i].last_state = bts[i].state;
+		bts[i].last_state = !current_reading;
 	}
 }
 
