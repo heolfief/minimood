@@ -70,6 +70,11 @@
 #define POT_LFO_DEPTH				11
 //////////////////////////////////////
 
+#define NO_PARAM_CHANGED			0
+#define OSC_PARAM_CHANGED			1
+#define ADSR_PARAM_CHANGED			2
+#define LFO_PARAM_CHANGED			3
+
 /**
  * \struct Button
  * \brief define a button for software debouncing
@@ -90,6 +95,7 @@ typedef struct {
 typedef struct {
 	float min_value; /*!<min vaue for pot parameter*/
 	float max_value; /*!<max value for pot parameter */
+	uint8_t last_value;/*!<The last RAW (from ADC) value to check for change */
 } Potentiometer;
 
 /**
@@ -122,7 +128,7 @@ void hmi_debounce_buttons(Button *bts);
  * \param bts the Button structure array
  * \param sys_param the system parameters structure
  *
- * \return 1 if sys_param has been modified, 0 otherwise
+ * \return _PARAM_CHANGED define depending on what changed
  */
 uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param);
 
@@ -132,7 +138,10 @@ uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param);
  * \param rawdata array containing raw data from ADC
  * \param pots the Potentiometer structure array
  * \param sys_param the system parameters structure
+ *
+ *
+ * \return _PARAM_CHANGED define depending on what changed
  */
-void hmi_process_pots(uint8_t *rawdata, Potentiometer *pots, Sys_param *sys_param);
+uint8_t hmi_process_pots(uint8_t *rawdata, Potentiometer *pots, Sys_param *sys_param);
 
 #endif /* INC_HMI_HMI_H_ */

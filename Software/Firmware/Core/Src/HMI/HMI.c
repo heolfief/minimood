@@ -23,6 +23,7 @@
 void hmi_init(Hmi *hmi) {
 	for (int i = 0; i < NBR_OF_POTS; ++i) {
 		hmi->adc_raw_data[i] = 0;
+		hmi->pots[i].last_value = 0;
 	}
 
 	for (int i = 0; i < NBR_OF_BUTTONS; ++i) {
@@ -124,7 +125,7 @@ void hmi_debounce_buttons(Button *bts) {
 }
 
 uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
-	uint8_t param_changed = 0;
+	uint8_t param_changed = NO_PARAM_CHANGED;
 
 	if (bts[BT_OSC1_ON].state == 1) {
 		if (sys_param->osc1.onoff == OFF) {
@@ -133,7 +134,7 @@ uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
 			sys_param->osc1.onoff = OFF;
 		}
 		bts[BT_OSC1_ON].state = 0;	// reset state
-		param_changed = 1;
+		param_changed = OSC_PARAM_CHANGED;
 	}
 	if (bts[BT_OSC2_ON].state == 1) {
 		if (sys_param->osc2.onoff == OFF) {
@@ -142,7 +143,7 @@ uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
 			sys_param->osc2.onoff = OFF;
 		}
 		bts[BT_OSC2_ON].state = 0;	// reset state
-		param_changed = 1;
+		param_changed = OSC_PARAM_CHANGED;
 	}
 	if (bts[BT_OSC3_ON].state == 1) {
 		if (sys_param->osc3.onoff == OFF) {
@@ -151,75 +152,127 @@ uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
 			sys_param->osc3.onoff = OFF;
 		}
 		bts[BT_OSC3_ON].state = 0;	// reset state
-		param_changed = 1;
+		param_changed = OSC_PARAM_CHANGED;
 	}
 
 	if (bts[BT_OSC1_WAVE].state == 1) {
 		sys_param->osc1.wave = (sys_param->osc1.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
 		bts[BT_OSC1_WAVE].state = 0;	// reset state
-		param_changed = 1;
+		param_changed = OSC_PARAM_CHANGED;
 	}
 	if (bts[BT_OSC2_WAVE].state == 1) {
 		sys_param->osc2.wave = (sys_param->osc2.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
 		bts[BT_OSC2_WAVE].state = 0;	// reset state
-		param_changed = 1;
+		param_changed = OSC_PARAM_CHANGED;
 	}
 	if (bts[BT_OSC3_WAVE].state == 1) {
 		sys_param->osc3.wave = (sys_param->osc3.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
 		bts[BT_OSC3_WAVE].state = 0;	// reset state
-		param_changed = 1;
+		param_changed = OSC_PARAM_CHANGED;
 	}
 	return param_changed;
 }
 
-void hmi_process_pots(uint8_t *rawdata, Potentiometer *pots,
+uint8_t hmi_process_pots(uint8_t *rawdata, Potentiometer *pots,
 		Sys_param *sys_param) {
 
-	sys_param->osc1.amp = (float) MAP((float)rawdata[POT_OSC1_AMP], 0.0, 255.0,
-			(float)pots[POT_OSC1_AMP].min_value,
-			(float)pots[POT_OSC1_AMP].max_value);
+	uint8_t param_changed = NO_PARAM_CHANGED;
 
-	sys_param->osc2.amp = (float) MAP(rawdata[POT_OSC2_AMP], 0.0, 255.0,
-			(float)pots[POT_OSC2_AMP].min_value,
-			(float)pots[POT_OSC2_AMP].max_value);
+	if (rawdata[POT_OSC1_AMP] != pots[POT_OSC1_AMP].last_value) {
+		sys_param->osc1.amp = (float) MAP((float)rawdata[POT_OSC1_AMP], 0.0,
+				255.0, (float)pots[POT_OSC1_AMP].min_value,
+				(float)pots[POT_OSC1_AMP].max_value);
+		pots[POT_OSC1_AMP].last_value = rawdata[POT_OSC1_AMP];
+		param_changed = OSC_PARAM_CHANGED;
+	}
 
-	sys_param->osc3.amp = (float) MAP(rawdata[POT_OSC3_AMP], 0.0, 255.0,
-			(float)pots[POT_OSC3_AMP].min_value,
-			(float)pots[POT_OSC3_AMP].max_value);
+	if (rawdata[POT_OSC2_AMP] != pots[POT_OSC2_AMP].last_value) {
+		sys_param->osc2.amp = (float) MAP(rawdata[POT_OSC2_AMP], 0.0, 255.0,
+				(float)pots[POT_OSC2_AMP].min_value,
+				(float)pots[POT_OSC2_AMP].max_value);
+		pots[POT_OSC2_AMP].last_value = rawdata[POT_OSC2_AMP];
+		param_changed = OSC_PARAM_CHANGED;
+	}
 
-	sys_param->osc1.detune = (int8_t) MAP((float)rawdata[POT_OSC1_DET], 0.0,
-			255.0, (float)pots[POT_OSC1_DET].min_value,
-			(float)pots[POT_OSC1_DET].max_value);
+	if (rawdata[POT_OSC3_AMP] != pots[POT_OSC3_AMP].last_value) {
+		sys_param->osc3.amp = (float) MAP(rawdata[POT_OSC3_AMP], 0.0, 255.0,
+				(float)pots[POT_OSC3_AMP].min_value,
+				(float)pots[POT_OSC3_AMP].max_value);
+		pots[POT_OSC3_AMP].last_value = rawdata[POT_OSC3_AMP];
+		param_changed = OSC_PARAM_CHANGED;
+	}
 
-	sys_param->osc2.detune = (int8_t) MAP((float)rawdata[POT_OSC2_DET], 0.0,
-			255.0, (float)pots[POT_OSC2_DET].min_value,
-			(float)pots[POT_OSC2_DET].max_value);
+	if (rawdata[POT_OSC1_DET] != pots[POT_OSC1_DET].last_value) {
+		sys_param->osc1.detune = (int8_t) MAP((float)rawdata[POT_OSC1_DET], 0.0,
+				255.0, (float)pots[POT_OSC1_DET].min_value,
+				(float)pots[POT_OSC1_DET].max_value);
+		pots[POT_OSC1_DET].last_value = rawdata[POT_OSC1_DET];
+		param_changed = OSC_PARAM_CHANGED;
+	}
 
-	sys_param->osc3.detune = (int8_t) MAP((float)rawdata[POT_OSC3_DET], 0.0,
-			255.0, (float)pots[POT_OSC3_DET].min_value,
-			(float)pots[POT_OSC3_DET].max_value);
+	if (rawdata[POT_OSC2_DET] != pots[POT_OSC2_DET].last_value) {
+		sys_param->osc2.detune = (int8_t) MAP((float)rawdata[POT_OSC2_DET], 0.0,
+				255.0, (float)pots[POT_OSC2_DET].min_value,
+				(float)pots[POT_OSC2_DET].max_value);
+		pots[POT_OSC2_DET].last_value = rawdata[POT_OSC2_DET];
+		param_changed = OSC_PARAM_CHANGED;
+	}
 
-	sys_param->env.attack = (float) MAP((float)rawdata[POT_ADSR_A], 0.0, 255.0,
-			(float)pots[POT_ADSR_A].min_value,
-			(float)pots[POT_ADSR_A].max_value);
+	if (rawdata[POT_OSC3_DET] != pots[POT_OSC3_DET].last_value) {
+		sys_param->osc3.detune = (int8_t) MAP((float)rawdata[POT_OSC3_DET], 0.0,
+				255.0, (float)pots[POT_OSC3_DET].min_value,
+				(float)pots[POT_OSC3_DET].max_value);
+		pots[POT_OSC3_DET].last_value = rawdata[POT_OSC3_DET];
+		param_changed = OSC_PARAM_CHANGED;
+	}
 
-	sys_param->env.decay = (float) MAP((float)rawdata[POT_ADSR_D], 0.0, 255.0,
-			(float)pots[POT_ADSR_D].min_value,
-			(float)pots[POT_ADSR_D].max_value);
+	if (rawdata[POT_ADSR_A] != pots[POT_ADSR_A].last_value) {
+		sys_param->env.attack = (float) MAP((float)rawdata[POT_ADSR_A], 0.0,
+				255.0, (float)pots[POT_ADSR_A].min_value,
+				(float)pots[POT_ADSR_A].max_value);
+		pots[POT_ADSR_A].last_value = rawdata[POT_ADSR_A];
+		param_changed = ADSR_PARAM_CHANGED;
+	}
 
-	sys_param->env.sustain = (float) MAP((float)rawdata[POT_ADSR_S], 0.0, 255.0,
-			(float)pots[POT_ADSR_S].min_value,
-			(float)pots[POT_ADSR_S].max_value);
+	if (rawdata[POT_ADSR_D] != pots[POT_ADSR_D].last_value) {
+		sys_param->env.decay = (float) MAP((float)rawdata[POT_ADSR_D], 0.0,
+				255.0, (float)pots[POT_ADSR_D].min_value,
+				(float)pots[POT_ADSR_D].max_value);
+		pots[POT_ADSR_D].last_value = rawdata[POT_ADSR_D];
+		param_changed = ADSR_PARAM_CHANGED;
+	}
 
-	sys_param->env.release = (float) MAP((float)rawdata[POT_ADSR_R], 0.0, 255.0,
-			(float)pots[POT_ADSR_R].min_value,
-			(float)pots[POT_ADSR_R].max_value);
+	if (rawdata[POT_ADSR_S] != pots[POT_ADSR_S].last_value) {
+		sys_param->env.sustain = (float) MAP((float)rawdata[POT_ADSR_S], 0.0,
+				255.0, (float)pots[POT_ADSR_S].min_value,
+				(float)pots[POT_ADSR_S].max_value);
+		pots[POT_ADSR_S].last_value = rawdata[POT_ADSR_S];
+		param_changed = ADSR_PARAM_CHANGED;
+	}
 
-	sys_param->lfo.freq = (float) MAP((float)rawdata[POT_LFO_RATE], 0.0, 255.0,
-			(float)pots[POT_LFO_RATE].min_value,
-			(float)pots[POT_LFO_RATE].max_value);
+	if (rawdata[POT_ADSR_R] != pots[POT_ADSR_R].last_value) {
+		sys_param->env.release = (float) MAP((float)rawdata[POT_ADSR_R], 0.0,
+				255.0, (float)pots[POT_ADSR_R].min_value,
+				(float)pots[POT_ADSR_R].max_value);
+		pots[POT_ADSR_R].last_value = rawdata[POT_ADSR_R];
+		param_changed = ADSR_PARAM_CHANGED;
+	}
 
-	sys_param->lfo.amp = (float) MAP((float)rawdata[POT_LFO_DEPTH], 0.0, 255.0,
-			(float)pots[POT_LFO_DEPTH].min_value,
-			(float)pots[POT_LFO_DEPTH].max_value);
+	if (rawdata[POT_LFO_RATE] != pots[POT_LFO_RATE].last_value) {
+		sys_param->lfo.freq = (float) MAP((float)rawdata[POT_LFO_RATE], 0.0,
+				255.0, (float)pots[POT_LFO_RATE].min_value,
+				(float)pots[POT_LFO_RATE].max_value);
+		pots[POT_LFO_RATE].last_value = rawdata[POT_LFO_RATE];
+		param_changed = LFO_PARAM_CHANGED;
+	}
+
+	if (rawdata[POT_LFO_DEPTH] != pots[POT_LFO_DEPTH].last_value) {
+		sys_param->lfo.amp = (float) MAP((float)rawdata[POT_LFO_DEPTH], 0.0,
+				255.0, (float)pots[POT_LFO_DEPTH].min_value,
+				(float)pots[POT_LFO_DEPTH].max_value);
+		pots[POT_LFO_DEPTH].last_value = rawdata[POT_LFO_DEPTH];
+		param_changed = LFO_PARAM_CHANGED;
+	}
+
+	return param_changed;
 }
