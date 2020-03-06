@@ -345,7 +345,7 @@ void Draw_OSC_frame(void){
 	SSD1306_GotoXY(	90, 0);
 	SSD1306_Puts("OSC 3", &Font_7x10, SSD1306_COLOR_WHITE);
 
-	SSD1306_DrawBitmap(0, 10, arb_bmp, bmp_width, bmp_height, 1);
+
 
 	//drawing frame for the first Oscill
 	SSD1306_GotoXY(1, 23);
@@ -412,6 +412,9 @@ void Remove_OSC_variables_displayed(void){
 	SSD1306_DrawLine(0, 43, 40, 43, SSD1306_COLOR_WHITE); //redraw the detune line
 	SSD1306_DrawLine(20, 43, 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
 
+	SSD1306_DrawBitmap(0, 11, osc1.waveform, bmp_width, bmp_height, 0); //removing the old waveform logo
+
+
 	//osc2:
 	SSD1306_DrawLine(44+osc2.det_pos, 39,44+ osc2.det_pos, 45, SSD1306_COLOR_BLACK); //remove cursor
 	SSD1306_DrawFilledRectangle(44 + 0, 58, osc2.Vol_pos, 5,
@@ -419,6 +422,8 @@ void Remove_OSC_variables_displayed(void){
 	SSD1306_DrawRectangle(44 + 0, 58, 38, 5, SSD1306_COLOR_WHITE); //redraw the vol frame
 	SSD1306_DrawLine(44+0, 43, 43+40, 43, SSD1306_COLOR_WHITE); //redraw the detune line
 	SSD1306_DrawLine(44+20, 43, 44+20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
+	SSD1306_DrawBitmap(44, 11, osc2.waveform, bmp_width, bmp_height, 0);  //removing the old waveform logo
+
 
 	//osc3:
 	SSD1306_DrawLine(87+osc3.det_pos, 39, 87+osc3.det_pos, 47, SSD1306_COLOR_BLACK); //remove cursor
@@ -429,6 +434,8 @@ void Remove_OSC_variables_displayed(void){
 	SSD1306_DrawLine(87 + 20, 43, 87 + 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
 	SSD1306_GotoXY(86 + 0, 47);
 	SSD1306_Puts("vol", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_DrawBitmap(87, 11, osc3.waveform, bmp_width, bmp_height, 0); //removing the old waveform logo
+
 
    /* char buffer3[3];
     itoa(osc3.detune,buffer3,10);   // here 10 means decimal
@@ -439,12 +446,42 @@ void Remove_OSC_variables_displayed(void){
 
 }
 
+void Unselect_osc1(void){
+	for(int i =0;i<41;i++){
+		for(int j=0;j<10;j++){
+			SSD1306_DrawPixel(i, j, SSD1306_COLOR_WHITE);
+		}
+	}
+	SSD1306_GotoXY(	5, 0);
+	SSD1306_Puts("-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
+}
+
+void Unselect_osc2(void){
+	for(int i =44;i<84;i++){
+		for(int j=0;j<10;j++){
+			SSD1306_DrawPixel(i, j, SSD1306_COLOR_WHITE);
+		}
+	}
+	SSD1306_GotoXY(	47, 0);
+	SSD1306_Puts("-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
+}
+
+void Unselect_osc3(void){
+	for(int i =87;i<127;i++){
+		for(int j=0;j<10;j++){
+			SSD1306_DrawPixel(i, j, SSD1306_COLOR_WHITE);
+		}
+	}
+	SSD1306_GotoXY(	90, 0);
+	SSD1306_Puts("-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
+}
+
 void Draw_OSC_Var_displayed(void){
 	//osc1:
 	SSD1306_DrawLine(osc1.det_pos, 39, osc1.det_pos, 45, SSD1306_COLOR_WHITE); // cursor
 	SSD1306_DrawFilledRectangle(0, 58, osc1.Vol_pos, 5, SSD1306_COLOR_WHITE); // volume
 
-	char buffer1[11];
+	char buffer1[11];				//drawing here the detune value
     itoa(osc1.detune,buffer1,10);   // here 10 means decimal
     if(osc1.detune>0)buffer1[2]=' ';
     if(osc1.detune==0)buffer1[1]=' ';
@@ -460,6 +497,10 @@ void Draw_OSC_Var_displayed(void){
 	SSD1306_Putc(buffer1[0], &Font_7x10, SSD1306_COLOR_WHITE);
 	SSD1306_Putc(buffer1[1], &Font_7x10, SSD1306_COLOR_WHITE);
 	SSD1306_Putc(buffer1[2], &Font_7x10, SSD1306_COLOR_WHITE);
+
+	SSD1306_DrawBitmap(0, 11, osc1.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
+
+	if(!osc1.is_on)Unselect_osc1();
 
 	//osc2:
 	SSD1306_DrawLine(44+osc2.det_pos, 39, 44+osc2.det_pos, 45, SSD1306_COLOR_WHITE); //remove cursor
@@ -483,6 +524,10 @@ void Draw_OSC_Var_displayed(void){
 	SSD1306_Putc(buffer2[1], &Font_7x10, SSD1306_COLOR_WHITE);
 	SSD1306_Putc(buffer2[2], &Font_7x10, SSD1306_COLOR_WHITE);
 
+	SSD1306_DrawBitmap(44, 11, osc2.waveform, bmp_width, bmp_height, 1);  //adding the  waveform logo
+
+	if(!osc2.is_on)Unselect_osc2();
+
 	//osc3:
 	SSD1306_DrawLine(87+osc3.det_pos, 39,87+ osc3.det_pos, 45, SSD1306_COLOR_WHITE); //cursor detune
 	SSD1306_DrawFilledRectangle(87 + 0, 58, osc3.Vol_pos, 5,
@@ -505,6 +550,9 @@ void Draw_OSC_Var_displayed(void){
 	SSD1306_Putc(buffer3[1], &Font_7x10, SSD1306_COLOR_WHITE);
 	SSD1306_Putc(buffer3[2], &Font_7x10, SSD1306_COLOR_WHITE);
 
+	SSD1306_DrawBitmap(87, 11, osc3.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
+	if(!osc3.is_on)Unselect_osc3();
+
 
 	SSD1306_UpdateScreen();
 
@@ -514,14 +562,62 @@ void Update_value_OSC_1(float amp,  Waveform wave, int8_t detune,  OnOff onoff){
 	osc1.Vol_pos = floor(amp*39);
 	osc1.det_pos = ((detune+12)*40)/24;
 	osc1.detune = detune;
+	osc1.is_on = (onoff==0) ? false : true; //if onOff is at 0 then is_on equals 0
 
+	switch(wave)
+	{
+	case SIN :
+		memcpy((char*)osc1.waveform,(char*)sin_bmp,40);
+		//strcpy((char*)osc1.waveform,(char*)sin_bmp);
+
+		break;
+	case SQR :
+		strcpy((char*)osc1.waveform,(char*)square_bmp);
+		break;
+	case TRI :
+		memcpy((char*)osc1.waveform,(char*)triangle_bmp,40);
+		break;
+	case SAW :
+		strcpy((char*)osc1.waveform,(char*)saw_bmp);
+		break;
+	case ARB :
+		memcpy((char*)osc1.waveform,(char*)arb_bmp,40);
+		break;
+
+	default:
+		strcpy((char*)osc1.waveform,(char*)arb_bmp);
+	}
 }
 
 void Update_value_OSC_2(float amp,  Waveform wave, int8_t detune,  OnOff onoff){
 	osc2.Vol_pos = floor(amp*39);
 	osc2.det_pos = ((detune+12)*40)/24;
 	osc2.detune = detune;
+	osc2.is_on = (onoff==0) ? false : true;
 
+	switch(wave)
+		{
+		case SIN :
+			memcpy((char*)osc2.waveform,(char*)sin_bmp,40);
+			//strcpy((char*)osc1.waveform,(char*)sin_bmp);
+
+			break;
+		case SQR :
+			strcpy((char*)osc2.waveform,(char*)square_bmp);
+			break;
+		case TRI :
+			memcpy((char*)osc2.waveform,(char*)triangle_bmp,40);
+			break;
+		case SAW :
+			strcpy((char*)osc2.waveform,(char*)saw_bmp);
+			break;
+		case ARB :
+			memcpy((char*)osc2.waveform,(char*)arb_bmp,40);
+			break;
+
+		default:
+			strcpy((char*)osc2.waveform,(char*)arb_bmp);
+		}
 
 }
 
@@ -529,6 +625,31 @@ void Update_value_OSC_3(float amp,  Waveform wave, int8_t detune,  OnOff onoff){
 	osc3.Vol_pos = floor(amp*39);
 	osc3.det_pos = ((detune+12)*40)/24;
 	osc3.detune = detune;
+	osc3.is_on = (onoff==0) ? false : true;
+
+	switch(wave)
+		{
+		case SIN :
+			memcpy((char*)osc3.waveform,(char*)sin_bmp,40);
+			//strcpy((char*)osc1.waveform,(char*)sin_bmp);
+
+			break;
+		case SQR :
+			strcpy((char*)osc3.waveform,(char*)square_bmp);
+			break;
+		case TRI :
+			memcpy((char*)osc3.waveform,(char*)triangle_bmp,40);
+			break;
+		case SAW :
+			strcpy((char*)osc3.waveform,(char*)saw_bmp);
+			break;
+		case ARB :
+			memcpy((char*)osc3.waveform,(char*)arb_bmp,40);
+			break;
+
+		default:
+			strcpy((char*)osc3.waveform,(char*)arb_bmp);
+		}
 }
 
 

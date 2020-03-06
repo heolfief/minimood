@@ -114,7 +114,6 @@ int main(void)
 
   // The following code is for test purpose ////////////////
 
-
   ac.sys_param.env.attack = 0.5;
   ac.sys_param.env.decay = 0;
   ac.sys_param.env.sustain = 1;
@@ -151,15 +150,15 @@ int main(void)
   //test for osc display :
 	Draw_OSC_frame();
 	Remove_OSC_variables_displayed();
-	Update_value_OSC_1(0.7, SIN, -11, ON);
-	Update_value_OSC_2(0.3, SIN, -12, ON);
-	Update_value_OSC_3(1, SIN, -10, ON);
+	Update_value_OSC_1(0.7, SIN, -11, OFF);
+	Update_value_OSC_2(0.3, SQR, -12, OFF);
+	Update_value_OSC_3(1, TRI, -10, OFF);
 	Draw_OSC_Var_displayed();
 	HAL_Delay(3000);
 	Remove_OSC_variables_displayed();
-	Update_value_OSC_1(0.4, SIN, -8, ON);
-	Update_value_OSC_2(0.0, SIN, -11, ON);
-	Update_value_OSC_3(0.8, SIN,4, ON);
+	Update_value_OSC_1(0.4, SQR, -8, OFF);
+	Update_value_OSC_2(0.0, ARB, -11, OFF);
+	Update_value_OSC_3(0.8, SAW,4, OFF);
 	Draw_OSC_Var_displayed();
 	HAL_Delay(3000);
 	float inc=0;
@@ -168,9 +167,9 @@ int main(void)
 
 			inc = (float) i / 10.0;
 			Remove_OSC_variables_displayed();
-			Update_value_OSC_1(inc, SIN, det, ON);
-			Update_value_OSC_2(inc, SIN, det, ON);
-			Update_value_OSC_3(inc, SIN, det, ON);
+			Update_value_OSC_1(inc, SIN, det, OFF);
+			Update_value_OSC_2(inc, ARB, det, OFF);
+			Update_value_OSC_3(inc, SQR, det, OFF);
 			Draw_OSC_Var_displayed();
 			HAL_Delay(100);
 		}

@@ -116,6 +116,8 @@ void SSD1306_UpdateScreen(void);
  */
 void SSD1306_UpdateScreen_2(void);
 
+//void Unselect_osc1(void); //to draw the osc in inversed colors if it is off
+
 /**
  * @brief  Toggles pixels invertion inside internal RAM
  * @note   @ref SSD1306_UpdateScreen() must be called after that in order to see updated LCD screen

@@ -414,6 +414,17 @@ void SSD1306_UpdateScreen_2(void) {
 	}
 }
 
+/*void Unselect_osc1(void){ //this is nothing but a test
+
+	for (int i = 0; i < sizeof(SSD1306_Buffer); i=i+128) {
+
+		for(int j=0; j<41; j++){
+			SSD1306_Buffer[i+j] = ~SSD1306_Buffer[i+j];
+
+		}
+	}
+}*/
+
 void SSD1306_ToggleInvert(void) {
 	uint16_t i;
 	

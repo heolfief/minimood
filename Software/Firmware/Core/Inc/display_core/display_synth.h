@@ -22,6 +22,8 @@
 #include"display_core/ssd1306.h"
 #include"display_core/fonts.h"
 #include "display_core/test.h"
+//#include <display_core/waveforms_bmp.h>
+
 #include "audio_core/oscillator/osc.h"
 
 
@@ -48,7 +50,8 @@ typedef struct {
 
 } ADSR_point;
 
-enum wave {sine, square, triangle};
+enum wave {sine, square, triangle, sawtooth, arbitrary};
+
 
 typedef struct {
 	uint16_t Vol_pos;
@@ -56,6 +59,7 @@ typedef struct {
 	bool is_on;
 	int8_t detune;
 	uint16_t det_pos;
+	unsigned char waveform[320];
 
 } oscillator_display;
 
@@ -101,6 +105,9 @@ void Remove_OSC_variables_displayed(void);
 void Update_value_OSC_1(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
 void Update_value_OSC_2(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
 void Update_value_OSC_3(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
+
+void Unselect_osc1(void); //to draw the osc in inversed colors if it is off
+void Unselect_osc2(void);
 void Draw_OSC_Var_displayed(void);
 
 
