@@ -202,57 +202,57 @@ void Init_ADSR_points(void){
 void Draw_ADSR_points(void){
 	//each point will be drawn with a square of 3x3 pixels, the reference pixel will be the one at the center
 	//start with the first point :
-	SSD1306_DrawFilledRectangle(First_point.X_pos-1, First_point.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
+	SSD1306_DrawFilledRectangle_2(First_point.X_pos-1, First_point.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
 
 	//then the Attack
-	SSD1306_DrawFilledRectangle(Attack_pt.X_pos-1, Attack_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
-	SSD1306_GotoXY(Attack_pt.X_pos+1, Attack_pt.Y_pos-11);
-	SSD1306_Putc('A', &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_DrawFilledRectangle_2(Attack_pt.X_pos-1, Attack_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY_2(Attack_pt.X_pos+1, Attack_pt.Y_pos-11);
+	SSD1306_Putc_2('A', &Font_7x10, SSD1306_COLOR_WHITE);
 	// an empty rectangle will be displayed around the letter when the point is selected
 	if(Attack_pt.is_selected==true){
-		SSD1306_DrawRectangle(Attack_pt.X_pos, Attack_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
+		SSD1306_DrawRectangle_2(Attack_pt.X_pos, Attack_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
 	}
 	else{
-		SSD1306_DrawRectangle(Attack_pt.X_pos, Attack_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
+		SSD1306_DrawRectangle_2(Attack_pt.X_pos, Attack_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
 	}
 
 	//then the Decay
-	SSD1306_DrawFilledRectangle(Decay_pt.X_pos-1, Decay_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
-	SSD1306_GotoXY(Decay_pt.X_pos+1, Decay_pt.Y_pos-11);
-	SSD1306_Putc('D', &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_DrawFilledRectangle_2(Decay_pt.X_pos-1, Decay_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY_2(Decay_pt.X_pos+1, Decay_pt.Y_pos-11);
+	SSD1306_Putc_2('D', &Font_7x10, SSD1306_COLOR_WHITE);
 	// an empty rectangle will be displayed around the letter when the point is selected
 	if(Decay_pt.is_selected==true){
-		SSD1306_DrawRectangle(Decay_pt.X_pos, Decay_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
+		SSD1306_DrawRectangle_2(Decay_pt.X_pos, Decay_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
 	}else{
-		SSD1306_DrawRectangle(Decay_pt.X_pos, Decay_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
+		SSD1306_DrawRectangle_2(Decay_pt.X_pos, Decay_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
 
 	}
 
 	//then the Sustain
-	SSD1306_DrawFilledRectangle(Sustain_pt.X_pos-1, Sustain_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
-	SSD1306_GotoXY(Sustain_pt.X_pos+1, Sustain_pt.Y_pos-11);
-	SSD1306_Putc('S', &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_DrawFilledRectangle_2(Sustain_pt.X_pos-1, Sustain_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY_2(Sustain_pt.X_pos+1, Sustain_pt.Y_pos-11);
+	SSD1306_Putc_2('S', &Font_7x10, SSD1306_COLOR_WHITE);
 	// an empty rectangle will be displayed around the letter when the point is selected
 	if(Sustain_pt.is_selected==true){
-		SSD1306_DrawRectangle(Sustain_pt.X_pos, Sustain_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
+		SSD1306_DrawRectangle_2(Sustain_pt.X_pos, Sustain_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
 	}else{
-		SSD1306_DrawRectangle(Sustain_pt.X_pos, Sustain_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
+		SSD1306_DrawRectangle_2(Sustain_pt.X_pos, Sustain_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
 
 	}
 
 	//then the Release
-	SSD1306_DrawFilledRectangle(Release_pt.X_pos-1, Release_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
-	SSD1306_GotoXY(Release_pt.X_pos+1, Release_pt.Y_pos-11);
-	SSD1306_Putc('R', &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_DrawFilledRectangle_2(Release_pt.X_pos-1, Release_pt.Y_pos-1, 2, 2, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY_2(Release_pt.X_pos+1, Release_pt.Y_pos-11);
+	SSD1306_Putc_2('R', &Font_7x10, SSD1306_COLOR_WHITE);
 	// an empty rectangle will be displayed around the letter when the point is selected
 	if(Release_pt.is_selected==true){
-		SSD1306_DrawRectangle(Release_pt.X_pos, Release_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
+		SSD1306_DrawRectangle_2(Release_pt.X_pos, Release_pt.Y_pos-13, 8, 11, SSD1306_COLOR_WHITE);
 	}else{
-		SSD1306_DrawRectangle(Release_pt.X_pos, Release_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
+		SSD1306_DrawRectangle_2(Release_pt.X_pos, Release_pt.Y_pos-13, 8, 11, SSD1306_COLOR_BLACK);
 
 	}
 
-	SSD1306_UpdateScreen(); //display
+	//SSD1306_UpdateScreen_2(); //display
 
 
 }
@@ -260,29 +260,28 @@ void Draw_ADSR_points(void){
 void Draw_ADSR_frame(void) {
 
 
-	SSD1306_Clear();
 	SSD1306_Clear_2();
 
-	SSD1306_GotoXY(83, 0);
-	SSD1306_Puts("ADSR", &Font_11x18, 1);
+	SSD1306_GotoXY_2(83, 0);
+	SSD1306_Puts_2("ADSR", &Font_11x18, 1);
 
 
-	SSD1306_DrawLine(First_point.X_pos, First_point.Y_pos, 120, First_point.Y_pos, SSD1306_COLOR_WHITE); //drawing the scale bar
-	SSD1306_DrawLine(38+5, 61-2, 38+5, 61+2, SSD1306_COLOR_WHITE); //adding the grade viewers
-	SSD1306_DrawLine(76+5, 61-2, 76+5, 61+2, SSD1306_COLOR_WHITE); //adding the grade viewers
-	SSD1306_DrawTriangle(120, 61-2, 120, 61+2, 125, 61, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine_2(First_point.X_pos, First_point.Y_pos, 120, First_point.Y_pos, SSD1306_COLOR_WHITE); //drawing the scale bar
+	SSD1306_DrawLine_2(38+5, 61-2, 38+5, 61+2, SSD1306_COLOR_WHITE); //adding the grade viewers
+	SSD1306_DrawLine_2(76+5, 61-2, 76+5, 61+2, SSD1306_COLOR_WHITE); //adding the grade viewers
+	SSD1306_DrawTriangle_2(120, 61-2, 120, 61+2, 125, 61, SSD1306_COLOR_WHITE);
 
 
 }
 
 void Draw_ADSR_lines(void){
-	SSD1306_DrawLine(First_point.X_pos, First_point.Y_pos, Attack_pt.X_pos, Attack_pt.Y_pos, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(Attack_pt.X_pos, Attack_pt.Y_pos, Decay_pt.X_pos, Decay_pt.Y_pos, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(Decay_pt.X_pos, Decay_pt.Y_pos, Sustain_pt.X_pos, Sustain_pt.Y_pos, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(Sustain_pt.X_pos, Sustain_pt.Y_pos, Release_pt.X_pos, Release_pt.Y_pos, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine_2(First_point.X_pos, First_point.Y_pos, Attack_pt.X_pos, Attack_pt.Y_pos, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine_2(Attack_pt.X_pos, Attack_pt.Y_pos, Decay_pt.X_pos, Decay_pt.Y_pos, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine_2(Decay_pt.X_pos, Decay_pt.Y_pos, Sustain_pt.X_pos, Sustain_pt.Y_pos, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine_2(Sustain_pt.X_pos, Sustain_pt.Y_pos, Release_pt.X_pos, Release_pt.Y_pos, SSD1306_COLOR_WHITE);
 
 
-	SSD1306_UpdateScreen();
+	//SSD1306_UpdateScreen_2(); done in ADSR_display_update
 }
 
 void ADSR_Shift_Select_Right(void){
@@ -296,6 +295,88 @@ void ADSR_Shift_Select_Left(void){
 	select_index_adsr=(select_index_adsr -1)%4;
 
 	ADSR_Update_Select();
+
+}
+
+void ADSR_Remove_values_displayed(void){
+	//same code as draw ADSR points but in black colors :
+
+	//each point will be drawn with a square of 3x3 pixels, the reference pixel will be the one at the center
+	//start with the first point :
+	SSD1306_DrawFilledRectangle_2(First_point.X_pos - 1, First_point.Y_pos - 1,
+			2, 2, SSD1306_COLOR_BLACK);
+
+	//then the Attack
+	SSD1306_DrawFilledRectangle_2(Attack_pt.X_pos - 1, Attack_pt.Y_pos - 1, 2,
+			2, SSD1306_COLOR_BLACK);
+	SSD1306_GotoXY_2(Attack_pt.X_pos + 1, Attack_pt.Y_pos - 11);
+	SSD1306_Putc_2('A', &Font_7x10, SSD1306_COLOR_BLACK);
+	// an empty rectangle will be displayed around the letter when the point is selected
+	if (Attack_pt.is_selected == true) {
+		SSD1306_DrawRectangle_2(Attack_pt.X_pos, Attack_pt.Y_pos - 13, 8, 11,
+				SSD1306_COLOR_BLACK);
+	} else {
+		SSD1306_DrawRectangle_2(Attack_pt.X_pos, Attack_pt.Y_pos - 13, 8, 11,
+				SSD1306_COLOR_BLACK);
+	}
+
+	//then the Decay
+	SSD1306_DrawFilledRectangle_2(Decay_pt.X_pos - 1, Decay_pt.Y_pos - 1, 2, 2,
+			SSD1306_COLOR_BLACK);
+	SSD1306_GotoXY_2(Decay_pt.X_pos + 1, Decay_pt.Y_pos - 11);
+	SSD1306_Putc_2('D', &Font_7x10, SSD1306_COLOR_BLACK);
+	// an empty rectangle will be displayed around the letter when the point is selected
+	if (Decay_pt.is_selected == true) {
+		SSD1306_DrawRectangle_2(Decay_pt.X_pos, Decay_pt.Y_pos - 13, 8, 11,
+				SSD1306_COLOR_BLACK);
+	} else {
+		SSD1306_DrawRectangle_2(Decay_pt.X_pos, Decay_pt.Y_pos - 13, 8, 11,
+				SSD1306_COLOR_BLACK);
+
+	}
+
+	//then the Sustain
+	SSD1306_DrawFilledRectangle_2(Sustain_pt.X_pos - 1, Sustain_pt.Y_pos - 1, 2,
+			2, SSD1306_COLOR_BLACK);
+	SSD1306_GotoXY_2(Sustain_pt.X_pos + 1, Sustain_pt.Y_pos - 11);
+	SSD1306_Putc_2('S', &Font_7x10, SSD1306_COLOR_BLACK);
+	// an empty rectangle will be displayed around the letter when the point is selected
+	if (Sustain_pt.is_selected == true) {
+		SSD1306_DrawRectangle_2(Sustain_pt.X_pos, Sustain_pt.Y_pos - 13, 8, 11,
+				SSD1306_COLOR_BLACK);
+	} else {
+		SSD1306_DrawRectangle_2(Sustain_pt.X_pos, Sustain_pt.Y_pos - 13, 8, 11,
+				SSD1306_COLOR_BLACK);
+
+	}
+
+	//then the Release
+	SSD1306_DrawFilledRectangle_2(Release_pt.X_pos - 1, Release_pt.Y_pos - 1, 2,
+			2, SSD1306_COLOR_BLACK);
+	SSD1306_GotoXY_2(Release_pt.X_pos + 1, Release_pt.Y_pos - 11);
+	SSD1306_Putc_2('R', &Font_7x10, SSD1306_COLOR_BLACK);
+	// an empty rectangle will be displayed around the letter when the point is selected
+	if (Release_pt.is_selected == true) {
+		SSD1306_DrawRectangle_2(Release_pt.X_pos, Release_pt.Y_pos - 13, 8, 11,
+				SSD1306_COLOR_BLACK);
+	} else {
+		SSD1306_DrawRectangle_2(Release_pt.X_pos, Release_pt.Y_pos - 13, 8, 11,
+				SSD1306_COLOR_BLACK);
+
+	}
+
+	//then the lines will be drawn black :
+
+	SSD1306_DrawLine_2(First_point.X_pos, First_point.Y_pos, Attack_pt.X_pos, Attack_pt.Y_pos, SSD1306_COLOR_BLACK);
+	SSD1306_DrawLine_2(Attack_pt.X_pos, Attack_pt.Y_pos, Decay_pt.X_pos, Decay_pt.Y_pos, SSD1306_COLOR_BLACK);
+	SSD1306_DrawLine_2(Decay_pt.X_pos, Decay_pt.Y_pos, Sustain_pt.X_pos, Sustain_pt.Y_pos, SSD1306_COLOR_BLACK);
+	SSD1306_DrawLine_2(Sustain_pt.X_pos, Sustain_pt.Y_pos, Release_pt.X_pos, Release_pt.Y_pos, SSD1306_COLOR_BLACK);
+
+	//redraw the damaged frame points
+	//Draw_ADSR_frame(); already done in function ADSR_display_update
+
+
+	//SSD1306_UpdateScreen_2(); //display
 
 }
 
@@ -325,10 +406,11 @@ void ADSR_value_update(float attack_val, float decay_val, float sustain_val, flo
 }
 
 void ADSR_display_update(void){
-	SSD1306_Clear();
+	//SSD1306_Clear_2();
 	Draw_ADSR_frame();
 	Draw_ADSR_points();
 	Draw_ADSR_lines();
+	SSD1306_UpdateScreen_2();
 }
 
 void Draw_OSC_frame(void){
@@ -456,6 +538,17 @@ void Unselect_osc1(void){
 	SSD1306_Puts("-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
 }
 
+void Select_osc1(void){
+
+	for(int i =0;i<41;i++){
+		for(int j=0;j<10;j++){
+			SSD1306_DrawPixel(i, j, SSD1306_COLOR_BLACK);
+		}
+	}
+	SSD1306_GotoXY(	5, 0);
+	SSD1306_Puts("OSC 1", &Font_7x10, SSD1306_COLOR_WHITE);
+}
+
 void Unselect_osc2(void){
 	for(int i =44;i<84;i++){
 		for(int j=0;j<10;j++){
@@ -466,6 +559,17 @@ void Unselect_osc2(void){
 	SSD1306_Puts("-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
 }
 
+void Select_osc2(void){
+
+	for(int i =44;i<84;i++){
+		for(int j=0;j<10;j++){
+			SSD1306_DrawPixel(i, j, SSD1306_COLOR_BLACK);
+		}
+	}
+	SSD1306_GotoXY(	47, 0);
+	SSD1306_Puts("OSC 2", &Font_7x10, SSD1306_COLOR_WHITE);
+}
+
 void Unselect_osc3(void){
 	for(int i =87;i<127;i++){
 		for(int j=0;j<10;j++){
@@ -474,6 +578,17 @@ void Unselect_osc3(void){
 	}
 	SSD1306_GotoXY(	90, 0);
 	SSD1306_Puts("-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
+}
+
+void Select_osc3(void){
+
+	for(int i =87;i<127;i++){
+		for(int j=0;j<10;j++){
+			SSD1306_DrawPixel(i, j, SSD1306_COLOR_BLACK);
+		}
+	}
+	SSD1306_GotoXY(	90, 0);
+	SSD1306_Puts("OSC 3", &Font_7x10, SSD1306_COLOR_WHITE);
 }
 
 void Draw_OSC_Var_displayed(void){
@@ -500,7 +615,8 @@ void Draw_OSC_Var_displayed(void){
 
 	SSD1306_DrawBitmap(0, 11, osc1.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
 
-	if(!osc1.is_on)Unselect_osc1();
+	if(!osc1.is_on)Unselect_osc1(); //draw the -OFF- in inverted colors if osc is off
+	if(osc1.is_on)Select_osc1();	//puts back the name of the osc if it is on
 
 	//osc2:
 	SSD1306_DrawLine(44+osc2.det_pos, 39, 44+osc2.det_pos, 45, SSD1306_COLOR_WHITE); //remove cursor
@@ -527,6 +643,8 @@ void Draw_OSC_Var_displayed(void){
 	SSD1306_DrawBitmap(44, 11, osc2.waveform, bmp_width, bmp_height, 1);  //adding the  waveform logo
 
 	if(!osc2.is_on)Unselect_osc2();
+	if(osc2.is_on)Select_osc2();
+
 
 	//osc3:
 	SSD1306_DrawLine(87+osc3.det_pos, 39,87+ osc3.det_pos, 45, SSD1306_COLOR_WHITE); //cursor detune
@@ -552,6 +670,7 @@ void Draw_OSC_Var_displayed(void){
 
 	SSD1306_DrawBitmap(87, 11, osc3.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
 	if(!osc3.is_on)Unselect_osc3();
+	if(osc3.is_on)Select_osc3();
 
 
 	SSD1306_UpdateScreen();

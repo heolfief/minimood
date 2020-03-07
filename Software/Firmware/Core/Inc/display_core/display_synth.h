@@ -94,6 +94,7 @@ void ADSR_Shift_Select_Left(void);
 
 void ADSR_Update_Select(void);
 
+void ADSR_Remove_values_displayed(void);
 void ADSR_display_update(void);
 
 void ADSR_value_update(float attack_val, float decay_val, float sustain_val, float release_val);
@@ -106,8 +107,14 @@ void Update_value_OSC_1(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
 void Update_value_OSC_2(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
 void Update_value_OSC_3(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
 
-void Unselect_osc1(void); //to draw the osc in inversed colors if it is off
+void Unselect_osc1(void); 	//to draw the osc name in inverted colors if it is off
+void Select_osc1(void); 	// redraw the osc name as before
 void Unselect_osc2(void);
+void Select_osc2(void);
+void Unselect_osc3(void);
+void Select_osc3(void);
+
+
 void Draw_OSC_Var_displayed(void);
 
 

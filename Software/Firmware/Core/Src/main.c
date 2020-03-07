@@ -145,16 +145,27 @@ int main(void)
   copy_osc_sys_param_to_lfo(&ac.sys_param, &ac.lfo);
 
   //test for Menu display :
-  //Booting_Screens();
+ // Booting_Screens();
 
   //test for osc display :
 	Draw_OSC_frame();
 	Remove_OSC_variables_displayed();
-	Update_value_OSC_1(0.7, SIN, -11, OFF);
+	Update_value_OSC_1(0.7, SIN, -11, ON);
 	Update_value_OSC_2(0.3, SQR, -12, OFF);
 	Update_value_OSC_3(1, TRI, -10, OFF);
 	Draw_OSC_Var_displayed();
 	HAL_Delay(3000);
+
+	//try to launch the ADSR menu at the same time
+	Init_ADSR_points();
+	ADSR_display_update();
+
+	HAL_Delay(1000);
+	ADSR_Remove_values_displayed();
+	ADSR_value_update(0.01, 0.01, 0.5, 0.5);
+	ADSR_display_update();
+
+	// osc menu modified :
 	Remove_OSC_variables_displayed();
 	Update_value_OSC_1(0.4, SQR, -8, OFF);
 	Update_value_OSC_2(0.0, ARB, -11, OFF);
@@ -167,8 +178,8 @@ int main(void)
 
 			inc = (float) i / 10.0;
 			Remove_OSC_variables_displayed();
-			Update_value_OSC_1(inc, SIN, det, OFF);
-			Update_value_OSC_2(inc, ARB, det, OFF);
+			Update_value_OSC_1(inc, SIN, det, ON);
+			Update_value_OSC_2(inc, ARB, det, ON);
 			Update_value_OSC_3(inc, SQR, det, OFF);
 			Draw_OSC_Var_displayed();
 			HAL_Delay(100);
@@ -181,30 +192,19 @@ int main(void)
 
 
 // test for ADSR display
-	/*
-	Init_ADSR_points();
-
-	Draw_ADSR_frame();
-
-
-	Draw_ADSR_points();
-
-
-	Draw_ADSR_lines();
-	HAL_Delay(1000);
-	ADSR_value_update(0.01, 0.01, 0.5, 0.5);
-	ADSR_display_update();
- // int testmidinotes[POLYPHONY_MAX]={60,64,67};
+	//changes in ADSR values
 
 	HAL_Delay(1000);
+	ADSR_Remove_values_displayed();
 	ADSR_value_update(0.01, 1, 0.5, 0.5);
 	ADSR_display_update();
 
 	HAL_Delay(1000);
+	ADSR_Remove_values_displayed();
 	ADSR_value_update(2, 0,1, 0.5);
 	ADSR_display_update();
 
-*/ //end of adsr test display
+ //end of adsr test display
 	/*
   for(int i=0;i<POLYPHONY_MAX;++i){
 	  midi_note_ON(ac.note, testmidinotes[i], 127);
