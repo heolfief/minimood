@@ -1,7 +1,7 @@
 
-**** 02/20/20 17:20:44 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+**** 02/10/20 10:38:07 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
 
- ** Profile: "SCHEMATIC1-test"  [ C:\Users\Heol\Downloads\VCF\VCF-PSpiceFiles\SCHEMATIC1\test.sim ] 
+ ** Profile: "SCHEMATIC1-test"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vc
 
 
  ****     CIRCUIT DESCRIPTION
@@ -18,12 +18,12 @@
 *Libraries: 
 * Profile Libraries :
 * Local Libraries :
-* From [PSPICE NETLIST] section of C:\Users\Heol\AppData\Roaming\SPB_Data\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
+* From [PSPICE NETLIST] section of C:\Users\Julien\AppData\Roaming\SPB_Data\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
 .lib "nom.lib" 
 
 *Analysis directives: 
 .AC DEC 1k 20 20k
-.STEP LIN PARAM k 0 1 0.01 
+.STEP LIN Input .1 .9 0.1 
 .OPTIONS ADVCONV
 .PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
 .INC "..\SCHEMATIC1.net" 
@@ -32,30 +32,37 @@
 
 **** INCLUDING SCHEMATIC1.net ****
 * source VCF
-V_V1         VCC 0 5Vdc
-R_R1         VCC N02388  100k TC=0,0 
-R_R2         0 N02388  100k TC=0,0 
-C_C1         N02447 OUT  4.7u  TC=0,0 
-R_R3         0 OUT  10meg TC=0,0 
-R_R5         N02868 N02447  470k TC=0,0 
-C_C3         N03155 N02752  10n  TC=0,0 
-X_R6         0 N02723 VCC POT PARAMS: SET={k} VALUE=100K
-X_R7         N02447 N02447 N02752 POT PARAMS: SET=1 VALUE=10K
-R_R8         N02723 N04013  10k TC=0,0 
-C_C2         N02868 N03155  10n  TC=0,0 
-V_V2         IN 0 DC 1.5Vdc AC 1.5Vac 
-R_R9         N04635 N02868  1meg TC=0,0 
-X_U2         N02388 N02868 VCC 0 N02447 MCP6001
-R_R10         0 N04635  100k TC=0,0 
-C_C4         IN N04635  4.7u  TC=0,0 
-Q_Q1         N03155 N04013 0 BC547B 
-V_V3         VCC 0 5Vdc
-.PARAM  k=0
+V_V4         VCC 0 5Vdc
+R_R15         N06499 N06395  1meg TC=0,0 
+R_R13         N06339 N06345  10k TC=0,0 
+C_C7         INPUT N06499  4.7u  TC=0,0 
+R_R17         VCC N06669  100k TC=0,0 
+X_R_RES         N06157 N06157 N06231 POT PARAMS: SET={Res} VALUE=10K
+C_C6         N06395 N06219  10n  TC=0,0 
+C_C5         N06219 N06231  10n  TC=0,0 
+Q_Q2         N06219 N06345 0 BC547B 
+C_C8         N06157 OUTPUTVCF  4.7u  TC=0,0 
+R_R14         N06395 N06157  470k TC=0,0 
+R_R16         0 N06499  100k TC=0,0 
+R_R19         0 N06669  100k TC=0,0 
+X_U3         N06669 N06395 VCC 0 N06157 MCP6001
+X_R_CUT         0 N06339 VCC POT PARAMS: SET={Freq} VALUE=10K
+R_R20         DAC_OUT N06345  10k TC=0,0 
+V_V6         DAC_OUT 0 0
+X_U4         N10926 N11078 VCC 0 N11095 MCP6001
+R_R22         0 N10926  100k TC=0,0 
+R_R21         VCC N10926  100k TC=0,0 
+R_R23         N11078 N11095  10k TC=0,0 
+R_R24         OUTPUTVCF N11078  4.7k TC=0,0 
+C_C9         OUTPUT N11095  100n  TC=0,0 
+R_R25         0 OUTPUT  1Meg TC=0,0 
+V_V7         INPUT 0 DC 0Vdc AC 1Vac 
+.PARAM  k=0 res=1 freq=.00001
 
 **** RESUMING test.cir ****
 .END
 
 INFO(ORPSIM-16573): AC analysis does not support expression evaluation at each frequency. ABM devices with non-linear operations will be evaluated only at bias point.
 
-ERROR(ORPSIM-15143): Voltage source and/or inductor loop involving V_V3. You may break the loop by adding a series resistance
+ERROR(ORPSIM-15090): STEP device Input is undefined
 

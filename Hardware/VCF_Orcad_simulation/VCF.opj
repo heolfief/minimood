@@ -33,13 +33,26 @@
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (Folder "Logs")
   (PartMRUSelector
-    (VSIN
-      (FullPartName "VSIN.Normal")
+    (VAC
+      (FullPartName "VAC.Normal")
       (LibraryName
          "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
       (DeviceIndex "0"))
-    (VAC
-      (FullPartName "VAC.Normal")
+    (0
+      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (C
+      (FullPartName "C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (VSIN
+      (FullPartName "VSIN.Normal")
       (LibraryName
          "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
       (DeviceIndex "0"))
@@ -73,16 +86,6 @@
       (LibraryName
          "C:\PROGRAM FILES\ORCAD\TOOLS\CAPTURE\LIBRARY\PSPICE\BREAKOUT.OLB")
       (DeviceIndex "0"))
-    (C
-      (FullPartName "C.Normal")
-      (LibraryName
-         "C:\PROGRAM FILES\ORCAD\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
-      (DeviceIndex "0"))
-    (R
-      (FullPartName "R.Normal")
-      (LibraryName
-         "C:\PROGRAM FILES\ORCAD\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
-      (DeviceIndex "0"))
     (TL072/301/TI
       (FullPartName "TL072/301/TI.Normal")
       (LibraryName
@@ -94,9 +97,6 @@
          "C:\PROGRAM FILES\ORCAD\TOOLS\CAPTURE\LIBRARY\PSPICE\SPECIAL.OLB")
       (DeviceIndex "0"))
     (VCC
-      (LibraryName "C:\PROGRAM FILES\ORCAD\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
-      (DeviceIndex "0"))
-    (0
       (LibraryName "C:\PROGRAM FILES\ORCAD\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
       (DeviceIndex "0"))
     (LM741
@@ -115,22 +115,19 @@
       (Path "Design Resources"
          "C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vcf.dsn"
          "SCHEMATIC1")
-      (Path "Outputs")
-      (Select "Design Resources"
-         "C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vcf.dsn"
-         "SCHEMATIC1" "PAGE1"))
+      (Path "Outputs"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 774"))
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 757"))
       (Tab 0))
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 1674 24 792")
-        (Scroll "-314 3")
-        (Zoom "104")
+        (Placement "44 0 1 -1 -1 -1 -1 5 1355 24 798")
+        (Scroll "-145 0")
+        (Zoom "106")
         (Occurrence "/"))
       (Path
          "C:\USERS\JULIEN\DOCUMENTS\INSA EII\SEMESTRE 8\PROJETPLURI\MINIMOOD\HARDWARE\VCF_ORCAD_SIMULATION\VCF.DSN")
