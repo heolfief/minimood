@@ -3,12 +3,12 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 7
-Title ""
-Date ""
-Rev ""
-Comp ""
-Comment1 ""
+Sheet 4 7
+Title "MiniMood"
+Date "2020"
+Rev "A"
+Comp "INSA Rennes"
+Comment1 "Heol Fief, Vincent Colombel, Julien le Pelve, Loïc Scotto"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -68,7 +68,14 @@ F 3 "~" H 7550 3100 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	7350 3000 6950 3000
-Text Notes 7350 3100 2    50   ~ 0
-mono -> ring unused
+	7350 3000 7250 3000
+Wire Wire Line
+	7350 3100 7250 3100
+Wire Wire Line
+	7250 3100 7250 3000
+Connection ~ 7250 3000
+Wire Wire Line
+	7250 3000 6950 3000
+NoConn ~ 7350 1800
+NoConn ~ 6950 3000
 $EndSCHEMATC
