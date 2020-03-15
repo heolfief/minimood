@@ -252,7 +252,7 @@ void Draw_ADSR_points(void){
 
 	}
 
-	//SSD1306_UpdateScreen_2(); //display
+	//SSD1306_UpdateScreen_2(); //display done in value update function
 
 
 }
@@ -771,4 +771,86 @@ void Update_value_OSC_3(float amp,  Waveform wave, int8_t detune,  OnOff onoff){
 		}
 }
 
+void Draw_arb_frame(void){
+	SSD1306_GotoXY_2(0, 0);
+	SSD1306_Puts_2("Wave Editor", &Font_11x18, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine_2(0, 19, 127, 19, SSD1306_COLOR_WHITE);
+
+	SSD1306_UpdateScreen_2();
+}
+
+void Init_tab_arb(void){
+	uint16_t inc=0;
+	for(int i=0; i<sizeOfTab;i++){
+		tab_arb_points[i].Y_pos=43;
+		tab_arb_points[i].X_pos=inc;
+		inc = inc+6;
+	}
+	tab_arb_points[0].is_selected=true;
+}
+
+//function to update everything from an outside tab composed of points
+void Update_values_arb_tab(Arb_points tab[]){
+	for(int i=0; i<sizeOfTab; i++){
+		if(tab[i].Y_pos>24 && tab[i].Y_pos<61)
+		tab_arb_points[i].Y_pos=tab[i].Y_pos;
+		tab_arb_points[i].is_selected=tab[i].is_selected;
+		}
+}
+
+void ARB_Update_Select(void){
+	for(int i=0; i<sizeOfTab;i++){
+		tab_arb_points[i].is_selected = (select_index_arb==i) ? true : false;
+	}
+	//Draw_ADSR_points();
+
+}
+void ARB_Shift_Select_Right(void){
+	select_index_arb=(select_index_arb +1)%(sizeOfTab);
+	ARB_Update_Select();
+
+}
+
+void Draw_ARB_points(void){
+	int size_limit_h = 0;
+	int size_limit_w =0;
+	int start_h =0;
+	for(int i=0;i<sizeOfTab;i++){
+		size_limit_h=3;
+		size_limit_w=3;
+		start_h =0;
+		if(tab_arb_points[i].is_selected){
+			size_limit_h=5;
+			start_h=-2;
+		}
+
+
+		for(int h=start_h;h<size_limit_h;h++){
+			for(int w=0;w<size_limit_w;w++){
+				SSD1306_DrawPixel_2(tab_arb_points[i].X_pos+w, tab_arb_points[i].Y_pos+h, SSD1306_COLOR_WHITE);
+				//if a point is not selected then the pixels around it will be cleaned.
+				if(tab_arb_points[i].is_selected==false){
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos, tab_arb_points[i].Y_pos-2, SSD1306_COLOR_BLACK);
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos+1, tab_arb_points[i].Y_pos-2, SSD1306_COLOR_BLACK);
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos+2, tab_arb_points[i].Y_pos-2, SSD1306_COLOR_BLACK);
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos, tab_arb_points[i].Y_pos-1, SSD1306_COLOR_BLACK);
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos+1, tab_arb_points[i].Y_pos-1, SSD1306_COLOR_BLACK);
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos+2, tab_arb_points[i].Y_pos-1, SSD1306_COLOR_BLACK);
+
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos, tab_arb_points[i].Y_pos+3, SSD1306_COLOR_BLACK);
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos+1, tab_arb_points[i].Y_pos+3, SSD1306_COLOR_BLACK);
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos+2, tab_arb_points[i].Y_pos+3, SSD1306_COLOR_BLACK);
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos, tab_arb_points[i].Y_pos+4, SSD1306_COLOR_BLACK);
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos+1, tab_arb_points[i].Y_pos+4, SSD1306_COLOR_BLACK);
+					SSD1306_DrawPixel_2(tab_arb_points[i].X_pos+2, tab_arb_points[i].Y_pos+4, SSD1306_COLOR_BLACK);
+
+
+				}
+
+			}
+		}
+	}
+
+	SSD1306_UpdateScreen_2();
+}
 

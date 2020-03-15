@@ -147,6 +147,20 @@ int main(void)
   //test for Menu display :
  // Booting_Screens();
 
+
+  //following code will test the arbitrary wave menu
+  Init_tab_arb();
+  Draw_arb_frame();
+  Draw_ARB_points();
+  ARB_Shift_Select_Right();
+  for(int i=0; i<sizeOfTab*2;i++){
+	  Draw_ARB_points();
+	  HAL_Delay(200);
+	  ARB_Shift_Select_Right();
+  }
+
+
+  /* the code after is for testing both the oscillo display and ADSR
   //test for osc display :
 	Draw_OSC_frame();
 	Remove_OSC_variables_displayed();
@@ -203,8 +217,10 @@ int main(void)
 	ADSR_Remove_values_displayed();
 	ADSR_value_update(2, 0,1, 0.5);
 	ADSR_display_update();
-
+*/
  //end of adsr test display
+
+
 	/*
   for(int i=0;i<POLYPHONY_MAX;++i){
 	  midi_note_ON(ac.note, testmidinotes[i], 127);

@@ -37,6 +37,7 @@
 #define INC_DISPLAY_SYNTH_H_
 
 int select_index_adsr;
+int select_index_arb;
 //in order to know in which menu we are in I'll store that in different booleans for the moment
 bool menu_home;
 bool menu_adsr;
@@ -62,6 +63,16 @@ typedef struct {
 	unsigned char waveform[320];
 
 } oscillator_display;
+
+typedef struct {
+	uint8_t X_pos;
+	uint8_t Y_pos;
+	bool is_selected;
+} Arb_points;
+
+//creating a tab of arb_points
+#define sizeOfTab 21
+Arb_points tab_arb_points[sizeOfTab];
 
 ADSR_point First_point; // creating the five point variables of the ADSR structure
 ADSR_point Attack_pt;
@@ -117,5 +128,11 @@ void Select_osc3(void);
 
 void Draw_OSC_Var_displayed(void);
 
+void Draw_arb_frame(void);
+void Init_tab_arb(void);
+void Update_values_arb_tab(Arb_points tab[]);
+void Draw_ARB_points(void);
+void ARB_Update_Select(void);
+void ARB_Shift_Select_Right(void);
 
 #endif /* INC_DISPLAY_SYNTH_H_ */
