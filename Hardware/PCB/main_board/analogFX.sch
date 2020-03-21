@@ -157,19 +157,6 @@ F 3 "~" H 2100 1450 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:BC547 Q?
-U 1 1 5E64D2DC
-P 2850 1450
-AR Path="/5E64D2DC" Ref="Q?"  Part="1" 
-AR Path="/5E632F77/5E64D2DC" Ref="Q1"  Part="1" 
-F 0 "Q1" H 3041 1496 50  0000 L CNN
-F 1 "BC547B" H 3041 1405 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 3050 1375 50  0001 L CIN
-F 3 "http://www.fairchildsemi.com/ds/BC/BC547.pdf" H 2850 1450 50  0001 L CNN
-	1    2850 1450
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5E64D2E2
 P 2950 1650
@@ -320,8 +307,6 @@ Wire Wire Line
 	2250 1450 2500 1450
 Wire Wire Line
 	2250 950  2500 950 
-Wire Wire Line
-	2500 950  2500 1450
 Connection ~ 2500 1450
 Wire Wire Line
 	2500 1450 2650 1450
@@ -465,17 +450,6 @@ F 2 "Potentiometer_THT:Potentiometer_Alps_RK09K_Single_Vertical" H 4100 4800 50 
 F 3 "~" H 4100 4800 50  0001 C CNN
 	1    4100 4800
 	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R_POT_Dual RV_VOL1
-U 1 1 5E599706
-P 9950 3350
-F 0 "RV_VOL1" H 9950 3117 50  0000 C CNN
-F 1 "R_POT_Dual" H 9950 3026 50  0000 C CNN
-F 2 "Potentiometer_THT:Potentiometer_Alps_RK09L_Double_Vertical" H 10200 3275 50  0001 C CNN
-F 3 "~" H 10200 3275 50  0001 C CNN
-	1    9950 3350
-	1    0    0    -1  
 $EndComp
 $Comp
 L LED:HDSP-4840_2 BAR1
@@ -1044,12 +1018,6 @@ Wire Notes Line
 	6800 7250 6800 3650
 Wire Notes Line
 	6800 3650 700  3650
-NoConn ~ 9550 3450
-NoConn ~ 9850 3450
-NoConn ~ 9700 3250
-NoConn ~ 10200 3250
-NoConn ~ 10050 3450
-NoConn ~ 10350 3450
 NoConn ~ 9900 4650
 NoConn ~ 9900 4750
 NoConn ~ 9900 4850
@@ -1163,5 +1131,18 @@ F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 6950 2100 50  0001 C CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" H 6950 2100 50  0001 C CNN
 	2    6950 2100
 	1    0    0    1   
+$EndComp
+Wire Wire Line
+	2500 950  2500 1450
+$Comp
+L Transistor_BJT:BC847 Q5
+U 1 1 5EAE88EB
+P 2850 1450
+F 0 "Q5" H 3041 1496 50  0000 L CNN
+F 1 "BC847B" H 3041 1405 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 3050 1375 50  0001 L CIN
+F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_BC850SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541d4630a1657" H 2850 1450 50  0001 L CNN
+	1    2850 1450
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
