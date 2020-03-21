@@ -62,7 +62,7 @@ typedef struct {
 	int8_t detune;
 	uint16_t det_pos;
 	unsigned char waveform[320];
-	uint16_t freq;
+	float freq;
 } oscillator_display;
 
 typedef struct {
@@ -142,7 +142,7 @@ void Update_arb_selected(double value);
 
 
 void draw_LFO_frame(void);
-void update_LFO_value(int freq, float amp,  Waveform wave, int8_t detune,  OnOff onoff);
+void update_LFO_value(float freq, float amp,  Waveform wave, int8_t detune,  OnOff onoff);
 void draw_LFO_value(void);
 
 #endif /* INC_DISPLAY_SYNTH_H_ */

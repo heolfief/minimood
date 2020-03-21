@@ -148,9 +148,10 @@ int main(void)
  //Booting_Screens();
   //testing the LFO screen :
   draw_LFO_frame();
-  for(int i=0; i<1000;i=i+10){
-
-	  update_LFO_value(i,(float)i/1000,TRI,0,OFF);
+  float freq_test=0.00;
+  for(int i=0; i<2000;i+=5){
+	  freq_test=freq_test+0.05;
+	  update_LFO_value(freq_test,0.5,TRI,0,OFF);
 	  draw_LFO_value();
 
 	  HAL_Delay(100);

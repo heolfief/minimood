@@ -885,8 +885,8 @@ void draw_LFO_frame(void){
 	SSD1306_DrawLine(0, 19, 127, 19, SSD1306_COLOR_WHITE);
 	SSD1306_GotoXY(0, 20);
 	SSD1306_Puts("Rate:", &Font_11x18, SSD1306_COLOR_WHITE);
-	SSD1306_GotoXY(103, 20);
-	SSD1306_Puts("Hz", &Font_11x18, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY(113, 25);
+	SSD1306_Puts("Hz", &Font_7x10, SSD1306_COLOR_WHITE);
 
 	SSD1306_DrawLine(30, 39, 98, 39, SSD1306_COLOR_WHITE);
 
@@ -901,7 +901,7 @@ void draw_LFO_frame(void){
 
 	SSD1306_UpdateScreen();
 }
-void update_LFO_value(int freq, float amp,  Waveform wave, int8_t detune,  OnOff onoff){
+void update_LFO_value(float freq, float amp,  Waveform wave, int8_t detune,  OnOff onoff){
 	lfo.freq=freq;
 	lfo.amp_perc=100*amp;
 	lfo.det_pos = ((detune + 12) * 40) / 24;
@@ -933,10 +933,45 @@ void update_LFO_value(int freq, float amp,  Waveform wave, int8_t detune,  OnOff
 }
 
 void draw_LFO_value(void){
+	//the freq is a double between 0.01 and 20.00, to display it properly I will multiply it by a 100
+	double temp_freq = 100.00*lfo.freq;
 	char buffer1[11];				//drawing here the freq value
-	itoa(lfo.freq,buffer1,10);   // here 10 means decimal
+	itoa((int)temp_freq,buffer1,10);   // here 10 means decimal
 	SSD1306_GotoXY(55, 20);
-	SSD1306_Puts(buffer1, &Font_11x18, SSD1306_COLOR_WHITE);
+	if(temp_freq<10){
+		SSD1306_Putc('0', &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc('0', &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc('.', &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc('0', &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc(buffer1[0], &Font_11x18, SSD1306_COLOR_WHITE);
+	}
+	if(temp_freq<100 && temp_freq>10){
+		SSD1306_Putc('0', &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc('0', &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc('.', &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc(buffer1[0], &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc(buffer1[1], &Font_11x18, SSD1306_COLOR_WHITE);
+
+	}
+	if(temp_freq<1000 && temp_freq>100){
+		SSD1306_Putc('0', &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc(buffer1[0], &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc('.', &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc(buffer1[1], &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc(buffer1[2], &Font_11x18, SSD1306_COLOR_WHITE);
+	}
+	if(temp_freq>1000){
+		SSD1306_Putc(buffer1[0], &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc(buffer1[1], &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc('.', &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc(buffer1[2], &Font_11x18, SSD1306_COLOR_WHITE);
+		SSD1306_Putc(buffer1[3], &Font_11x18, SSD1306_COLOR_WHITE);
+	}
+
+
+
+
+
 
 
 	SSD1306_DrawBitmap(94, 48, lfo.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
