@@ -245,4 +245,5 @@ Text HLabel 7650 4250 0    50   BiDi ~ 0
 USB_DEV_HS_DM
 Text HLabel 7650 4350 0    50   BiDi ~ 0
 USB_DEV_HS_DP
+NoConn ~ 2400 5950
 $EndSCHEMATC

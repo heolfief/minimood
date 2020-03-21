@@ -27,55 +27,42 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" H 3600 2450 50 
 	1    0    0    1   
 $EndComp
 $Comp
-L Amplifier_Operational:MCP6002-xSN U?
-U 2 1 5E64D29A
-P 6600 1950
-AR Path="/5E64D29A" Ref="U?"  Part="2" 
-AR Path="/5E632F77/5E64D29A" Ref="U1"  Part="2" 
-F 0 "U1" H 6600 2317 50  0000 C CNN
-F 1 "MCP6002-xSN" H 6600 2226 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 6600 1950 50  0001 C CNN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" H 6600 1950 50  0001 C CNN
-	2    6600 1950
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R?
 U 1 1 5E64D2A0
-P 3200 2800
+P 2850 2800
 AR Path="/5E64D2A0" Ref="R?"  Part="1" 
 AR Path="/5E632F77/5E64D2A0" Ref="R6"  Part="1" 
-F 0 "R6" H 3270 2846 50  0000 L CNN
-F 1 "100k" H 3270 2755 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 3130 2800 50  0001 C CNN
-F 3 "~" H 3200 2800 50  0001 C CNN
-	1    3200 2800
+F 0 "R6" H 2920 2846 50  0000 L CNN
+F 1 "100k" H 2920 2755 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 2780 2800 50  0001 C CNN
+F 3 "~" H 2850 2800 50  0001 C CNN
+	1    2850 2800
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5VA #PWR?
 U 1 1 5E64D2A6
-P 2750 2550
+P 2400 2550
 AR Path="/5E64D2A6" Ref="#PWR?"  Part="1" 
 AR Path="/5E632F77/5E64D2A6" Ref="#PWR04"  Part="1" 
-F 0 "#PWR04" H 2750 2400 50  0001 C CNN
-F 1 "+5VA" V 2765 2677 50  0000 L CNN
-F 2 "" H 2750 2550 50  0001 C CNN
-F 3 "" H 2750 2550 50  0001 C CNN
-	1    2750 2550
+F 0 "#PWR04" H 2400 2400 50  0001 C CNN
+F 1 "+5VA" V 2415 2677 50  0000 L CNN
+F 2 "" H 2400 2550 50  0001 C CNN
+F 3 "" H 2400 2550 50  0001 C CNN
+	1    2400 2550
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5E64D2AC
-P 3200 3000
+P 2850 3000
 AR Path="/5E64D2AC" Ref="#PWR?"  Part="1" 
 AR Path="/5E632F77/5E64D2AC" Ref="#PWR06"  Part="1" 
-F 0 "#PWR06" H 3200 2750 50  0001 C CNN
-F 1 "GND" H 3205 2827 50  0000 C CNN
-F 2 "" H 3200 3000 50  0001 C CNN
-F 3 "" H 3200 3000 50  0001 C CNN
-	1    3200 3000
+F 0 "#PWR06" H 2850 2750 50  0001 C CNN
+F 1 "GND" H 2855 2827 50  0000 C CNN
+F 2 "" H 2850 3000 50  0001 C CNN
+F 3 "" H 2850 3000 50  0001 C CNN
+	1    2850 3000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -94,40 +81,40 @@ $EndComp
 $Comp
 L Device:R R?
 U 1 1 5E64D2B8
-P 2950 2550
+P 2600 2550
 AR Path="/5E64D2B8" Ref="R?"  Part="1" 
 AR Path="/5E632F77/5E64D2B8" Ref="R5"  Part="1" 
-F 0 "R5" V 3050 2550 50  0000 C CNN
-F 1 "100k" V 3150 2550 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 2880 2550 50  0001 C CNN
-F 3 "~" H 2950 2550 50  0001 C CNN
-	1    2950 2550
+F 0 "R5" V 2700 2550 50  0000 C CNN
+F 1 "100k" V 2800 2550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 2530 2550 50  0001 C CNN
+F 3 "~" H 2600 2550 50  0001 C CNN
+	1    2600 2550
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5E64D2BE
-P 2150 2550
+P 1750 2550
 AR Path="/5E64D2BE" Ref="R?"  Part="1" 
 AR Path="/5E632F77/5E64D2BE" Ref="R3"  Part="1" 
-F 0 "R3" H 2080 2504 50  0000 R CNN
-F 1 "100k" H 2080 2595 50  0000 R CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 2080 2550 50  0001 C CNN
-F 3 "~" H 2150 2550 50  0001 C CNN
-	1    2150 2550
+F 0 "R3" H 1680 2504 50  0000 R CNN
+F 1 "100k" H 1680 2595 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 1680 2550 50  0001 C CNN
+F 3 "~" H 1750 2550 50  0001 C CNN
+	1    1750 2550
 	-1   0    0    1   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5E64D2C4
-P 2150 2750
+P 1750 2750
 AR Path="/5E64D2C4" Ref="#PWR?"  Part="1" 
 AR Path="/5E632F77/5E64D2C4" Ref="#PWR03"  Part="1" 
-F 0 "#PWR03" H 2150 2500 50  0001 C CNN
-F 1 "GND" H 2155 2577 50  0000 C CNN
-F 2 "" H 2150 2750 50  0001 C CNN
-F 3 "" H 2150 2750 50  0001 C CNN
-	1    2150 2750
+F 0 "#PWR03" H 1750 2500 50  0001 C CNN
+F 1 "GND" H 1755 2577 50  0000 C CNN
+F 2 "" H 1750 2750 50  0001 C CNN
+F 3 "" H 1750 2750 50  0001 C CNN
+	1    1750 2750
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -176,7 +163,7 @@ P 2850 1450
 AR Path="/5E64D2DC" Ref="Q?"  Part="1" 
 AR Path="/5E632F77/5E64D2DC" Ref="Q1"  Part="1" 
 F 0 "Q1" H 3041 1496 50  0000 L CNN
-F 1 "BC547" H 3041 1405 50  0000 L CNN
+F 1 "BC547B" H 3041 1405 50  0000 L CNN
 F 2 "Package_TO_SOT_THT:TO-92_Inline" H 3050 1375 50  0001 L CIN
 F 3 "http://www.fairchildsemi.com/ds/BC/BC547.pdf" H 2850 1450 50  0001 L CNN
 	1    2850 1450
@@ -237,14 +224,14 @@ $EndComp
 $Comp
 L Device:C C?
 U 1 1 5E64D2FA
-P 1900 2350
+P 1500 2350
 AR Path="/5E64D2FA" Ref="C?"  Part="1" 
 AR Path="/5E632F77/5E64D2FA" Ref="C1"  Part="1" 
-F 0 "C1" V 1648 2350 50  0000 C CNN
-F 1 "4.7u" V 1739 2350 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1938 2200 50  0001 C CNN
-F 3 "~" H 1900 2350 50  0001 C CNN
-	1    1900 2350
+F 0 "C1" V 1248 2350 50  0000 C CNN
+F 1 "4.7u" V 1339 2350 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 1538 2200 50  0001 C CNN
+F 3 "~" H 1500 2350 50  0001 C CNN
+	1    1500 2350
 	0    1    1    0   
 $EndComp
 $Comp
@@ -300,25 +287,25 @@ F 3 "~" H 4300 1250 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	2050 2350 2150 2350
+	1650 2350 1750 2350
 Wire Wire Line
-	2150 2400 2150 2350
-Connection ~ 2150 2350
+	1750 2400 1750 2350
+Connection ~ 1750 2350
 Wire Wire Line
-	2150 2350 2800 2350
+	1750 2350 2800 2350
 Wire Wire Line
-	2150 2750 2150 2700
+	1750 2750 1750 2700
 Wire Wire Line
-	2800 2550 2750 2550
+	2450 2550 2400 2550
 Wire Wire Line
 	3100 2350 3200 2350
 Wire Wire Line
-	3100 2550 3200 2550
+	2750 2550 2850 2550
 Wire Wire Line
-	3200 2650 3200 2550
-Connection ~ 3200 2550
+	2850 2650 2850 2550
+Connection ~ 2850 2550
 Wire Wire Line
-	3200 2550 3300 2550
+	2850 2550 3300 2550
 Wire Wire Line
 	1550 1650 1550 1600
 Wire Wire Line
@@ -328,7 +315,7 @@ Wire Wire Line
 Wire Wire Line
 	1950 950  1200 950 
 Wire Wire Line
-	1750 2350 1200 2350
+	1350 2350 1200 2350
 Wire Wire Line
 	2250 1450 2500 1450
 Wire Wire Line
@@ -385,7 +372,7 @@ Wire Wire Line
 	4600 950  4600 1250
 Connection ~ 4600 1250
 Wire Wire Line
-	3200 2950 3200 3000
+	2850 2950 2850 3000
 Wire Notes Line
 	700  700  5300 700 
 Wire Notes Line
@@ -453,31 +440,6 @@ Text HLabel 1200 950  0    50   Input ~ 0
 CV_IN
 Text HLabel 1200 2350 0    50   Input ~ 0
 AUDIO_IN
-Wire Wire Line
-	6300 2050 6200 2050
-Wire Wire Line
-	6200 2050 6200 2300
-Wire Wire Line
-	6200 2300 7050 2300
-Wire Wire Line
-	7050 2300 7050 1950
-Wire Wire Line
-	7050 1950 6900 1950
-$Comp
-L power:GND #PWR0101
-U 1 1 5E6BBB3D
-P 6000 1900
-F 0 "#PWR0101" H 6000 1650 50  0001 C CNN
-F 1 "GND" H 6005 1727 50  0000 C CNN
-F 2 "" H 6000 1900 50  0001 C CNN
-F 3 "" H 6000 1900 50  0001 C CNN
-	1    6000 1900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6000 1900 6000 1850
-Wire Wire Line
-	6000 1850 6300 1850
 $Comp
 L Device:R_POT RV?
 U 1 1 5E58F714
@@ -783,9 +745,9 @@ Wire Wire Line
 	3050 5500 2700 5500
 Connection ~ 3050 5150
 Text Label 1400 5950 2    50   ~ 0
-OUT_VCF__IN_DIST
+IN_DIST
 Text Label 4550 2450 0    50   ~ 0
-OUT_VCF__IN_DIST
+OUT_VCF
 Wire Wire Line
 	4300 2450 4550 2450
 $Comp
@@ -1108,4 +1070,98 @@ NoConn ~ 10300 4950
 NoConn ~ 10300 4650
 NoConn ~ 10300 4750
 NoConn ~ 10300 4850
+$Comp
+L Device:C C?
+U 1 1 5E791194
+P 7600 2100
+AR Path="/5E791194" Ref="C?"  Part="1" 
+AR Path="/5E632F77/5E791194" Ref="C33"  Part="1" 
+F 0 "C33" V 7348 2100 50  0000 C CNN
+F 1 "100n" V 7439 2100 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 7638 1950 50  0001 C CNN
+F 3 "~" H 7600 2100 50  0001 C CNN
+	1    7600 2100
+	0    1    1    0   
+$EndComp
+Text Label 3250 2550 3    50   ~ 0
+2.5V_midpoint
+Wire Wire Line
+	7350 1600 7350 2100
+Wire Wire Line
+	7450 2100 7350 2100
+Wire Wire Line
+	7750 2100 7900 2100
+Text Label 7900 2100 0    50   ~ 0
+IN_DIST
+Wire Notes Line
+	5450 700  5450 3500
+Wire Notes Line
+	5450 3500 8600 3500
+Wire Notes Line
+	8600 3500 8600 700 
+Wire Notes Line
+	8600 700  5450 700 
+Text Notes 5500 3450 0    118  ~ 24
+buffer
+Connection ~ 7350 2100
+Text Label 5900 2000 2    50   ~ 0
+OUT_VCF
+Wire Wire Line
+	6200 2000 5900 2000
+Wire Wire Line
+	7350 2100 7250 2100
+Wire Wire Line
+	7000 1600 7350 1600
+Wire Wire Line
+	6600 2000 6650 2000
+Connection ~ 6600 2000
+Wire Wire Line
+	6600 1600 6600 2000
+Wire Wire Line
+	6700 1600 6600 1600
+Wire Wire Line
+	6500 2000 6600 2000
+$Comp
+L Device:R R?
+U 1 1 5E7E9D23
+P 6850 1600
+AR Path="/5E7E9D23" Ref="R?"  Part="1" 
+AR Path="/5E632F77/5E7E9D23" Ref="R21"  Part="1" 
+F 0 "R21" V 6643 1600 50  0000 C CNN
+F 1 "10k" V 6734 1600 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 6780 1600 50  0001 C CNN
+F 3 "~" H 6850 1600 50  0001 C CNN
+	1    6850 1600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E7E6E06
+P 6350 2000
+AR Path="/5E7E6E06" Ref="R?"  Part="1" 
+AR Path="/5E632F77/5E7E6E06" Ref="R20"  Part="1" 
+F 0 "R20" V 6143 2000 50  0000 C CNN
+F 1 "3.9k" V 6234 2000 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 6280 2000 50  0001 C CNN
+F 3 "~" H 6350 2000 50  0001 C CNN
+	1    6350 2000
+	0    1    1    0   
+$EndComp
+Text Label 6400 2200 3    50   ~ 0
+2.5V_midpoint
+Wire Wire Line
+	6650 2200 6400 2200
+$Comp
+L Amplifier_Operational:MCP6002-xSN U?
+U 2 1 5E64D29A
+P 6950 2100
+AR Path="/5E64D29A" Ref="U?"  Part="2" 
+AR Path="/5E632F77/5E64D29A" Ref="U1"  Part="2" 
+F 0 "U1" H 6950 2467 50  0000 C CNN
+F 1 "MCP6002-xSN" H 6950 2376 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 6950 2100 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" H 6950 2100 50  0001 C CNN
+	2    6950 2100
+	1    0    0    1   
+$EndComp
 $EndSCHEMATC
