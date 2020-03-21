@@ -811,6 +811,20 @@ void ARB_Shift_Select_Right(void){
 
 }
 
+void ARB_Shift_Select_Left(void){
+	if(select_index_arb==0)select_index_arb=sizeOfTab;
+	select_index_arb=(select_index_arb -1)%(sizeOfTab);
+	ARB_Update_Select();
+}
+
+void Update_arb_selected(double value){
+	double pos =(value*34.00+24.00); //valid if value is between 0 and 1.
+	for(int i=0; i<sizeOfTab;i++){
+		if(tab_arb_points[i].is_selected) {
+			tab_arb_points[i].Y_pos=(uint8_t)pos;		}
+	}
+}
+
 void Draw_ARB_points(void){
 	int size_limit_h = 0;
 	int size_limit_w =0;
@@ -854,3 +868,88 @@ void Draw_ARB_points(void){
 	SSD1306_UpdateScreen_2();
 }
 
+void Remove_arb_points(void){
+	for(int w=0;w<127;w++){
+		for(int h=24;h<64;h++){
+			SSD1306_DrawPixel_2(w, h, SSD1306_COLOR_BLACK);
+
+		}
+	}
+}
+
+void draw_LFO_frame(void){
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Low", &Font_11x18, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY(38, 0);
+	SSD1306_Puts("Freq Osc", &Font_11x18, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(0, 19, 127, 19, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY(0, 20);
+	SSD1306_Puts("Rate:", &Font_11x18, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY(103, 20);
+	SSD1306_Puts("Hz", &Font_11x18, SSD1306_COLOR_WHITE);
+
+	SSD1306_DrawLine(30, 39, 98, 39, SSD1306_COLOR_WHITE);
+
+	SSD1306_GotoXY(0, 42);
+	SSD1306_Puts("State:", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY(0, 53);
+	SSD1306_Puts("Depth:", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(63, 39, 63, 63, SSD1306_COLOR_WHITE);
+
+	SSD1306_GotoXY(65, 48);
+	SSD1306_Puts("Wav:", &Font_7x10, SSD1306_COLOR_WHITE);
+
+	SSD1306_UpdateScreen();
+}
+void update_LFO_value(int freq, float amp,  Waveform wave, int8_t detune,  OnOff onoff){
+	lfo.freq=freq;
+	lfo.amp_perc=100*amp;
+	lfo.det_pos = ((detune + 12) * 40) / 24;
+	lfo.detune = detune;
+	lfo.is_on = (onoff == 0) ? false : true;
+
+	switch (wave) {
+	case SIN:
+		memcpy((char*) lfo.waveform, (char*) sin_bmp, 40);
+		//strcpy((char*)osc1.waveform,(char*)sin_bmp);
+
+		break;
+	case SQR:
+		strcpy((char*) lfo.waveform, (char*) square_bmp);
+		break;
+	case TRI:
+		memcpy((char*) lfo.waveform, (char*) triangle_bmp, 40);
+		break;
+	case SAW:
+		strcpy((char*) lfo.waveform, (char*) saw_bmp);
+		break;
+	case ARB:
+		memcpy((char*) lfo.waveform, (char*) arb_bmp, 40);
+		break;
+
+	default:
+		strcpy((char*) lfo.waveform, (char*) arb_bmp);
+	}
+}
+
+void draw_LFO_value(void){
+	char buffer1[11];				//drawing here the freq value
+	itoa(lfo.freq,buffer1,10);   // here 10 means decimal
+	SSD1306_GotoXY(55, 20);
+	SSD1306_Puts(buffer1, &Font_11x18, SSD1306_COLOR_WHITE);
+
+
+	SSD1306_DrawBitmap(94, 48, lfo.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
+	SSD1306_GotoXY(41, 42);
+	if(lfo.is_on){
+		SSD1306_Puts("ON", &Font_7x10, SSD1306_COLOR_WHITE);
+	}else{
+		SSD1306_Puts("OFF", &Font_7x10, SSD1306_COLOR_WHITE);
+	}
+	char buffer2[11];				//drawing here the depth value
+	itoa(lfo.amp_perc,buffer2,10);   // here 10 means decimal
+	SSD1306_GotoXY(41, 53);
+	SSD1306_Puts(buffer2, &Font_7x10, SSD1306_COLOR_WHITE);
+
+	SSD1306_UpdateScreen();
+}

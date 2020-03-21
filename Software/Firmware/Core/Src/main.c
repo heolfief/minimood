@@ -118,9 +118,7 @@ int main(void)
   ac.sys_param.env.decay = 0;
   ac.sys_param.env.sustain = 1;
   ac.sys_param.env.release = 0.5;
-  //test of display code
 
-  Init_Displays();
   ac.sys_param.osc1.onoff = ON;
   ac.sys_param.osc2.onoff = ON;
   ac.sys_param.osc3.onoff = ON;
@@ -143,20 +141,36 @@ int main(void)
 
   copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
   copy_osc_sys_param_to_lfo(&ac.sys_param, &ac.lfo);
+  //test of display code
 
+  Init_Displays();
   //test for Menu display :
- // Booting_Screens();
+ //Booting_Screens();
+  //testing the LFO screen :
+  draw_LFO_frame();
+  for(int i=0; i<1000;i=i+10){
 
+	  update_LFO_value(i,(float)i/1000,TRI,0,OFF);
+	  draw_LFO_value();
 
+	  HAL_Delay(100);
+  }
   //following code will test the arbitrary wave menu
   Init_tab_arb();
   Draw_arb_frame();
   Draw_ARB_points();
   ARB_Shift_Select_Right();
+  double value = 0;
   for(int i=0; i<sizeOfTab*2;i++){
+	  value=0;
+	  for(int j=0; j<11;j++){
+		  value = 0.1+value;
+		  Update_arb_selected(value);
+		  Remove_arb_points();
+		  Draw_ARB_points();
+	  }
 	  Draw_ARB_points();
-	  HAL_Delay(200);
-	  ARB_Shift_Select_Right();
+	  ARB_Shift_Select_Left();
   }
 
 

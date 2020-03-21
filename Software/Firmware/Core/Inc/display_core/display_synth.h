@@ -56,12 +56,13 @@ enum wave {sine, square, triangle, sawtooth, arbitrary};
 
 typedef struct {
 	uint16_t Vol_pos;
+	int amp_perc; //the amplitude is here in percentage to be correctly displayed
 	enum wave onde;
 	bool is_on;
 	int8_t detune;
 	uint16_t det_pos;
 	unsigned char waveform[320];
-
+	uint16_t freq;
 } oscillator_display;
 
 typedef struct {
@@ -83,6 +84,7 @@ ADSR_point Release_pt;
 oscillator_display osc1;
 oscillator_display osc2;
 oscillator_display osc3;
+oscillator_display lfo;
 
 
 void Init_Displays(void);
@@ -131,8 +133,16 @@ void Draw_OSC_Var_displayed(void);
 void Draw_arb_frame(void);
 void Init_tab_arb(void);
 void Update_values_arb_tab(Arb_points tab[]);
+void Remove_arb_points(void);
 void Draw_ARB_points(void);
 void ARB_Update_Select(void);
 void ARB_Shift_Select_Right(void);
+void ARB_Shift_Select_Left(void);
+void Update_arb_selected(double value);
+
+
+void draw_LFO_frame(void);
+void update_LFO_value(int freq, float amp,  Waveform wave, int8_t detune,  OnOff onoff);
+void draw_LFO_value(void);
 
 #endif /* INC_DISPLAY_SYNTH_H_ */
