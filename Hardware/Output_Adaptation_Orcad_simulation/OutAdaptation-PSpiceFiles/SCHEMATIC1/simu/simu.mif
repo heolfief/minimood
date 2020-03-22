@@ -1,0 +1,4 @@
+ lib=C:\Cadence\SPB_17.4\tools\PSpice\Library\ebipolar.lib, offset=7160, size=365
+ lib=C:\Cadence\SPB_17.4\tools\PSpice\Library\ebipolar.lib, offset=11742, size=385
+ lib=C:\Cadence\SPB_17.4\tools\PSpice\Library\microchip_opamp.lib, offset=2789, size=3092
+ lib=C:\Cadence\SPB_17.4\tools\PSpice\Library\breakout.lib, offset=9201, size=133

@@ -115,18 +115,19 @@
       (Path "Design Resources"
          "C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vcf.dsn"
          "SCHEMATIC1")
-      (Path "Outputs"))
+      (Path "Outputs")
+      (Select "Design Resources"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 757"))
+        (Placement "44 0 1 -1 -1 -1 -1 0 153 0 750"))
       (Tab 0))
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 1355 24 798")
-        (Scroll "-145 0")
+        (Placement "44 0 1 -1 -1 -1 -1 5 1081 24 791")
+        (Scroll "-8 11")
         (Zoom "106")
         (Occurrence "/"))
       (Path

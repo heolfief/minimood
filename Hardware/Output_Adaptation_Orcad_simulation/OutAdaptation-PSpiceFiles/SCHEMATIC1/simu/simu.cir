@@ -1,0 +1,20 @@
+** Profile: "SCHEMATIC1-simu"  [ c:\users\julien\documents\insa eii\semestre 8\projetpluri\minimood\hardware\output_adaptation_orcad_simulation\outadaptation-PSpiceFiles\SCHEMATIC1\simu.sim ] 
+
+** Creating circuit file "simu.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\Users\Julien\AppData\Roaming\SPB_Data\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 1m 1n 
+.STEP PARAM Volume LIST .01 .99 
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+.END

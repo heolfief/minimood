@@ -1,0 +1,364 @@
+
+**** 02/10/20 21:25:01 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-simu"  [ c:\users\julien\documents\insa eii\semestre 8\projetpluri\minimood\hardware\output_adaptation_orcad
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "simu.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\Users\Julien\AppData\Roaming\SPB_Data\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 1m 1n 
+.STEP PARAM Volume LIST .01 .99 
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source OUTADAPTATION
+R_R2         0 N05376  10k TC=0,0 
+X_U1         N05882 N05168 VCC 0 N10853 MCP6001
+X_R11         N05272 N05168 N05168 POT PARAMS: SET={Volume} VALUE=500k
+R_R8         N05646 OUT  100 TC=0,0 
+C_C2         0 N05376  47u  TC=0,0 
+R_R13         N05646 OUT  100 TC=0,0 
+R_R6         N05566 VCC  3.9k TC=0,0 
+R_R5         N05882 N05690  1k TC=0,0 
+R_Headphone         0 OUT  50 TC=0,0 
+C_C4         N05198 N05646  47u  TC=0,0 
+C_C3         N05690 IN  0.1u  TC=0,0 
+V_V1         IN 0  AC 1
++SIN 0 .45 2k 0 0 0
+R_R1         N05376 VCC  10k TC=0,0 
+R_R9         0 N05646  10k TC=0,0 
+C_C1         0 VCC  47u  TC=0,0 
+R_R7         0 N05928  3.9k TC=0,0 
+V_V2         VCC 0 5Vdc
+R_R3         N05690 N05376  10Meg TC=0,0 
+R_R4         0 IN  22Meg TC=0,0 
+R_R10         N07708 N05272  33k TC=0,0 
+C_C5         0 N07708  4.7u  TC=0,0 
+R_R12         N05168 N05198  56k TC=0,0 
+C_C6         N05168 N05198  150p  TC=0,0 
+Q_Q5         VCC N10853 N05928 BC547B 
+Q_Q6         VCC N05566 N05198 BC547B 
+Q_Q7         0 N10853 N05566 BC557B 
+Q_Q8         0 N05928 N05198 BC557B 
+.PARAM  volume=0.5
+
+**** RESUMING simu.cir ****
+.END
+
+**** 02/10/20 21:25:01 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-simu"  [ c:\users\julien\documents\insa eii\semestre 8\projetpluri\minimood\hardware\output_adaptation_orcad
+
+
+ ****     Diode MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.DESD       X_U1.DL         X_U1.DN1        
+          IS    1.000000E-15    1.000000E-15    1.000000E-12 
+          KF                                  146.000000E-18 
+
+
+**** 02/10/20 21:25:01 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-simu"  [ c:\users\julien\documents\insa eii\semestre 8\projetpluri\minimood\hardware\output_adaptation_orcad
+
+
+ ****     BJT MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               BC547B          BC557B          
+               NPN             PNP             
+       LEVEL    1               1            
+          IS    7.049000E-15    1.020000E-15 
+          BF  374.6           306.5          
+          NF    1               1            
+         VAF   62.79           52.31         
+         IKF     .08157          .09185      
+         ISE   68.000000E-15   10.270000E-15 
+          NE    1.576           1.764        
+          BR    1               6.48         
+          NR    1               1            
+         IKR    3.924            .5584       
+         ISC   12.400000E-15    1.472000E-15 
+          NC    1.835           1.294        
+          NK     .4767           .5351       
+         ISS    0               0            
+          RE    0               0            
+          RC     .9747          1.086        
+         CJE   11.500000E-12   30.000000E-12 
+         VJE     .5              .5          
+         MJE     .6715           .3333       
+         CJC    5.250000E-12    9.810000E-12 
+         VJC     .5697           .4865       
+         MJC     .3147           .332        
+        XCJC    1               1            
+         CJS    0               0            
+         VJS     .75             .75         
+          TF  410.200000E-12  611.600000E-12 
+         XTF   40.06           26.05         
+         VTF   10              10            
+         ITF    1.491           1.373        
+          TR   10.000000E-09   10.000000E-09 
+         XTB    1.5             1.5          
+          KF    0               0            
+          AF    1               1            
+          CN    2.42            2.2          
+           D     .87             .52         
+
+
+**** 02/10/20 21:25:01 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-simu"  [ c:\users\julien\documents\insa eii\semestre 8\projetpluri\minimood\hardware\output_adaptation_orcad
+
+
+ ****     MOSFET MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.NMI        
+               NMOS            
+       LEVEL    1            
+           L  100.000000E-06 
+           W  100.000000E-06 
+         VTO    0            
+          KP   20.000000E-06 
+       GAMMA    0            
+         PHI     .6          
+      LAMBDA    0            
+          IS   10.000000E-15 
+          JS    0            
+          PB     .8          
+        PBSW     .8          
+          CJ    0            
+        CJSW    0            
+        CGSO    0            
+        CGDO    0            
+        CGBO    0            
+         TOX    0            
+          XJ    0            
+       UCRIT   10.000000E+03 
+      DIOMOD    1            
+         VFB    0            
+        LETA    0            
+        WETA    0            
+          U0    0            
+        TEMP    0            
+         VDD    5            
+       XPART    0            
+
+
+**** 02/10/20 21:25:01 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-simu"  [ c:\users\julien\documents\insa eii\semestre 8\projetpluri\minimood\hardware\output_adaptation_orcad
+
+
+ ****     Resistor MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.REXP       
+           R    1            
+         TCE   10.1          
+
+
+**** 02/10/20 21:25:01 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-simu"  [ c:\users\julien\documents\insa eii\semestre 8\projetpluri\minimood\hardware\output_adaptation_orcad
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+ ****     CURRENT STEP                     PARAM VOLUME =     .01  
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(   IN)    0.0000  (  OUT)    0.0000  (  VCC)    5.0000  (N05168)    2.4993     
+
+(N05198)    2.4993 (N05272)    2.4993 (N05376)    2.5000 (N05566)    3.1428     
+
+(N05646)    0.0000 (N05690)    2.4999 (N05882)    2.4999 (N05928)    1.8059     
+
+(N07708)    2.4993 (N10853)    2.4491 (X_U1.10)    5.5000                       
+
+(X_U1.11)    5.3275                   (X_U1.12)    5.3275                       
+
+(X_U1.13)    5.3000                   (X_U1.14)    2.4993                       
+
+(X_U1.15)    2.1543                   (X_U1.16)    -.3000                       
+
+(X_U1.20)     .5137                   (X_U1.21)    -.5137                       
+
+(X_U1.26)-135.0E-06                   (X_U1.27)-241.5E-06                       
+
+(X_U1.30)-133.4E-06                   (X_U1.31)  111.2500                       
+
+(X_U1.32) -130.2000                   (X_U1.33)-132.4E-06                       
+
+(X_U1.34)    -.0563                   (X_U1.35)    -.0563                       
+
+(X_U1.37)    -.0563                   (X_U1.38)    -.0563                       
+
+(X_U1.39)    -.0563                   (X_U1.50) 146.9E-06                       
+
+(X_U1.51) 146.8E-06                   (X_U1.52) 14.84E-12                       
+
+(X_U1.55)    4.9993                   (X_U1.56)     .0012                       
+
+(X_U1.57)    2.4491                   (X_U1.61) 109.5E-06                       
+
+(X_U1.62) 58.20E-12                   (X_U1.70) 1.000E-06                       
+
+(X_U1.71)    2.4999                   (X_U1.96)    2.4491                       
+
+(X_U1.98) 69.74E-09                   (X_U1.99) 146.8E-09                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1         0.000E+00
+    V_V2        -1.758E-03
+    X_U1.V10     5.000E-05
+    X_U1.V16     2.828E-12
+    X_U1.V13     2.829E-12
+
+    TOTAL POWER DISSIPATION   8.81E-03  WATTS
+
+
+**** 02/10/20 21:25:01 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-simu"  [ c:\users\julien\documents\insa eii\semestre 8\projetpluri\minimood\hardware\output_adaptation_orcad
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+ ****     CURRENT STEP                     PARAM VOLUME =     .99  
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(   IN)    0.0000  (  OUT)    0.0000  (  VCC)    5.0000  (N05168)    2.4993     
+
+(N05198)    2.4993 (N05272)    2.4993 (N05376)    2.5000 (N05566)    3.1428     
+
+(N05646)    0.0000 (N05690)    2.4999 (N05882)    2.4999 (N05928)    1.8059     
+
+(N07708)    2.4993 (N10853)    2.4491 (X_U1.10)    5.5000                       
+
+(X_U1.11)    5.3275                   (X_U1.12)    5.3275                       
+
+(X_U1.13)    5.3000                   (X_U1.14)    2.4993                       
+
+(X_U1.15)    2.1543                   (X_U1.16)    -.3000                       
+
+(X_U1.20)     .5137                   (X_U1.21)    -.5137                       
+
+(X_U1.26)-135.0E-06                   (X_U1.27)-241.5E-06                       
+
+(X_U1.30)-133.4E-06                   (X_U1.31)  111.2500                       
+
+(X_U1.32) -130.2000                   (X_U1.33)-132.4E-06                       
+
+(X_U1.34)    -.0563                   (X_U1.35)    -.0563                       
+
+(X_U1.37)    -.0563                   (X_U1.38)    -.0563                       
+
+(X_U1.39)    -.0563                   (X_U1.50) 146.9E-06                       
+
+(X_U1.51) 146.8E-06                   (X_U1.52) 14.84E-12                       
+
+(X_U1.55)    4.9993                   (X_U1.56)     .0012                       
+
+(X_U1.57)    2.4491                   (X_U1.61) 109.5E-06                       
+
+(X_U1.62) 58.20E-12                   (X_U1.70) 1.000E-06                       
+
+(X_U1.71)    2.4999                   (X_U1.96)    2.4491                       
+
+(X_U1.98) 69.74E-09                   (X_U1.99) 146.8E-09                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1         0.000E+00
+    V_V2        -1.758E-03
+    X_U1.V10     5.000E-05
+    X_U1.V16     2.828E-12
+    X_U1.V13     2.829E-12
+
+    TOTAL POWER DISSIPATION   8.81E-03  WATTS
+
+
+
+          JOB CONCLUDED
+
+**** 02/10/20 21:25:01 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-simu"  [ c:\users\julien\documents\insa eii\semestre 8\projetpluri\minimood\hardware\output_adaptation_orcad
+
+
+ ****     JOB STATISTICS SUMMARY
+
+ ****     CURRENT STEP                     PARAM VOLUME =     .99  
+
+
+******************************************************************************
+
+
+
+  Total job time (using Solver 1)   =         .14
+

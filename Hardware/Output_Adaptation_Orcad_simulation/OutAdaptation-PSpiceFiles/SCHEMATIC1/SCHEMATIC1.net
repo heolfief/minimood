@@ -1,0 +1,30 @@
+* source OUTADAPTATION
+R_R2         0 N05376  10k TC=0,0 
+X_U1         N05882 N05168 VCC 0 N10853 MCP6001
+X_R11         N05272 N05168 N05168 POT PARAMS: SET={Volume} VALUE=500k
+R_R8         N05646 OUT  100 TC=0,0 
+C_C2         0 N05376  47u  TC=0,0 
+R_R13         N05646 OUT  100 TC=0,0 
+R_R6         N05566 VCC  3.9k TC=0,0 
+R_R5         N05882 N05690  1k TC=0,0 
+R_Headphone         0 OUT  50 TC=0,0 
+C_C4         N05198 N05646  47u  TC=0,0 
+C_C3         N05690 IN  0.1u  TC=0,0 
+V_V1         IN 0  AC 1
++SIN 0 .45 2k 0 0 0
+R_R1         N05376 VCC  10k TC=0,0 
+R_R9         0 N05646  10k TC=0,0 
+C_C1         0 VCC  47u  TC=0,0 
+R_R7         0 N05928  3.9k TC=0,0 
+V_V2         VCC 0 5Vdc
+R_R3         N05690 N05376  10Meg TC=0,0 
+R_R4         0 IN  22Meg TC=0,0 
+R_R10         N07708 N05272  33k TC=0,0 
+C_C5         0 N07708  4.7u  TC=0,0 
+R_R12         N05168 N05198  56k TC=0,0 
+C_C6         N05168 N05198  150p  TC=0,0 
+Q_Q5         VCC N10853 N05928 BC547B 
+Q_Q6         VCC N05566 N05198 BC547B 
+Q_Q7         0 N10853 N05566 BC557B 
+Q_Q8         0 N05928 N05198 BC557B 
+.PARAM  volume=0.5
