@@ -589,7 +589,6 @@ Wire Wire Line
 Connection ~ 7450 3500
 Wire Wire Line
 	7450 3500 7450 3650
-NoConn ~ 8650 5450
 Wire Wire Line
 	7450 3500 8350 3500
 $Comp
@@ -716,5 +715,83 @@ F 2 "Package_TO_SOT_SMD:SOT-23" H 4750 2975 50  0001 L CIN
 F 3 "http://www.fairchildsemi.com/ds/BC/BC856.pdf" H 4550 3050 50  0001 L CNN
 	1    4550 3050
 	1    0    0    1   
+$EndComp
+Wire Wire Line
+	9200 1200 9100 1200
+Wire Wire Line
+	9100 1500 9200 1500
+Wire Wire Line
+	9100 1800 9200 1800
+Text Label 7650 3500 0    50   ~ 0
+Audio_out_jack
+Text Label 9100 1800 2    50   ~ 0
+Audio_out_jack
+Text Label 5550 3500 0    50   ~ 0
+audio_post_AB_amp
+Text Label 4250 3800 1    50   ~ 0
+audio_pre_AB_amp
+Text Label 9100 1500 2    50   ~ 0
+audio_post_AB_amp
+Text Label 9100 1200 2    50   ~ 0
+audio_pre_AB_amp
+Wire Wire Line
+	9100 2100 9200 2100
+Text Label 9100 2100 2    50   ~ 0
+Audio_out_RCA
+Text Label 8550 5450 2    50   ~ 0
+Audio_out_RCA
+Wire Wire Line
+	8550 5450 8650 5450
+$Comp
+L Connector_Generic:Conn_01x01 J?
+U 1 1 5E8E9A39
+P 9400 1200
+AR Path="/5E57C92D/5E8E9A39" Ref="J?"  Part="1" 
+AR Path="/5E68385C/5E8E9A39" Ref="J9"  Part="1" 
+F 0 "J9" H 9480 1242 50  0000 L CNN
+F 1 "Audio_pre_AB_amp" H 9480 1151 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 9400 1200 50  0001 C CNN
+F 3 "~" H 9400 1200 50  0001 C CNN
+	1    9400 1200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J?
+U 1 1 5E8EC39B
+P 9400 1500
+AR Path="/5E57C92D/5E8EC39B" Ref="J?"  Part="1" 
+AR Path="/5E68385C/5E8EC39B" Ref="J12"  Part="1" 
+F 0 "J12" H 9480 1542 50  0000 L CNN
+F 1 "Audio_post_AB_amp" H 9480 1451 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 9400 1500 50  0001 C CNN
+F 3 "~" H 9400 1500 50  0001 C CNN
+	1    9400 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J?
+U 1 1 5E8ECAF9
+P 9400 1800
+AR Path="/5E57C92D/5E8ECAF9" Ref="J?"  Part="1" 
+AR Path="/5E68385C/5E8ECAF9" Ref="J13"  Part="1" 
+F 0 "J13" H 9480 1842 50  0000 L CNN
+F 1 "Audio_out_jack" H 9480 1751 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 9400 1800 50  0001 C CNN
+F 3 "~" H 9400 1800 50  0001 C CNN
+	1    9400 1800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J?
+U 1 1 5E8EF8B9
+P 9400 2100
+AR Path="/5E57C92D/5E8EF8B9" Ref="J?"  Part="1" 
+AR Path="/5E68385C/5E8EF8B9" Ref="J14"  Part="1" 
+F 0 "J14" H 9480 2142 50  0000 L CNN
+F 1 "Audio_out_RCA" H 9480 2051 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 9400 2100 50  0001 C CNN
+F 3 "~" H 9400 2100 50  0001 C CNN
+	1    9400 2100
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

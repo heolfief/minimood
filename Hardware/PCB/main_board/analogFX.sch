@@ -1145,4 +1145,55 @@ F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_B
 	1    2850 1450
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	9900 2150 9800 2150
+Wire Wire Line
+	9900 1850 9800 1850
+Wire Wire Line
+	9900 1550 9800 1550
+Text Label 9800 1550 2    50   ~ 0
+OUT_VCF
+Text Label 9800 1850 2    50   ~ 0
+IN_DIST
+Text HLabel 9800 2150 0    50   Output ~ 0
+AUDIO_OUT
+$Comp
+L Connector_Generic:Conn_01x01 J?
+U 1 1 5E8DC2E2
+P 10100 1550
+AR Path="/5E57C92D/5E8DC2E2" Ref="J?"  Part="1" 
+AR Path="/5E632F77/5E8DC2E2" Ref="J15"  Part="1" 
+F 0 "J15" H 10180 1592 50  0000 L CNN
+F 1 "Audio_post_VCF" H 10180 1501 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 10100 1550 50  0001 C CNN
+F 3 "~" H 10100 1550 50  0001 C CNN
+	1    10100 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J?
+U 1 1 5E8E12D7
+P 10100 1850
+AR Path="/5E57C92D/5E8E12D7" Ref="J?"  Part="1" 
+AR Path="/5E632F77/5E8E12D7" Ref="J16"  Part="1" 
+F 0 "J16" H 10180 1892 50  0000 L CNN
+F 1 "Audio_post_buffer" H 10180 1801 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 10100 1850 50  0001 C CNN
+F 3 "~" H 10100 1850 50  0001 C CNN
+	1    10100 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J?
+U 1 1 5E8E1DAA
+P 10100 2150
+AR Path="/5E57C92D/5E8E1DAA" Ref="J?"  Part="1" 
+AR Path="/5E632F77/5E8E1DAA" Ref="J17"  Part="1" 
+F 0 "J17" H 10180 2192 50  0000 L CNN
+F 1 "Audio_post_FX" H 10180 2101 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 10100 2150 50  0001 C CNN
+F 3 "~" H 10100 2150 50  0001 C CNN
+	1    10100 2150
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

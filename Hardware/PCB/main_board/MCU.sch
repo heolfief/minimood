@@ -45,17 +45,6 @@ Text HLabel 2550 3250 0    50   Output ~ 0
 AUDIO_MCU_OUT
 Text HLabel 7650 2250 0    50   Output ~ 0
 LFO_CV_MCU_OUT
-$Comp
-L Connector:Conn_01x06_Male J1
-U 1 1 5E51B937
-P 2200 6150
-F 0 "J1" H 2308 6531 50  0000 C CNN
-F 1 "SWD" H 2308 6440 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 2200 6150 50  0001 C CNN
-F 3 "~" H 2200 6150 50  0001 C CNN
-	1    2200 6150
-	1    0    0    -1  
-$EndComp
 Text Label 2400 5950 0    50   ~ 0
 VDD_TARGET
 Text Label 2400 6050 0    50   ~ 0
@@ -246,4 +235,111 @@ USB_DEV_HS_DM
 Text HLabel 7650 4350 0    50   BiDi ~ 0
 USB_DEV_HS_DP
 NoConn ~ 2400 5950
+$Comp
+L Connector_Generic:Conn_01x02 J10
+U 1 1 5E7E23EF
+P 6450 5200
+F 0 "J10" H 6530 5192 50  0000 L CNN
+F 1 "I2C_display" H 6530 5101 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6450 5200 50  0001 C CNN
+F 3 "~" H 6450 5200 50  0001 C CNN
+	1    6450 5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x06 J1
+U 1 1 5E7DA99C
+P 2200 6150
+F 0 "J1" H 2118 6567 50  0000 C CNN
+F 1 "SWD" H 2118 6476 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 2200 6150 50  0001 C CNN
+F 3 "~" H 2200 6150 50  0001 C CNN
+	1    2200 6150
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6150 5200 6250 5200
+Wire Wire Line
+	6150 5300 6250 5300
+Wire Wire Line
+	6150 5550 6250 5550
+Wire Wire Line
+	6150 5800 6250 5800
+Wire Wire Line
+	6150 6050 6250 6050
+$Comp
+L power:+3.3V #PWR0129
+U 1 1 5E80C3D2
+P 6050 4950
+F 0 "#PWR0129" H 6050 4800 50  0001 C CNN
+F 1 "+3.3V" H 6065 5123 50  0000 C CNN
+F 2 "" H 6050 4950 50  0001 C CNN
+F 3 "" H 6050 4950 50  0001 C CNN
+	1    6050 4950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	6050 4950 6250 4950
+Text HLabel 6150 6050 0    50   Output ~ 0
+LFO_CV_MCU_OUT
+Text HLabel 6150 5800 0    50   Output ~ 0
+AUDIO_MCU_OUT
+Text HLabel 6150 5550 0    50   Input ~ 0
+MIDI_UART_RX
+Text HLabel 6150 5300 0    50   Output ~ 0
+I2C_display_SCL
+Text HLabel 6150 5200 0    50   BiDi ~ 0
+I2C_display_SDA
+$Comp
+L Connector_Generic:Conn_01x01 J?
+U 1 1 5E8C724C
+P 6450 5800
+AR Path="/5E57C92D/5E8C724C" Ref="J?"  Part="1" 
+AR Path="/5E658709/5E8C724C" Ref="J19"  Part="1" 
+F 0 "J19" H 6530 5842 50  0000 L CNN
+F 1 "Audio_MCU" H 6530 5751 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 6450 5800 50  0001 C CNN
+F 3 "~" H 6450 5800 50  0001 C CNN
+	1    6450 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J?
+U 1 1 5E8CCEE2
+P 6450 6050
+AR Path="/5E57C92D/5E8CCEE2" Ref="J?"  Part="1" 
+AR Path="/5E658709/5E8CCEE2" Ref="J20"  Part="1" 
+F 0 "J20" H 6530 6092 50  0000 L CNN
+F 1 "LFO_MCU" H 6530 6001 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 6450 6050 50  0001 C CNN
+F 3 "~" H 6450 6050 50  0001 C CNN
+	1    6450 6050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J?
+U 1 1 5E8CFEC0
+P 6450 4950
+AR Path="/5E57C92D/5E8CFEC0" Ref="J?"  Part="1" 
+AR Path="/5E658709/5E8CFEC0" Ref="J18"  Part="1" 
+F 0 "J18" H 6530 4992 50  0000 L CNN
+F 1 "+3.3V" H 6530 4901 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 6450 4950 50  0001 C CNN
+F 3 "~" H 6450 4950 50  0001 C CNN
+	1    6450 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J?
+U 1 1 5E90C91E
+P 6450 5550
+AR Path="/5E57C92D/5E90C91E" Ref="J?"  Part="1" 
+AR Path="/5E658709/5E90C91E" Ref="J11"  Part="1" 
+F 0 "J11" H 6530 5592 50  0000 L CNN
+F 1 "UART_RX_MIDI" H 6530 5501 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 6450 5550 50  0001 C CNN
+F 3 "~" H 6450 5550 50  0001 C CNN
+	1    6450 5550
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
