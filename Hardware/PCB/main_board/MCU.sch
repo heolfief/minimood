@@ -42,17 +42,6 @@ Text Notes 1950 7100 2    50   ~ 0
 Programming connector,\nto be used with ST_link \nSWD connector
 NoConn ~ 1300 6300
 $Comp
-L Connector_Generic:Conn_01x02 J10
-U 1 1 5E7E23EF
-P 3750 6300
-F 0 "J10" H 3830 6292 50  0000 L CNN
-F 1 "I2C_display" H 3830 6201 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3750 6300 50  0001 C CNN
-F 3 "~" H 3750 6300 50  0001 C CNN
-	1    3750 6300
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector_Generic:Conn_01x06 J1
 U 1 1 5E7DA99C
 P 1100 6500
@@ -64,8 +53,6 @@ F 3 "~" H 1100 6500 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	3450 6300 3550 6300
-Wire Wire Line
 	3450 6400 3550 6400
 Wire Wire Line
 	3450 6650 3550 6650
@@ -73,80 +60,52 @@ Wire Wire Line
 	3450 6900 3550 6900
 Wire Wire Line
 	3450 7150 3550 7150
-$Comp
-L power:+3.3V #PWR0129
-U 1 1 5E80C3D2
-P 3350 6050
-F 0 "#PWR0129" H 3350 5900 50  0001 C CNN
-F 1 "+3.3V" H 3365 6223 50  0000 C CNN
-F 2 "" H 3350 6050 50  0001 C CNN
-F 3 "" H 3350 6050 50  0001 C CNN
-	1    3350 6050
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	3350 6050 3550 6050
 Text HLabel 3450 7150 0    50   Output ~ 0
 LFO_CV_MCU_OUT
 Text HLabel 3450 6900 0    50   Output ~ 0
 AUDIO_MCU_OUT
 Text HLabel 3450 6650 0    50   Input ~ 0
 MIDI_UART_RX
-Text HLabel 3450 6400 0    50   Output ~ 0
-I2C_display_SCL
-Text HLabel 3450 6300 0    50   BiDi ~ 0
+Text HLabel 3450 6400 0    50   BiDi ~ 0
 I2C_display_SDA
 $Comp
-L Connector_Generic:Conn_01x01 J?
+L Connector:TestPoint J?
 U 1 1 5E8C724C
-P 3750 6900
+P 3550 6900
 AR Path="/5E57C92D/5E8C724C" Ref="J?"  Part="1" 
 AR Path="/5E658709/5E8C724C" Ref="J19"  Part="1" 
-F 0 "J19" H 3830 6942 50  0000 L CNN
-F 1 "Audio_MCU" H 3830 6851 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 3750 6900 50  0001 C CNN
-F 3 "~" H 3750 6900 50  0001 C CNN
-	1    3750 6900
-	1    0    0    -1  
+F 0 "J19" V 3630 6942 50  0000 L CNN
+F 1 "Audio_MCU" V 3550 7100 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 3550 6900 50  0001 C CNN
+F 3 "~" H 3550 6900 50  0001 C CNN
+	1    3550 6900
+	0    1    1    0   
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x01 J?
+L Connector:TestPoint J?
 U 1 1 5E8CCEE2
-P 3750 7150
+P 3550 7150
 AR Path="/5E57C92D/5E8CCEE2" Ref="J?"  Part="1" 
 AR Path="/5E658709/5E8CCEE2" Ref="J20"  Part="1" 
-F 0 "J20" H 3830 7192 50  0000 L CNN
-F 1 "LFO_MCU" H 3830 7101 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 3750 7150 50  0001 C CNN
-F 3 "~" H 3750 7150 50  0001 C CNN
-	1    3750 7150
-	1    0    0    -1  
+F 0 "J20" V 3630 7192 50  0000 L CNN
+F 1 "LFO_MCU" V 3550 7350 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 3550 7150 50  0001 C CNN
+F 3 "~" H 3550 7150 50  0001 C CNN
+	1    3550 7150
+	0    1    1    0   
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x01 J?
-U 1 1 5E8CFEC0
-P 3750 6050
-AR Path="/5E57C92D/5E8CFEC0" Ref="J?"  Part="1" 
-AR Path="/5E658709/5E8CFEC0" Ref="J18"  Part="1" 
-F 0 "J18" H 3830 6092 50  0000 L CNN
-F 1 "+3.3V" H 3830 6001 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 3750 6050 50  0001 C CNN
-F 3 "~" H 3750 6050 50  0001 C CNN
-	1    3750 6050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x01 J?
+L Connector:TestPoint J?
 U 1 1 5E90C91E
-P 3750 6650
+P 3550 6650
 AR Path="/5E57C92D/5E90C91E" Ref="J?"  Part="1" 
 AR Path="/5E658709/5E90C91E" Ref="J11"  Part="1" 
-F 0 "J11" H 3830 6692 50  0000 L CNN
-F 1 "UART_RX_MIDI" H 3830 6601 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 3750 6650 50  0001 C CNN
-F 3 "~" H 3750 6650 50  0001 C CNN
-	1    3750 6650
-	1    0    0    -1  
+F 0 "J11" V 3630 6692 50  0000 L CNN
+F 1 "UART_RX_MIDI" V 3550 6850 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 3550 6650 50  0001 C CNN
+F 3 "~" H 3550 6650 50  0001 C CNN
+	1    3550 6650
+	0    1    1    0   
 $EndComp
 $Comp
 L MCU_ST_STM32F4:STM32F446RETx U6
@@ -233,7 +192,7 @@ Text HLabel 5200 3650 0    50   Input ~ 0
 ADC1_IN14
 Text HLabel 5200 3750 0    50   Input ~ 0
 ADC1_IN15
-Text Notes 3950 7400 2    118  ~ 0
+Text Notes 4000 7500 2    118  ~ 0
 Test points
 $Comp
 L power:GND #PWR0121
@@ -457,4 +416,157 @@ Connection ~ 4250 2800
 Wire Wire Line
 	4250 2800 4250 3000
 NoConn ~ 6600 4450
+$Comp
+L Device:C C44
+U 1 1 5F5D3A50
+P 8450 1850
+F 0 "C44" V 8200 1850 50  0000 C CNN
+F 1 "100n" V 8300 1850 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 8488 1700 50  0001 C CNN
+F 3 "~" H 8450 1850 50  0001 C CNN
+	1    8450 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C45
+U 1 1 5F5D3E16
+P 8850 1850
+F 0 "C45" V 8600 1850 50  0000 C CNN
+F 1 "100n" V 8700 1850 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 8888 1700 50  0001 C CNN
+F 3 "~" H 8850 1850 50  0001 C CNN
+	1    8850 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C46
+U 1 1 5F5D40A7
+P 9250 1850
+F 0 "C46" V 9000 1850 50  0000 C CNN
+F 1 "100n" V 9100 1850 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9288 1700 50  0001 C CNN
+F 3 "~" H 9250 1850 50  0001 C CNN
+	1    9250 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C47
+U 1 1 5F5D439C
+P 9650 1850
+F 0 "C47" V 9400 1850 50  0000 C CNN
+F 1 "100n" V 9500 1850 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9688 1700 50  0001 C CNN
+F 3 "~" H 9650 1850 50  0001 C CNN
+	1    9650 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C48
+U 1 1 5F5D45C9
+P 10050 1850
+F 0 "C48" V 9800 1850 50  0000 C CNN
+F 1 "100n" V 9900 1850 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 10088 1700 50  0001 C CNN
+F 3 "~" H 10050 1850 50  0001 C CNN
+	1    10050 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR041
+U 1 1 5F5D4746
+P 9250 2200
+F 0 "#PWR041" H 9250 1950 50  0001 C CNN
+F 1 "GND" H 9255 2027 50  0000 C CNN
+F 2 "" H 9250 2200 50  0001 C CNN
+F 3 "" H 9250 2200 50  0001 C CNN
+	1    9250 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR040
+U 1 1 5F5D491D
+P 9250 1500
+F 0 "#PWR040" H 9250 1350 50  0001 C CNN
+F 1 "+3.3V" H 9265 1673 50  0000 C CNN
+F 2 "" H 9250 1500 50  0001 C CNN
+F 3 "" H 9250 1500 50  0001 C CNN
+	1    9250 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8450 2000 8450 2050
+Wire Wire Line
+	8450 2050 8850 2050
+Wire Wire Line
+	10050 2050 10050 2000
+Wire Wire Line
+	9250 2200 9250 2050
+Connection ~ 9250 2050
+Wire Wire Line
+	9250 2050 9650 2050
+Wire Wire Line
+	9250 2000 9250 2050
+Wire Wire Line
+	8850 2000 8850 2050
+Connection ~ 8850 2050
+Wire Wire Line
+	8850 2050 9250 2050
+Wire Wire Line
+	9650 2000 9650 2050
+Connection ~ 9650 2050
+Wire Wire Line
+	9650 2050 10050 2050
+Wire Wire Line
+	10050 1700 10050 1650
+Wire Wire Line
+	8450 1650 8450 1700
+Wire Wire Line
+	8850 1700 8850 1650
+Connection ~ 8850 1650
+Wire Wire Line
+	8850 1650 8450 1650
+Wire Wire Line
+	9250 1700 9250 1650
+Wire Wire Line
+	8850 1650 9250 1650
+Connection ~ 9250 1650
+Wire Wire Line
+	9250 1650 9250 1500
+Wire Wire Line
+	9250 1650 9650 1650
+Wire Wire Line
+	9650 1700 9650 1650
+Connection ~ 9650 1650
+Wire Wire Line
+	9650 1650 10050 1650
+Text HLabel 3350 6150 0    50   Output ~ 0
+I2C_display_SCL
+Wire Wire Line
+	3350 6150 3550 6150
+$Comp
+L Connector:TestPoint J?
+U 1 1 5F7191F8
+P 3550 6400
+AR Path="/5E57C92D/5F7191F8" Ref="J?"  Part="1" 
+AR Path="/5E658709/5F7191F8" Ref="J10"  Part="1" 
+F 0 "J10" V 3630 6442 50  0000 L CNN
+F 1 "I2C_SDA" V 3550 6600 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 3550 6400 50  0001 C CNN
+F 3 "~" H 3550 6400 50  0001 C CNN
+	1    3550 6400
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint J?
+U 1 1 5F71AC1F
+P 3550 6150
+AR Path="/5E57C92D/5F71AC1F" Ref="J?"  Part="1" 
+AR Path="/5E658709/5F71AC1F" Ref="J5"  Part="1" 
+F 0 "J5" V 3630 6192 50  0000 L CNN
+F 1 "I2C_SCL" V 3550 6350 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 3550 6150 50  0001 C CNN
+F 3 "~" H 3550 6150 50  0001 C CNN
+	1    3550 6150
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC

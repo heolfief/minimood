@@ -14,30 +14,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Connector:Conn_Coaxial J5
-U 1 1 5E6845CE
-P 8850 5450
-F 0 "J5" H 8950 5425 50  0000 L CNN
-F 1 "Conn_Coaxial" H 8950 5334 50  0000 L CNN
-F 2 "lib:rca_black" H 8850 5450 50  0001 C CNN
-F 3 " ~" H 8850 5450 50  0001 C CNN
-	1    8850 5450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR019
-U 1 1 5E684B9C
-P 8850 5700
-F 0 "#PWR019" H 8850 5450 50  0001 C CNN
-F 1 "GND" H 8855 5527 50  0000 C CNN
-F 2 "" H 8850 5700 50  0001 C CNN
-F 3 "" H 8850 5700 50  0001 C CNN
-	1    8850 5700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8850 5700 8850 5650
-$Comp
 L power:GND #PWR018
 U 1 1 5E686603
 P 8400 3750
@@ -131,7 +107,7 @@ U 1 1 5E8DDA01
 P 4100 1400
 F 0 "RV_VOL1" H 4031 1446 50  0000 R CNN
 F 1 "500k reverse log" H 4031 1355 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Alps_RK09K_Single_Vertical" H 4100 1400 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Alps_RK09K_Single_Horizontal" H 4100 1400 50  0001 C CNN
 F 3 "~" H 4100 1400 50  0001 C CNN
 	1    4100 1400
 	1    0    0    -1  
@@ -734,64 +710,45 @@ Text Label 9100 1500 2    50   ~ 0
 audio_post_AB_amp
 Text Label 9100 1200 2    50   ~ 0
 audio_pre_AB_amp
-Wire Wire Line
-	9100 2100 9200 2100
-Text Label 9100 2100 2    50   ~ 0
-Audio_out_RCA
-Text Label 8550 5450 2    50   ~ 0
-Audio_out_RCA
-Wire Wire Line
-	8550 5450 8650 5450
 $Comp
-L Connector_Generic:Conn_01x01 J?
+L Connector:TestPoint J?
 U 1 1 5E8E9A39
-P 9400 1200
+P 9200 1200
 AR Path="/5E57C92D/5E8E9A39" Ref="J?"  Part="1" 
 AR Path="/5E68385C/5E8E9A39" Ref="J9"  Part="1" 
-F 0 "J9" H 9480 1242 50  0000 L CNN
-F 1 "Audio_pre_AB_amp" H 9480 1151 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 9400 1200 50  0001 C CNN
-F 3 "~" H 9400 1200 50  0001 C CNN
-	1    9400 1200
-	1    0    0    -1  
+F 0 "J9" V 9280 1242 50  0000 L CNN
+F 1 "Pre_AB_amp" V 9200 1400 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 9200 1200 50  0001 C CNN
+F 3 "~" H 9200 1200 50  0001 C CNN
+	1    9200 1200
+	0    1    1    0   
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x01 J?
+L Connector:TestPoint J?
 U 1 1 5E8EC39B
-P 9400 1500
+P 9200 1500
 AR Path="/5E57C92D/5E8EC39B" Ref="J?"  Part="1" 
 AR Path="/5E68385C/5E8EC39B" Ref="J12"  Part="1" 
-F 0 "J12" H 9480 1542 50  0000 L CNN
-F 1 "Audio_post_AB_amp" H 9480 1451 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 9400 1500 50  0001 C CNN
-F 3 "~" H 9400 1500 50  0001 C CNN
-	1    9400 1500
-	1    0    0    -1  
+F 0 "J12" V 9280 1542 50  0000 L CNN
+F 1 "Post_AB_amp" V 9200 1700 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 9200 1500 50  0001 C CNN
+F 3 "~" H 9200 1500 50  0001 C CNN
+	1    9200 1500
+	0    1    1    0   
 $EndComp
+Text Notes 9000 2100 0    118  ~ 0
+Test points
 $Comp
-L Connector_Generic:Conn_01x01 J?
+L Connector:TestPoint J?
 U 1 1 5E8ECAF9
-P 9400 1800
+P 9200 1800
 AR Path="/5E57C92D/5E8ECAF9" Ref="J?"  Part="1" 
 AR Path="/5E68385C/5E8ECAF9" Ref="J13"  Part="1" 
-F 0 "J13" H 9480 1842 50  0000 L CNN
-F 1 "Audio_out_jack" H 9480 1751 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 9400 1800 50  0001 C CNN
-F 3 "~" H 9400 1800 50  0001 C CNN
-	1    9400 1800
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x01 J?
-U 1 1 5E8EF8B9
-P 9400 2100
-AR Path="/5E57C92D/5E8EF8B9" Ref="J?"  Part="1" 
-AR Path="/5E68385C/5E8EF8B9" Ref="J14"  Part="1" 
-F 0 "J14" H 9480 2142 50  0000 L CNN
-F 1 "Audio_out_RCA" H 9480 2051 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 9400 2100 50  0001 C CNN
-F 3 "~" H 9400 2100 50  0001 C CNN
-	1    9400 2100
-	1    0    0    -1  
+F 0 "J13" V 9280 1842 50  0000 L CNN
+F 1 "Audio_out_jack" V 9200 2000 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 9200 1800 50  0001 C CNN
+F 3 "~" H 9200 1800 50  0001 C CNN
+	1    9200 1800
+	0    1    1    0   
 $EndComp
 $EndSCHEMATC

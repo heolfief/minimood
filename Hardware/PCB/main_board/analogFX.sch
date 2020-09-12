@@ -452,17 +452,6 @@ F 3 "~" H 4100 4800 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L LED:HDSP-4840_2 BAR1
-U 1 1 5E5A0C61
-P 10100 5050
-F 0 "BAR1" H 10100 5717 50  0000 C CNN
-F 1 "HDSP-4840_2" H 10100 5626 50  0000 C CNN
-F 2 "Display:HDSP-4840" H 10100 4250 50  0001 C CNN
-F 3 "https://docs.broadcom.com/docs/AV02-1798EN" H 8100 5250 50  0001 C CNN
-	1    10100 5050
-	1    0    0    -1  
-$EndComp
-$Comp
 L Amplifier_Operational:RC4558 U4
 U 1 1 5E56A918
 P 2400 5500
@@ -1018,26 +1007,6 @@ Wire Notes Line
 	6800 7250 6800 3650
 Wire Notes Line
 	6800 3650 700  3650
-NoConn ~ 9900 4650
-NoConn ~ 9900 4750
-NoConn ~ 9900 4850
-NoConn ~ 9900 4950
-NoConn ~ 9900 5050
-NoConn ~ 9900 5150
-NoConn ~ 9900 5250
-NoConn ~ 9900 5350
-NoConn ~ 9900 5450
-NoConn ~ 9900 5550
-NoConn ~ 10300 5550
-NoConn ~ 10300 5450
-NoConn ~ 10300 5350
-NoConn ~ 10300 5250
-NoConn ~ 10300 5150
-NoConn ~ 10300 5050
-NoConn ~ 10300 4950
-NoConn ~ 10300 4650
-NoConn ~ 10300 4750
-NoConn ~ 10300 4850
 $Comp
 L Device:C C?
 U 1 1 5E791194
@@ -1158,42 +1127,44 @@ IN_DIST
 Text HLabel 9800 2150 0    50   Output ~ 0
 AUDIO_OUT
 $Comp
-L Connector_Generic:Conn_01x01 J?
+L Connector:TestPoint J?
 U 1 1 5E8DC2E2
-P 10100 1550
+P 9900 1550
 AR Path="/5E57C92D/5E8DC2E2" Ref="J?"  Part="1" 
 AR Path="/5E632F77/5E8DC2E2" Ref="J15"  Part="1" 
-F 0 "J15" H 10180 1592 50  0000 L CNN
-F 1 "Audio_post_VCF" H 10180 1501 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 10100 1550 50  0001 C CNN
-F 3 "~" H 10100 1550 50  0001 C CNN
-	1    10100 1550
-	1    0    0    -1  
+F 0 "J15" V 9980 1592 50  0000 L CNN
+F 1 "Post_VCF" V 9900 1750 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 9900 1550 50  0001 C CNN
+F 3 "~" H 9900 1550 50  0001 C CNN
+	1    9900 1550
+	0    1    1    0   
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x01 J?
+L Connector:TestPoint J?
 U 1 1 5E8E12D7
-P 10100 1850
+P 9900 1850
 AR Path="/5E57C92D/5E8E12D7" Ref="J?"  Part="1" 
 AR Path="/5E632F77/5E8E12D7" Ref="J16"  Part="1" 
-F 0 "J16" H 10180 1892 50  0000 L CNN
-F 1 "Audio_post_buffer" H 10180 1801 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 10100 1850 50  0001 C CNN
-F 3 "~" H 10100 1850 50  0001 C CNN
-	1    10100 1850
-	1    0    0    -1  
+F 0 "J16" V 9980 1892 50  0000 L CNN
+F 1 "Post_buffer" V 9900 2050 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 9900 1850 50  0001 C CNN
+F 3 "~" H 9900 1850 50  0001 C CNN
+	1    9900 1850
+	0    1    1    0   
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x01 J?
+L Connector:TestPoint J?
 U 1 1 5E8E1DAA
-P 10100 2150
+P 9900 2150
 AR Path="/5E57C92D/5E8E1DAA" Ref="J?"  Part="1" 
 AR Path="/5E632F77/5E8E1DAA" Ref="J17"  Part="1" 
-F 0 "J17" H 10180 2192 50  0000 L CNN
-F 1 "Audio_post_FX" H 10180 2101 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 10100 2150 50  0001 C CNN
-F 3 "~" H 10100 2150 50  0001 C CNN
-	1    10100 2150
-	1    0    0    -1  
+F 0 "J17" V 9980 2192 50  0000 L CNN
+F 1 "Post_FX" V 9900 2350 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 9900 2150 50  0001 C CNN
+F 3 "~" H 9900 2150 50  0001 C CNN
+	1    9900 2150
+	0    1    1    0   
 $EndComp
+Text Notes 9600 2450 0    118  ~ 0
+Test points
 $EndSCHEMATC
