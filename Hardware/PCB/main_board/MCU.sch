@@ -13,7 +13,7 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 1300 6300 0    50   ~ 0
+Text Label 1400 6300 0    50   ~ 0
 VDD_TARGET
 Text Label 1300 6400 0    50   ~ 0
 SWCLK
@@ -21,8 +21,6 @@ Text Label 1300 6600 0    50   ~ 0
 SWDIO
 Text Label 1300 6700 0    50   ~ 0
 NRST
-Text Label 1300 6800 0    50   ~ 0
-SWO
 $Comp
 L power:GND #PWR0102
 U 1 1 5E51E3F2
@@ -40,18 +38,6 @@ Wire Wire Line
 	1700 6500 1700 6550
 Text Notes 1950 7100 2    50   ~ 0
 Programming connector,\nto be used with ST_link \nSWD connector
-NoConn ~ 1300 6300
-$Comp
-L Connector_Generic:Conn_01x06 J1
-U 1 1 5E7DA99C
-P 1100 6500
-F 0 "J1" H 1018 6917 50  0000 C CNN
-F 1 "SWD" H 1018 6826 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 1100 6500 50  0001 C CNN
-F 3 "~" H 1100 6500 50  0001 C CNN
-	1    1100 6500
-	-1   0    0    -1  
-$EndComp
 Wire Wire Line
 	3450 6400 3550 6400
 Wire Wire Line
@@ -568,5 +554,31 @@ F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 3550 6150 50  0001 C CNN
 F 3 "~" H 3550 6150 50  0001 C CNN
 	1    3550 6150
 	0    1    1    0   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x05 J1
+U 1 1 5E7DA99C
+P 1100 6500
+F 0 "J1" H 1018 6917 50  0000 C CNN
+F 1 "SWD" H 1018 6826 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical" H 1100 6500 50  0001 C CNN
+F 3 "~" H 1100 6500 50  0001 C CNN
+	1    1100 6500
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1300 6300 1400 6300
+Wire Wire Line
+	1400 6300 1400 6200
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5F63A1D4
+P 1400 6200
+F 0 "#PWR?" H 1400 6050 50  0001 C CNN
+F 1 "+3.3V" H 1415 6373 50  0000 C CNN
+F 2 "" H 1400 6200 50  0001 C CNN
+F 3 "" H 1400 6200 50  0001 C CNN
+	1    1400 6200
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
