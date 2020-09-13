@@ -25,7 +25,6 @@
 #include "usbh_core.h"
 #include "usbh_audio.h"
 
-
 /* USER CODE BEGIN Includes */
 #include "usbh_MIDI.h"
 /* USER CODE END Includes */
@@ -44,7 +43,7 @@ uint8_t MIDI_RX_Buffer[RX_BUFF_SIZE]; // MIDI reception buffer
 /* USER CODE END PFP */
 
 /* USB Host core handle declaration */
-USBH_HandleTypeDef hUsbHostFS;
+USBH_HandleTypeDef hUsbHostHS;
 ApplicationTypeDef Appli_state = APPLICATION_IDLE;
 
 /*
@@ -75,17 +74,17 @@ void MX_USB_HOST_Init(void)
   /* USER CODE BEGIN USB_HOST_Init_PreTreatment */
   
   /* USER CODE END USB_HOST_Init_PreTreatment */
-  
+
   /* Init host Library, add supported class and start the library. */
-  if (USBH_Init(&hUsbHostFS, USBH_UserProcess, HOST_FS) != USBH_OK)
+  if (USBH_Init(&hUsbHostHS, USBH_UserProcess, HOST_HS) != USBH_OK)
   {
     Error_Handler();
   }
-  if (USBH_RegisterClass(&hUsbHostFS, USBH_MIDI_CLASS) != USBH_OK)
+  if (USBH_RegisterClass(&hUsbHostHS, USBH_MIDI_CLASS) != USBH_OK)
   {
     Error_Handler();
   }
-  if (USBH_Start(&hUsbHostFS) != USBH_OK)
+  if (USBH_Start(&hUsbHostHS) != USBH_OK)
   {
     Error_Handler();
   }
@@ -100,11 +99,7 @@ void MX_USB_HOST_Init(void)
 void MX_USB_HOST_Process(void)
 {
   /* USB Host Background task */
-  USBH_Process(&hUsbHostFS);
-  if (hUsbHostFS.gState == HOST_CLASS && i< 1){
-  	  USBH_MIDI_Receive(&hUsbHostFS, MIDI_RX_Buffer, RX_BUFF_SIZE); // start a new reception
-  	  i++;
-    }
+  USBH_Process(&hUsbHostHS);
 }
 /*
  * user callback definition
