@@ -1,4 +1,4 @@
-update=13/09/2020 19:14:25
+update=23/09/2020 11:32:28
 version=1
 last_client=kicad
 [general]
@@ -26,13 +26,13 @@ ERC_TestSimilarLabels=1
 version=1
 PageLayoutDescrFile=
 LastNetListRead=main_board.net
-CopperLayerCount=4
+CopperLayerCount=2
 BoardThickness=1.6002
 AllowMicroVias=0
 AllowBlindVias=0
 RequireCourtyardDefinitions=0
 ProhibitOverlappingCourtyards=1
-MinTrackWidth=0.127
+MinTrackWidth=0.25
 MinViaDiameter=0.6
 MinViaDrill=0.3
 MinMicroViaDiameter=0.2
@@ -84,11 +84,11 @@ Enabled=1
 [pcbnew/Layer.In1.Cu]
 Name=In1.Cu
 Type=0
-Enabled=1
+Enabled=0
 [pcbnew/Layer.In2.Cu]
 Name=In2.Cu
 Type=0
-Enabled=1
+Enabled=0
 [pcbnew/Layer.In3.Cu]
 Name=In3.Cu
 Type=0
