@@ -419,7 +419,7 @@ Wire Wire Line
 Connection ~ 5000 3150
 Wire Wire Line
 	5000 3150 5050 3150
-Text HLabel 6250 5500 2    50   Output ~ 0
+Text HLabel 5650 5500 2    50   Output ~ 0
 AUDIO_OUT
 Text HLabel 1200 950  0    50   Input ~ 0
 CV_IN
@@ -868,32 +868,6 @@ F 3 "~" H 4950 4800 50  0001 C CNN
 	1    4950 4800
 	0    -1   1    0   
 $EndComp
-$Comp
-L Device:C C?
-U 1 1 5E765B1E
-P 5500 5500
-AR Path="/5E765B1E" Ref="C?"  Part="1" 
-AR Path="/5E632F77/5E765B1E" Ref="C21"  Part="1" 
-F 0 "C21" V 5248 5500 50  0000 C CNN
-F 1 "1u" V 5339 5500 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5538 5350 50  0001 C CNN
-F 3 "~" H 5500 5500 50  0001 C CNN
-	1    5500 5500
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5E7661F5
-P 5900 5500
-AR Path="/5E7661F5" Ref="R?"  Part="1" 
-AR Path="/5E632F77/5E7661F5" Ref="R19"  Part="1" 
-F 0 "R19" V 5693 5500 50  0000 C CNN
-F 1 "1k" V 5784 5500 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 5830 5500 50  0001 C CNN
-F 3 "~" H 5900 5500 50  0001 C CNN
-	1    5900 5500
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	3350 4300 3350 4250
 Wire Wire Line
@@ -909,13 +883,7 @@ Wire Wire Line
 	5300 4800 5300 5500
 Wire Wire Line
 	5300 5500 5250 5500
-Wire Wire Line
-	5300 5500 5350 5500
 Connection ~ 5300 5500
-Wire Wire Line
-	5650 5500 5750 5500
-Wire Wire Line
-	6050 5500 6250 5500
 $Comp
 L Device:C C?
 U 1 1 5E79E26F
@@ -1167,4 +1135,6 @@ F 3 "~" H 9900 2150 50  0001 C CNN
 $EndComp
 Text Notes 9600 2450 0    118  ~ 0
 Test points
+Wire Wire Line
+	5300 5500 5650 5500
 $EndSCHEMATC
