@@ -1,12 +1,14 @@
 # MiniMood
 
+**[WORK IN PROGRESS]**
+
 MiniMood is a digital and analog mono synth.
 This is a 4th year degree school project at INSA Rennes, France leaded by a team of 4 students.
 
 ## Specs
 
 * **USB powered**
-* **USB MIDI** and **DIN MIDI**
+* **USB MIDI** and **DIN (old school) MIDI**
 * USB MIDI can be **device or host** **(direct plugging of a midi controller)**
 * **3 voices polyphony**
 * **ADSR filter**
@@ -16,9 +18,9 @@ This is a 4th year degree school project at INSA Rennes, France leaded by a team
 * **1 LFO** (sine, square, triangle, saw and arbitrary)
 * **Analog low pass VCF**, control by potentiometer or **LFO**
 * **Analog distortion**, same as Ibanez's Tube Screamer
-* **Jack** or **RCA** sound output
+* **Jack** headphones sound output
 * Control by buttons, potentiometer and **2 OLED screens**
-* 12 bits, 44100Hz sound output
+* **12 bits**, **44100Hz** sound output
 * Based on STM32F446RE ARM microcontroller
 
 ## Software framework
