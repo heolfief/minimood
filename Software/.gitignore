@@ -5,3 +5,4 @@ Firmware/Debug/*
 Firmware/Release/*
 Firmware/.settings/*
 Firmware/.mxproject
+Firmware/doc/*
