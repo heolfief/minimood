@@ -14,7 +14,7 @@ Notes=
 @End General
 @Analysis: 0 1
 +0 0 0 0 
-+0 "3m" 
++0 "10m" 
 +1 "" 
 +2 "0" 
 +3 "1u" 
@@ -63,8 +63,8 @@ SaveFile 0 ""
 @End Analysis
 @Analysis: 5 0
 +0 2
-+0 "" 
-+1 "Freq" 
++0 "Input" 
++1 "Res" 
 +2 "" 
 +3 "" 
 +4 "0" 

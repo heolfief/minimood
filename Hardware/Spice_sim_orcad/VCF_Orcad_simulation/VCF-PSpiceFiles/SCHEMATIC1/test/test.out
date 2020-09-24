@@ -1,5 +1,5 @@
 
-**** 02/10/20 18:16:49 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+**** 02/10/20 10:57:19 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
 
  ** Profile: "SCHEMATIC1-test"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vc
 
@@ -22,7 +22,7 @@
 .lib "nom.lib" 
 
 *Analysis directives: 
-.TRAN  0 3m 0 1u 
+.TRAN  0 10m 0 1u 
 .OPTIONS ADVCONV
 .PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
 .INC "..\SCHEMATIC1.net" 
@@ -33,11 +33,10 @@
 * source VCF
 V_V4         VCC 0 5Vdc
 R_R15         N06499 N06395  1meg TC=0,0 
-R_R18         0 OUTPUTVCF  10meg TC=0,0 
 R_R13         N06339 N06345  10k TC=0,0 
 C_C7         INPUT N06499  4.7u  TC=0,0 
 R_R17         VCC N06669  100k TC=0,0 
-X_R_RES         N06157 N06157 N06231 POT PARAMS: SET={Res} VALUE=10K
+X_R_RES         N06157 N06157 N06231 POT PARAMS: SET={Res} VALUE=10k
 C_C6         N06395 N06219  10n  TC=0,0 
 C_C5         N06219 N06231  10n  TC=0,0 
 Q_Q2         N06219 N06345 0 BC547B 
@@ -49,19 +48,21 @@ X_U3         N06669 N06395 VCC 0 N06157 MCP6001
 X_R_CUT         0 N06339 VCC POT PARAMS: SET={Freq} VALUE=10K
 R_R20         DAC_OUT N06345  10k TC=0,0 
 V_V6         DAC_OUT 0 0
-X_U4         N10926 N11078 VCC 0 OUTPUT MCP6001
+X_U4         N10926 N11078 VCC 0 N11095 MCP6001
 R_R22         0 N10926  100k TC=0,0 
 R_R21         VCC N10926  100k TC=0,0 
-R_R23         N11078 OUTPUT  10k TC=0,0 
-R_R24         OUTPUTVCF N11078  4.7k TC=0,0 
+R_R23         N11078 N11095  10k TC=0,0 
+R_R24         OUTPUTVCF N11078  3.9k TC=0,0 
+C_C9         OUTPUT N11095  100n  TC=0,0 
+R_R25         0 OUTPUT  1Meg TC=0,0 
 V_V8         INPUT 0  AC 1
-+SIN 1.65 1.65 3k 0 0 0
-.PARAM  res=.1 k=0 freq=.1
++SIN 0 .5 300 0 0 0
+.PARAM  k=0 res=1 freq=.00001
 
 **** RESUMING test.cir ****
 .END
 
-**** 02/10/20 18:16:49 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+**** 02/10/20 10:57:19 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
 
  ** Profile: "SCHEMATIC1-test"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vc
 
@@ -84,7 +85,7 @@ V_V8         INPUT 0  AC 1
           KF                  146.000000E-18 
 
 
-**** 02/10/20 18:16:49 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+**** 02/10/20 10:57:19 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
 
  ** Profile: "SCHEMATIC1-test"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vc
 
@@ -137,7 +138,7 @@ V_V8         INPUT 0  AC 1
            D     .87         
 
 
-**** 02/10/20 18:16:49 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+**** 02/10/20 10:57:19 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
 
  ** Profile: "SCHEMATIC1-test"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vc
 
@@ -182,7 +183,7 @@ V_V8         INPUT 0  AC 1
        XPART    0               0            
 
 
-**** 02/10/20 18:16:49 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+**** 02/10/20 10:57:19 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
 
  ** Profile: "SCHEMATIC1-test"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vc
 
@@ -200,7 +201,7 @@ V_V8         INPUT 0  AC 1
          TCE   10.1            10.1          
 
 
-**** 02/10/20 18:16:49 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+**** 02/10/20 10:57:19 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
 
  ** Profile: "SCHEMATIC1-test"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vc
 
@@ -215,79 +216,81 @@ V_V8         INPUT 0  AC 1
  NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
 
 
-(  VCC)    5.0000  (INPUT)    1.6500  (N06157)    3.5673 (N06219)     .0181     
+(  VCC)    5.0000  (INPUT)    0.0000  (N06157)    3.5673 (N06219)     .0182     
 
-(N06231)    3.5673 (N06339)    4.1821 (N06345)     .6499 (N06395)    2.4994     
+(N06231)    3.5673 (N06339)    4.9999 (N06345)     .6563 (N06395)    2.4994     
 
 (N06499)     .2272 (N06669)    2.5000 (N10926)    2.5000 (N11078)    2.4994     
 
-(OUTPUT)    2.5019 (DAC_OUT)    0.0000                   (X_U3.10)    5.5000    
+(N11095)    2.4994 (OUTPUT)    0.0000 (DAC_OUT)    0.0000                       
 
-(X_U3.11)    5.3275                   (X_U3.12)    5.3275                       
+(X_U3.10)    5.5000                   (X_U3.11)    5.3275                       
 
-(X_U3.13)    5.3000                   (X_U3.14)    2.4994                       
+(X_U3.12)    5.3275                   (X_U3.13)    5.3000                       
 
-(X_U3.15)    2.1543                   (X_U3.16)    -.3000                       
+(X_U3.14)    2.4994                   (X_U3.15)    2.1543                       
 
-(X_U3.20)     .5137                   (X_U3.21)    -.5137                       
+(X_U3.16)    -.3000                   (X_U3.20)     .5137                       
 
-(X_U3.26)-135.0E-06                   (X_U3.27)-241.5E-06                       
+(X_U3.21)    -.5137                   (X_U3.26)-135.0E-06                       
 
-(X_U3.30)     .0022                   (X_U3.31)  111.2500                       
+(X_U3.27)-241.5E-06                   (X_U3.30)     .0022                       
 
-(X_U3.32) -130.2000                   (X_U3.33)     .0022                       
+(X_U3.31)  111.2500                   (X_U3.32) -130.2000                       
 
-(X_U3.34)     .9391                   (X_U3.35)     .9391                       
+(X_U3.33)     .0022                   (X_U3.34)     .9391                       
 
-(X_U3.37)     .9391                   (X_U3.38)     .9391                       
+(X_U3.35)     .9391                   (X_U3.37)     .9391                       
 
-(X_U3.39)     .9391                   (X_U3.50)     .0023                       
+(X_U3.38)     .9391                   (X_U3.39)     .9391                       
 
-(X_U3.51)     .0023                   (X_U3.52) 229.7E-12                       
+(X_U3.50)     .0023                   (X_U3.51)     .0023                       
 
-(X_U3.55)    4.9992                   (X_U3.56)     .0012                       
+(X_U3.52) 229.7E-12                   (X_U3.55)    4.9992                       
 
-(X_U3.57)    3.5673                   (X_U3.61) 109.5E-06                       
+(X_U3.56)     .0012                   (X_U3.57)    3.5673                       
 
-(X_U3.62) 58.20E-12                   (X_U3.70) 1.000E-06                       
+(X_U3.61) 109.5E-06                   (X_U3.62) 58.20E-12                       
 
-(X_U3.71)    2.5000                   (X_U3.96)    3.5673                       
+(X_U3.70) 1.000E-06                   (X_U3.71)    2.5000                       
 
-(X_U3.98) 1.079E-06                   (X_U3.99) 2.272E-06                       
+(X_U3.96)    3.5673                   (X_U3.98) 1.079E-06                       
 
-(X_U4.10)    5.5000                   (X_U4.11)    5.3275                       
+(X_U3.99) 2.272E-06                   (X_U4.10)    5.5000                       
 
-(X_U4.12)    5.3275                   (X_U4.13)    5.3000                       
+(X_U4.11)    5.3275                   (X_U4.12)    5.3275                       
 
-(X_U4.14)    2.4994                   (X_U4.15)    2.1543                       
+(X_U4.13)    5.3000                   (X_U4.14)    2.4994                       
 
-(X_U4.16)    -.3000                   (X_U4.20)     .5137                       
+(X_U4.15)    2.1543                   (X_U4.16)    -.3000                       
 
-(X_U4.21)    -.5137                   (X_U4.26)-135.0E-06                       
+(X_U4.20)     .5137                   (X_U4.21)    -.5137                       
 
-(X_U4.27)-241.5E-06                   (X_U4.30)-22.83E-06                       
+(X_U4.26)-135.0E-06                   (X_U4.27)-241.5E-06                       
 
-(X_U4.31)  111.2500                   (X_U4.32) -130.2000                       
+(X_U4.30)-28.45E-06                   (X_U4.31)  111.2500                       
 
-(X_U4.33)-21.83E-06                   (X_U4.34)    -.0093                       
+(X_U4.32) -130.2000                   (X_U4.33)-27.45E-06                       
 
-(X_U4.35)    -.0093                   (X_U4.37)    -.0093                       
+(X_U4.34)    -.0117                   (X_U4.35)    -.0117                       
 
-(X_U4.38)    -.0093                   (X_U4.39)    -.0093                       
+(X_U4.37)    -.0117                   (X_U4.38)    -.0117                       
 
-(X_U4.50) 250.1E-06                   (X_U4.51) 249.8E-06                       
+(X_U4.39)    -.0117                   (X_U4.50)-648.5E-12                       
 
-(X_U4.52) 25.26E-12                   (X_U4.55)    4.9993                       
+(X_U4.51)-65.50E-18                   (X_U4.52)-647.8E-12                       
 
-(X_U4.56)     .0012                   (X_U4.57)    2.5019                       
+(X_U4.55)    4.9993                   (X_U4.56)     .0012                       
 
-(X_U4.61) 109.5E-06                   (X_U4.62) 58.20E-12                       
+(X_U4.57)    2.4994                   (X_U4.61) 109.5E-06                       
 
-(X_U4.70) 1.000E-06                   (X_U4.71)    2.5000                       
+(X_U4.62) 58.20E-12                   (X_U4.70) 1.000E-06                       
 
-(X_U4.96)    2.5019                   (X_U4.98) 118.7E-09                       
+(X_U4.71)    2.5000                   (X_U4.96)    2.4994                       
 
-(X_U4.99) 249.8E-09                   (OUTPUTVCF)    2.4982                 
+(X_U4.98)-305.5E-15                   (X_U4.99)-646.5E-15                       
+
+(OUTPUTVCF)    2.4994                 
 
 
 
@@ -295,8 +298,8 @@ V_V8         INPUT 0  AC 1
     VOLTAGE SOURCE CURRENTS
     NAME         CURRENT
 
-    V_V4        -1.091E-03
-    V_V6         6.499E-05
+    V_V4        -1.208E-03
+    V_V6         6.563E-05
     V_V8         0.000E+00
     X_U3.V10     5.000E-05
     X_U3.V16     2.828E-12
@@ -305,13 +308,13 @@ V_V8         INPUT 0  AC 1
     X_U4.V16     2.828E-12
     X_U4.V13     2.829E-12
 
-    TOTAL POWER DISSIPATION   5.51E-03  WATTS
+    TOTAL POWER DISSIPATION   6.09E-03  WATTS
 
 
 
           JOB CONCLUDED
 
-**** 02/10/20 18:16:49 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+**** 02/10/20 10:57:19 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
 
  ** Profile: "SCHEMATIC1-test"  [ C:\Users\Julien\Documents\INSA EII\Semestre 8\ProjetPluri\minimood\Hardware\VCF_Orcad_simulation\vc
 
@@ -323,6 +326,6 @@ V_V8         INPUT 0  AC 1
 
 
 
-  License check-out time            =       71.72
-  Total job time (using Solver 1)   =         .84
+  License check-out time            =       98.11
+  Total job time (using Solver 1)   =        1.77
 
