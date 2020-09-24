@@ -1,5 +1,7 @@
 # MiniMood
 
+**[WORK IN PROGRESS]**
+
 MiniMood is a digital and analog mono synth.
 This is a 4th year degree school project at INSA Rennes, France leaded by a team of 4 students.
 
