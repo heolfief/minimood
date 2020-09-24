@@ -33,11 +33,18 @@ typedef struct {
 void synth_core_start(Audio_core *ac);
 
 /**
- * \brief Main audio and LFO rendering function
+ * \brief Main audio rendering function
  *
  * \param ac The audio core structure of the system
  */
 void core_render(Audio_core *ac);
+
+/**
+ * \brief Main LFO rendering function
+ *
+ * \param ac The audio core structure of the system
+ */
+void lfo_render(Audio_core *ac);
 
 /**
  * \brief Read data from the audio buffer

@@ -23,8 +23,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "audio_core/audio_core.h"
-#include "HMI/HMI.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,9 +44,6 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 
-extern Audio_core ac;
-extern Hmi hmi;
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -63,6 +59,7 @@ extern Hmi hmi;
 /* External variables --------------------------------------------------------*/
 extern DMA_HandleTypeDef hdma_adc1;
 extern DAC_HandleTypeDef hdac;
+extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim7;
 /* USER CODE BEGIN EV */
@@ -206,6 +203,20 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief This function handles TIM5 global interrupt.
+  */
+void TIM5_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM5_IRQn 0 */
+
+  /* USER CODE END TIM5_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim5);
+  /* USER CODE BEGIN TIM5_IRQn 1 */
+
+  /* USER CODE END TIM5_IRQn 1 */
+}
+
+/**
   * @brief This function handles TIM6 global interrupt and DAC1, DAC2 underrun error interrupts.
   */
 void TIM6_DAC_IRQHandler(void)
@@ -216,15 +227,6 @@ void TIM6_DAC_IRQHandler(void)
   HAL_DAC_IRQHandler(&hdac);
   HAL_TIM_IRQHandler(&htim6);
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
-
-  core_render(&ac);	// Actual sound synthesis here
-
-  // Give DAC actual value from the buffer
-  // Audio from CHANNEL 1
-  HAL_DAC_SetValue(&hdac,DAC_CHANNEL_1,DAC_ALIGN_12B_R,read_audio_buffer());
-
-  // LFO from CHANNEL 2
-  HAL_DAC_SetValue(&hdac,DAC_CHANNEL_2,DAC_ALIGN_12B_R,read_LFO_buffer());
 
   /* USER CODE END TIM6_DAC_IRQn 1 */
 }
@@ -239,22 +241,6 @@ void TIM7_IRQHandler(void)
   /* USER CODE END TIM7_IRQn 0 */
   HAL_TIM_IRQHandler(&htim7);
   /* USER CODE BEGIN TIM7_IRQn 1 */
-  uint8_t param_changed = NO_PARAM_CHANGED;
-
-  hmi_debounce_buttons(hmi.bts);
-  param_changed = hmi_process_osc_buttons(hmi.bts, &ac.sys_param);
-  if(param_changed == OSC_PARAM_CHANGED){
-	  copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
-  }
-
-  param_changed = hmi_process_pots(hmi.adc_raw_data, hmi.pots, &ac.sys_param);
-
-  if(param_changed == OSC_PARAM_CHANGED){
-  	  copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
-  }
-  if(param_changed == LFO_PARAM_CHANGED){
-	  copy_osc_sys_param_to_lfo(&ac.sys_param, &ac.lfo);
-  }
 
   /* USER CODE END TIM7_IRQn 1 */
 }
