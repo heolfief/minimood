@@ -173,35 +173,35 @@ int main(void)
 
   ////////////////////////////////////////// Test of display code
 
-    Init_Displays();
+    disp_Init_Displays();
     //test for Menu display :
     //Booting_Screens();
     //testing the LFO screen :
-    draw_LFO_frame();
+    disp_draw_LFO_frame();
     float freq_test=0.00;
     for(int i=0; i<2000;i+=5){
   	  freq_test=freq_test+0.05;
-  	  update_LFO_value(freq_test,0.5,TRI,0,OFF);
-  	  draw_LFO_value();
+  	  disp_update_LFO_value(freq_test,0.5,TRI,0,OFF);
+  	  disp_draw_LFO_value();
 
   	  HAL_Delay(100);
     }
     //following code will test the arbitrary wave menu
-    Init_tab_arb();
-    Draw_arb_frame();
-    Draw_ARB_points();
-    ARB_Shift_Select_Right();
+    disp_Init_tab_arb();
+    disp_Draw_arb_frame();
+    disp_Draw_ARB_points();
+    disp_ARB_Shift_Select_Right();
     double value = 0;
     for(int i=0; i<sizeOfTab*2;i++){
   	  value=0;
   	  for(int j=0; j<11;j++){
   		  value = 0.1+value;
-  		  Update_arb_selected(value);
-  		  Remove_arb_points();
-  		  Draw_ARB_points();
+  		  disp_Update_arb_selected(value);
+  		  disp_Remove_arb_points();
+  		  disp_Draw_ARB_points();
   	  }
-  	  Draw_ARB_points();
-  	  ARB_Shift_Select_Left();
+  	  disp_Draw_ARB_points();
+  	  disp_ARB_Shift_Select_Left();
     }
 
 

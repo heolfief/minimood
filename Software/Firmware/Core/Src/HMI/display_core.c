@@ -25,7 +25,7 @@
 #include "HMI/waveforms_bmp.h"
 
 
-void Init_Displays(void) {
+void disp_Init_Displays(void) {
 	SSD1306_Init();  // initialise
 	SSD1306_Init_2(); //Initialise the second screen
 
@@ -33,7 +33,7 @@ void Init_Displays(void) {
 	SSD1306_Clear_2();
 }
 
-void Home_Menu(void) {
+void disp_Home_Menu(void) {
 	SSD1306_Clear();
 	SSD1306_Clear_2();
 
@@ -60,7 +60,7 @@ void Home_Menu(void) {
 
 }
 
-void Booting_Screens(void) {
+void disp_Booting_Screens(void) {
 	SSD1306_Clear();
 	SSD1306_Clear_2();
 
@@ -164,12 +164,12 @@ void Booting_Screens(void) {
 	SSD1306_UpdateScreen_2();
 
 	HAL_Delay(2000);
-	Home_Menu();
+	disp_Home_Menu();
 	HAL_Delay(2000);
 
 }
 
-void Init_ADSR_points(void) {
+void disp_Init_ADSR_points(void) {
 	First_point.X_pos = 5; //origin of the ADSR grid
 	First_point.Y_pos = 61;
 	First_point.is_selected = false;
@@ -194,7 +194,7 @@ void Init_ADSR_points(void) {
 	menu_adsr = true;
 }
 
-void Draw_ADSR_points(void) {
+void disp_Draw_ADSR_points(void) {
 	//each point will be drawn with a square of 3x3 pixels, the reference pixel will be the one at the center
 	//start with the first point :
 	SSD1306_DrawFilledRectangle_2(First_point.X_pos - 1, First_point.Y_pos - 1, 2, 2, SSD1306_COLOR_WHITE);
@@ -250,7 +250,7 @@ void Draw_ADSR_points(void) {
 
 }
 
-void Draw_ADSR_frame(void) {
+void disp_Draw_ADSR_frame(void) {
 
 	SSD1306_Clear_2();
 
@@ -264,7 +264,7 @@ void Draw_ADSR_frame(void) {
 
 }
 
-void Draw_ADSR_lines(void) {
+void disp_Draw_ADSR_lines(void) {
 	SSD1306_DrawLine_2(First_point.X_pos, First_point.Y_pos, Attack_pt.X_pos, Attack_pt.Y_pos, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine_2(Attack_pt.X_pos, Attack_pt.Y_pos, Decay_pt.X_pos, Decay_pt.Y_pos, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine_2(Decay_pt.X_pos, Decay_pt.Y_pos, Sustain_pt.X_pos, Sustain_pt.Y_pos, SSD1306_COLOR_WHITE);
@@ -273,22 +273,22 @@ void Draw_ADSR_lines(void) {
 	//SSD1306_UpdateScreen_2(); done in ADSR_display_update
 }
 
-void ADSR_Shift_Select_Right(void) {
+void disp_ADSR_Shift_Select_Right(void) {
 	select_index_adsr = (select_index_adsr + 1) % 4;
-	ADSR_Update_Select();
+	disp_ADSR_Update_Select();
 
 }
 
-void ADSR_Shift_Select_Left(void) {
+void disp_ADSR_Shift_Select_Left(void) {
 	if (select_index_adsr == 0)
 		select_index_adsr = 4;
 	select_index_adsr = (select_index_adsr - 1) % 4;
 
-	ADSR_Update_Select();
+	disp_ADSR_Update_Select();
 
 }
 
-void ADSR_Remove_values_displayed(void) {
+void disp_ADSR_Remove_values_displayed(void) {
 	//same code as draw ADSR points but in black colors :
 
 	//each point will be drawn with a square of 3x3 pixels, the reference pixel will be the one at the center
@@ -356,17 +356,17 @@ void ADSR_Remove_values_displayed(void) {
 
 }
 
-void ADSR_Update_Select(void) {
+void disp_ADSR_Update_Select(void) {
 	Attack_pt.is_selected = (select_index_adsr == 0) ? true : false;
 	Decay_pt.is_selected = (select_index_adsr == 1) ? true : false;
 	Sustain_pt.is_selected = (select_index_adsr == 2) ? true : false;
 	Release_pt.is_selected = (select_index_adsr == 3) ? true : false;
 
-	Draw_ADSR_points();
+	disp_Draw_ADSR_points();
 
 }
 
-void ADSR_value_update(float attack_val, float decay_val, float sustain_val, float release_val) {
+void disp_ADSR_value_update(float attack_val, float decay_val, float sustain_val, float release_val) {
 	//the values should be fetched in the sys.param
 	int release_pos_x_relative = (release_val * 30) / 2;
 	int sustain_pos_y_relative = 28 * sustain_val;
@@ -380,15 +380,15 @@ void ADSR_value_update(float attack_val, float decay_val, float sustain_val, flo
 
 }
 
-void ADSR_display_update(void) {
+void disp_ADSR_display_update(void) {
 	//SSD1306_Clear_2();
-	Draw_ADSR_frame();
-	Draw_ADSR_points();
-	Draw_ADSR_lines();
+	disp_Draw_ADSR_frame();
+	disp_Draw_ADSR_points();
+	disp_Draw_ADSR_lines();
 	SSD1306_UpdateScreen_2();
 }
 
-void Draw_OSC_frame(void) {
+void disp_Draw_OSC_frame(void) {
 	SSD1306_Clear();
 
 	SSD1306_DrawLine(42, 0, 42, 63, SSD1306_COLOR_WHITE);
@@ -454,7 +454,7 @@ void Draw_OSC_frame(void) {
 	SSD1306_UpdateScreen();
 }
 
-void Remove_OSC_variables_displayed(void) {
+void disp_Remove_OSC_variables_displayed(void) {
 	//osc1:
 	SSD1306_DrawLine(osc1.det_pos, 39, osc1.det_pos, 45, SSD1306_COLOR_BLACK); //remove cursor
 	SSD1306_DrawFilledRectangle(0, 58, osc1.Vol_pos, 5, SSD1306_COLOR_BLACK); //remove volume
@@ -490,7 +490,7 @@ void Remove_OSC_variables_displayed(void) {
 
 }
 
-void Unselect_osc1(void) {
+void disp_Unselect_osc1(void) {
 	for (int i = 0; i < 41; i++) {
 		for (int j = 0; j < 10; j++) {
 			SSD1306_DrawPixel(i, j, SSD1306_COLOR_WHITE);
@@ -500,7 +500,7 @@ void Unselect_osc1(void) {
 	SSD1306_Puts("-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
 }
 
-void Select_osc1(void) {
+void disp_Select_osc1(void) {
 
 	for (int i = 0; i < 41; i++) {
 		for (int j = 0; j < 10; j++) {
@@ -511,7 +511,7 @@ void Select_osc1(void) {
 	SSD1306_Puts("OSC 1", &Font_7x10, SSD1306_COLOR_WHITE);
 }
 
-void Unselect_osc2(void) {
+void disp_Unselect_osc2(void) {
 	for (int i = 44; i < 84; i++) {
 		for (int j = 0; j < 10; j++) {
 			SSD1306_DrawPixel(i, j, SSD1306_COLOR_WHITE);
@@ -521,7 +521,7 @@ void Unselect_osc2(void) {
 	SSD1306_Puts("-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
 }
 
-void Select_osc2(void) {
+void disp_Select_osc2(void) {
 
 	for (int i = 44; i < 84; i++) {
 		for (int j = 0; j < 10; j++) {
@@ -532,7 +532,7 @@ void Select_osc2(void) {
 	SSD1306_Puts("OSC 2", &Font_7x10, SSD1306_COLOR_WHITE);
 }
 
-void Unselect_osc3(void) {
+void disp_Unselect_osc3(void) {
 	for (int i = 87; i < 127; i++) {
 		for (int j = 0; j < 10; j++) {
 			SSD1306_DrawPixel(i, j, SSD1306_COLOR_WHITE);
@@ -542,7 +542,7 @@ void Unselect_osc3(void) {
 	SSD1306_Puts("-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
 }
 
-void Select_osc3(void) {
+void disp_Select_osc3(void) {
 
 	for (int i = 87; i < 127; i++) {
 		for (int j = 0; j < 10; j++) {
@@ -553,7 +553,7 @@ void Select_osc3(void) {
 	SSD1306_Puts("OSC 3", &Font_7x10, SSD1306_COLOR_WHITE);
 }
 
-void Draw_OSC_Var_displayed(void) {
+void disp_Draw_OSC_Var_displayed(void) {
 	//osc1:
 	SSD1306_DrawLine(osc1.det_pos, 39, osc1.det_pos, 45, SSD1306_COLOR_WHITE); // cursor
 	SSD1306_DrawFilledRectangle(0, 58, osc1.Vol_pos, 5, SSD1306_COLOR_WHITE); // volume
@@ -580,9 +580,9 @@ void Draw_OSC_Var_displayed(void) {
 	SSD1306_DrawBitmap(0, 11, osc1.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
 
 	if (!osc1.is_on)
-		Unselect_osc1(); //draw the -OFF- in inverted colors if osc is off
+		disp_Unselect_osc1(); //draw the -OFF- in inverted colors if osc is off
 	if (osc1.is_on)
-		Select_osc1();	//puts back the name of the osc if it is on
+		disp_Select_osc1();	//puts back the name of the osc if it is on
 
 	//osc2:
 	SSD1306_DrawLine(44 + osc2.det_pos, 39, 44 + osc2.det_pos, 45, SSD1306_COLOR_WHITE); //remove cursor
@@ -610,9 +610,9 @@ void Draw_OSC_Var_displayed(void) {
 	SSD1306_DrawBitmap(44, 11, osc2.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
 
 	if (!osc2.is_on)
-		Unselect_osc2();
+		disp_Unselect_osc2();
 	if (osc2.is_on)
-		Select_osc2();
+		disp_Select_osc2();
 
 	//osc3:
 	SSD1306_DrawLine(87 + osc3.det_pos, 39, 87 + osc3.det_pos, 45, SSD1306_COLOR_WHITE); //cursor detune
@@ -639,15 +639,15 @@ void Draw_OSC_Var_displayed(void) {
 
 	SSD1306_DrawBitmap(87, 11, osc3.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
 	if (!osc3.is_on)
-		Unselect_osc3();
+		disp_Unselect_osc3();
 	if (osc3.is_on)
-		Select_osc3();
+		disp_Select_osc3();
 
 	SSD1306_UpdateScreen();
 
 }
 
-void Update_value_OSC_1(float amp, Waveform wave, int8_t detune, OnOff onoff) {
+void disp_Update_value_OSC_1(float amp, Waveform wave, int8_t detune, OnOff onoff) {
 	osc1.Vol_pos = floor(amp * 39);
 	osc1.det_pos = ((detune + 12) * 40) / 24;
 	osc1.detune = detune;
@@ -677,7 +677,7 @@ void Update_value_OSC_1(float amp, Waveform wave, int8_t detune, OnOff onoff) {
 	}
 }
 
-void Update_value_OSC_2(float amp, Waveform wave, int8_t detune, OnOff onoff) {
+void disp_Update_value_OSC_2(float amp, Waveform wave, int8_t detune, OnOff onoff) {
 	osc2.Vol_pos = floor(amp * 39);
 	osc2.det_pos = ((detune + 12) * 40) / 24;
 	osc2.detune = detune;
@@ -708,7 +708,7 @@ void Update_value_OSC_2(float amp, Waveform wave, int8_t detune, OnOff onoff) {
 
 }
 
-void Update_value_OSC_3(float amp, Waveform wave, int8_t detune, OnOff onoff) {
+void disp_Update_value_OSC_3(float amp, Waveform wave, int8_t detune, OnOff onoff) {
 	osc3.Vol_pos = floor(amp * 39);
 	osc3.det_pos = ((detune + 12) * 40) / 24;
 	osc3.detune = detune;
@@ -738,7 +738,7 @@ void Update_value_OSC_3(float amp, Waveform wave, int8_t detune, OnOff onoff) {
 	}
 }
 
-void Draw_arb_frame(void) {
+void disp_Draw_arb_frame(void) {
 	SSD1306_GotoXY_2(0, 0);
 	SSD1306_Puts_2("Wave Editor", &Font_11x18, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine_2(0, 19, 127, 19, SSD1306_COLOR_WHITE);
@@ -746,7 +746,7 @@ void Draw_arb_frame(void) {
 	SSD1306_UpdateScreen_2();
 }
 
-void Init_tab_arb(void) {
+void disp_Init_tab_arb(void) {
 	uint16_t inc = 0;
 	for (int i = 0; i < sizeOfTab; i++) {
 		tab_arb_points[i].Y_pos = 43;
@@ -757,7 +757,7 @@ void Init_tab_arb(void) {
 }
 
 //function to update everything from an outside tab composed of points
-void Update_values_arb_tab(Arb_points tab[]) {
+void disp_Update_values_arb_tab(Arb_points tab[]) {
 	for (int i = 0; i < sizeOfTab; i++) {
 		if (tab[i].Y_pos > 24 && tab[i].Y_pos < 61)
 			tab_arb_points[i].Y_pos = tab[i].Y_pos;
@@ -765,27 +765,27 @@ void Update_values_arb_tab(Arb_points tab[]) {
 	}
 }
 
-void ARB_Update_Select(void) {
+void disp_ARB_Update_Select(void) {
 	for (int i = 0; i < sizeOfTab; i++) {
 		tab_arb_points[i].is_selected = (select_index_arb == i) ? true : false;
 	}
 	//Draw_ADSR_points();
 
 }
-void ARB_Shift_Select_Right(void) {
+void disp_ARB_Shift_Select_Right(void) {
 	select_index_arb = (select_index_arb + 1) % (sizeOfTab);
-	ARB_Update_Select();
+	disp_ARB_Update_Select();
 
 }
 
-void ARB_Shift_Select_Left(void) {
+void disp_ARB_Shift_Select_Left(void) {
 	if (select_index_arb == 0)
 		select_index_arb = sizeOfTab;
 	select_index_arb = (select_index_arb - 1) % (sizeOfTab);
-	ARB_Update_Select();
+	disp_ARB_Update_Select();
 }
 
-void Update_arb_selected(double value) {
+void disp_Update_arb_selected(double value) {
 	double pos = (value * 34.00 + 24.00); //valid if value is between 0 and 1.
 	for (int i = 0; i < sizeOfTab; i++) {
 		if (tab_arb_points[i].is_selected) {
@@ -794,7 +794,7 @@ void Update_arb_selected(double value) {
 	}
 }
 
-void Draw_ARB_points(void) {
+void disp_Draw_ARB_points(void) {
 	int size_limit_h = 0;
 	int size_limit_w = 0;
 	int start_h = 0;
@@ -835,7 +835,7 @@ void Draw_ARB_points(void) {
 	SSD1306_UpdateScreen_2();
 }
 
-void Remove_arb_points(void) {
+void disp_Remove_arb_points(void) {
 	for (int w = 0; w < 127; w++) {
 		for (int h = 24; h < 64; h++) {
 			SSD1306_DrawPixel_2(w, h, SSD1306_COLOR_BLACK);
@@ -844,7 +844,7 @@ void Remove_arb_points(void) {
 	}
 }
 
-void draw_LFO_frame(void) {
+void disp_draw_LFO_frame(void) {
 	SSD1306_GotoXY(0, 0);
 	SSD1306_Puts("Low", &Font_11x18, SSD1306_COLOR_WHITE);
 	SSD1306_GotoXY(38, 0);
@@ -868,7 +868,7 @@ void draw_LFO_frame(void) {
 
 	SSD1306_UpdateScreen();
 }
-void update_LFO_value(float freq, float amp, Waveform wave, int8_t detune, OnOff onoff) {
+void disp_update_LFO_value(float freq, float amp, Waveform wave, int8_t detune, OnOff onoff) {
 	lfo.freq = freq;
 	lfo.amp_perc = 100 * amp;
 	lfo.det_pos = ((detune + 12) * 40) / 24;
@@ -899,7 +899,7 @@ void update_LFO_value(float freq, float amp, Waveform wave, int8_t detune, OnOff
 	}
 }
 
-void draw_LFO_value(void) {
+void disp_draw_LFO_value(void) {
 	//the freq is a double between 0.01 and 20.00, to display it properly I will multiply it by a 100
 	double temp_freq = 100.00 * lfo.freq;
 	char buffer1[11];				//drawing here the freq value
