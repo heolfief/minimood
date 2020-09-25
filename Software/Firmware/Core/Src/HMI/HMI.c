@@ -18,7 +18,7 @@
  *
  * \return the mapped value
  */
-#define MAP(X, IN_MIN, IN_MAX, OUT_MIN, OUT_MAX) (X-IN_MIN)*(OUT_MAX-OUT_MIN)/(IN_MAX-IN_MIN)+OUT_MIN
+#define MAP(X, IN_MIN, IN_MAX, OUT_MIN, OUT_MAX) ((X-IN_MIN)*(OUT_MAX-OUT_MIN)/(IN_MAX-IN_MIN)+OUT_MIN)
 
 void hmi_init(Hmi *hmi) {
 	for (int i = 0; i < NBR_OF_POTS; ++i) {
@@ -30,7 +30,7 @@ void hmi_init(Hmi *hmi) {
 		hmi->bts[i].log_cnt = 0;
 		hmi->bts[i].waiting = 0;
 		hmi->bts[i].last_state = 0;
-		hmi->bts[i].state = 0;
+		hmi->bts[i].state = BT_STATE_RST;
 	}
 
 	hmi->bts[BT_OSC1_ON].port = OSC1_ON_GPIO_Port;
@@ -112,11 +112,11 @@ void hmi_debounce_buttons(Button *bts) {
 
 			if (bts[i].log_cnt >= DEBOUNCE_NBR_OF_SAMPLES
 					&& current_reading == 0) {
-				bts[i].state = 1;
+				bts[i].state = BT_STATE_SET;
 				bts[i].log_cnt = 0;
 				bts[i].waiting = 0;
 			} else {
-				bts[i].state = 0;
+				bts[i].state = BT_STATE_RST;
 			}
 
 		}
@@ -125,49 +125,49 @@ void hmi_debounce_buttons(Button *bts) {
 }
 
 uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
-	uint8_t param_changed = NO_PARAM_CHANGED;
+	Param_Changed param_changed = NO_PARAM_CHANGED;
 
-	if (bts[BT_OSC1_ON].state == 1) {
+	if (bts[BT_OSC1_ON].state == BT_STATE_SET) {
 		if (sys_param->osc1.onoff == OFF) {
 			sys_param->osc1.onoff = ON;
 		} else {
 			sys_param->osc1.onoff = OFF;
 		}
-		bts[BT_OSC1_ON].state = 0;	// reset state
+		bts[BT_OSC1_ON].state = BT_STATE_RST;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
-	if (bts[BT_OSC2_ON].state == 1) {
+	if (bts[BT_OSC2_ON].state == BT_STATE_SET) {
 		if (sys_param->osc2.onoff == OFF) {
 			sys_param->osc2.onoff = ON;
 		} else {
 			sys_param->osc2.onoff = OFF;
 		}
-		bts[BT_OSC2_ON].state = 0;	// reset state
+		bts[BT_OSC2_ON].state = BT_STATE_RST;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
-	if (bts[BT_OSC3_ON].state == 1) {
+	if (bts[BT_OSC3_ON].state == BT_STATE_SET) {
 		if (sys_param->osc3.onoff == OFF) {
 			sys_param->osc3.onoff = ON;
 		} else {
 			sys_param->osc3.onoff = OFF;
 		}
-		bts[BT_OSC3_ON].state = 0;	// reset state
+		bts[BT_OSC3_ON].state = BT_STATE_RST;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
 
-	if (bts[BT_OSC1_WAVE].state == 1) {
+	if (bts[BT_OSC1_WAVE].state == BT_STATE_SET) {
 		sys_param->osc1.wave = (sys_param->osc1.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
-		bts[BT_OSC1_WAVE].state = 0;	// reset state
+		bts[BT_OSC1_WAVE].state = BT_STATE_RST;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
-	if (bts[BT_OSC2_WAVE].state == 1) {
+	if (bts[BT_OSC2_WAVE].state == BT_STATE_SET) {
 		sys_param->osc2.wave = (sys_param->osc2.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
 		bts[BT_OSC2_WAVE].state = 0;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
-	if (bts[BT_OSC3_WAVE].state == 1) {
+	if (bts[BT_OSC3_WAVE].state == BT_STATE_SET) {
 		sys_param->osc3.wave = (sys_param->osc3.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
-		bts[BT_OSC3_WAVE].state = 0;	// reset state
+		bts[BT_OSC3_WAVE].state = BT_STATE_RST;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
 	return param_changed;
@@ -176,7 +176,7 @@ uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
 uint8_t hmi_process_pots(uint8_t *rawdata, Potentiometer *pots,
 		Sys_param *sys_param) {
 
-	uint8_t param_changed = NO_PARAM_CHANGED;
+	Param_Changed param_changed = NO_PARAM_CHANGED;
 
 	if (rawdata[POT_OSC1_AMP] != pots[POT_OSC1_AMP].last_value) {
 		sys_param->osc1.amp = (float) MAP((float)rawdata[POT_OSC1_AMP], 0.0,
