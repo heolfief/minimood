@@ -2,23 +2,23 @@
  * original author:  Tilen Majerle<tilen@majerle.eu>
  * modification for STM32f10x: Alexander Lutsai<s.lyra@ya.ru>
 
-   ----------------------------------------------------------------------
-   	Copyright (C) Alexander Lutsai, 2016
-    Copyright (C) Tilen Majerle, 2015
-    
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    any later version.
-     
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-   ----------------------------------------------------------------------
+ ----------------------------------------------------------------------
+ Copyright (C) Alexander Lutsai, 2016
+ Copyright (C) Tilen Majerle, 2015
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ----------------------------------------------------------------------
  */
 #ifndef SSD1306_H
 #define SSD1306_H 100
@@ -37,12 +37,12 @@ extern C {
  *
  * Default pinout
  *
-SSD1306    |STM32F10x    |DESCRIPTION
+ SSD1306    |STM32F10x    |DESCRIPTION
 
-VCC        |3.3V  / 5V   |
-GND        |GND          |
-SCL        |PB6          |Serial clock line
-SDA        |PB7          |Serial data line
+ VCC        |3.3V  / 5V   |
+ GND        |GND          |
+ SCL        |PB6          |Serial clock line
+ SDA        |PB7          |Serial data line
  */
 
 #include "stm32f4xx_hal.h"
@@ -51,7 +51,6 @@ SDA        |PB7          |Serial data line
 
 #include "stdlib.h"
 #include "string.h"
-
 
 /* I2C address */
 #ifndef SSD1306_I2C_ADDR
@@ -77,10 +76,8 @@ SDA        |PB7          |Serial data line
  */
 typedef enum {
 	SSD1306_COLOR_BLACK = 0x00, /*!< Black color, no pixel */
-	SSD1306_COLOR_WHITE = 0x01  /*!< Pixel is set. Color depends on LCD */
+	SSD1306_COLOR_WHITE = 0x01 /*!< Pixel is set. Color depends on LCD */
 } SSD1306_COLOR_t;
-
-
 
 /**
  * @brief  Initializes SSD1306 LCD
@@ -194,7 +191,7 @@ void SSD1306_GotoXY_2(uint16_t x, uint16_t y);
  * @param  color: Color used for drawing. This parameter can be a value of @ref SSD1306_COLOR_t enumeration
  * @retval Character written
  */
-char SSD1306_Putc(char ch, FontDef_t* Font, SSD1306_COLOR_t color);
+char SSD1306_Putc(char ch, FontDef_t *Font, SSD1306_COLOR_t color);
 
 /**
  * @brief  Puts character to internal RAM of the second screen
@@ -204,7 +201,7 @@ char SSD1306_Putc(char ch, FontDef_t* Font, SSD1306_COLOR_t color);
  * @param  color: Color used for drawing. This parameter can be a value of @ref SSD1306_COLOR_t enumeration
  * @retval Character written
  */
-char SSD1306_Putc_2(char ch, FontDef_t* Font, SSD1306_COLOR_t color);
+char SSD1306_Putc_2(char ch, FontDef_t *Font, SSD1306_COLOR_t color);
 
 /**
  * @brief  Puts string to internal RAM
@@ -214,7 +211,7 @@ char SSD1306_Putc_2(char ch, FontDef_t* Font, SSD1306_COLOR_t color);
  * @param  color: Color used for drawing. This parameter can be a value of @ref SSD1306_COLOR_t enumeration
  * @retval Zero on success or character value when function failed
  */
-char SSD1306_Puts(char* str, FontDef_t* Font, SSD1306_COLOR_t color);
+char SSD1306_Puts(char *str, FontDef_t *Font, SSD1306_COLOR_t color);
 
 /**
  * @brief  Puts string to internal RAM
@@ -224,7 +221,7 @@ char SSD1306_Puts(char* str, FontDef_t* Font, SSD1306_COLOR_t color);
  * @param  color: Color used for drawing. This parameter can be a value of @ref SSD1306_COLOR_t enumeration
  * @retval Zero on success or character value when function failed
  */
-char SSD1306_Puts_2(char* str, FontDef_t* Font, SSD1306_COLOR_t color);
+char SSD1306_Puts_2(char *str, FontDef_t *Font, SSD1306_COLOR_t color);
 
 /**
  * @brief  Draws line on LCD
@@ -329,7 +326,6 @@ void SSD1306_DrawTriangle_2(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
 void SSD1306_DrawFilledTriangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, SSD1306_COLOR_t color);
 void SSD1306_DrawFilledTriangle_2(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, SSD1306_COLOR_t color);
 
-
 /**
  * @brief  Draws circle to STM buffer
  * @note   @ref SSD1306_UpdateScreen() must be called after that in order to see updated LCD screen
@@ -374,7 +370,6 @@ void SSD1306_DrawFilledCircle(int16_t x0, int16_t y0, int16_t r, SSD1306_COLOR_t
  */
 void SSD1306_DrawFilledCircle_2(int16_t x0, int16_t y0, int16_t r, SSD1306_COLOR_t c);
 
-
 #ifndef ssd1306_I2C_TIMEOUT
 #define ssd1306_I2C_TIMEOUT					20000
 #endif
@@ -418,9 +413,7 @@ void ssd1306_I2C_WriteMulti(uint8_t address, uint8_t reg, uint8_t *data, uint16_
  * @param  H : Height of the image
  * @param  color : 1-> white/blue, 0-> black
  */
-void SSD1306_DrawBitmap(int16_t x, int16_t y, const unsigned char* bitmap, int16_t w, int16_t h, uint16_t color);
-
-
+void SSD1306_DrawBitmap(int16_t x, int16_t y, const unsigned char *bitmap, int16_t w, int16_t h, uint16_t color);
 
 /**
  * @brief  Draws the Bitmap on the second screen
@@ -431,7 +424,7 @@ void SSD1306_DrawBitmap(int16_t x, int16_t y, const unsigned char* bitmap, int16
  * @param  H : Height of the image
  * @param  color : 1-> white/blue, 0-> black
  */
-void SSD1306_DrawBitmap_2(int16_t x, int16_t y, const unsigned char* bitmap, int16_t w, int16_t h, uint16_t color);
+void SSD1306_DrawBitmap_2(int16_t x, int16_t y, const unsigned char *bitmap, int16_t w, int16_t h, uint16_t color);
 // scroll the screen for fixed rows
 
 void SSD1306_ScrollRight(uint8_t start_row, uint8_t end_row);
@@ -450,32 +443,23 @@ void SSD1306_Scrolldiagleft(uint8_t start_row, uint8_t end_row);
 
 void SSD1306_Scrolldiagleft_2(uint8_t start_row, uint8_t end_row);
 
-
-
 void SSD1306_Stopscroll(void);
 
 void SSD1306_Stopscroll_2(void);
 
-
 // inverts the display i = 1->inverted, i = 0->normal
 
-void SSD1306_InvertDisplay (int i);
+void SSD1306_InvertDisplay(int i);
 
-void SSD1306_InvertDisplay_2 (int i);
-
-
-
-
-
+void SSD1306_InvertDisplay_2(int i);
 
 // clear the display
 
-void SSD1306_Clear (void);
+void SSD1306_Clear(void);
 
 // clear the second display
 
-void SSD1306_Clear_2 (void);
-
+void SSD1306_Clear_2(void);
 
 /* C++ detection */
 #ifdef __cplusplus

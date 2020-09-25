@@ -1,22 +1,22 @@
 /**
  * original author:  Loïc Scotto<loscot@hotmail.fr>
 
-   ----------------------------------------------------------------------
-   	Copyright (C) Loïc Scotto, 2020
+ ----------------------------------------------------------------------
+ Copyright (C) Loïc Scotto, 2020
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-   ----------------------------------------------------------------------
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ----------------------------------------------------------------------
  */
 
 #include"display_core/ssd1306.h"
@@ -26,12 +26,10 @@
 
 #include "audio_core/oscillator/osc.h"
 
-
 #include <stdbool.h>
 #include <stdlib.h>
 
 //#include "display_core/bitmap.h"
-
 
 #ifndef INC_DISPLAY_SYNTH_H_
 #define INC_DISPLAY_SYNTH_H_
@@ -51,8 +49,9 @@ typedef struct {
 
 } ADSR_point;
 
-enum wave {sine, square, triangle, sawtooth, arbitrary};
-
+enum wave {
+	sine, square, triangle, sawtooth, arbitrary
+};
 
 typedef struct {
 	uint16_t Vol_pos;
@@ -86,7 +85,6 @@ oscillator_display osc2;
 oscillator_display osc3;
 oscillator_display lfo;
 
-
 void Init_Displays(void);
 
 void Booting_Screens(void);
@@ -116,17 +114,16 @@ void Draw_OSC_frame(void);
 
 void Remove_OSC_variables_displayed(void);
 
-void Update_value_OSC_1(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
-void Update_value_OSC_2(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
-void Update_value_OSC_3(float amp,  Waveform wave, int8_t detune,  OnOff onoff);
+void Update_value_OSC_1(float amp, Waveform wave, int8_t detune, OnOff onoff);
+void Update_value_OSC_2(float amp, Waveform wave, int8_t detune, OnOff onoff);
+void Update_value_OSC_3(float amp, Waveform wave, int8_t detune, OnOff onoff);
 
-void Unselect_osc1(void); 	//to draw the osc name in inverted colors if it is off
+void Unselect_osc1(void); //to draw the osc name in inverted colors if it is off
 void Select_osc1(void); 	// redraw the osc name as before
 void Unselect_osc2(void);
 void Select_osc2(void);
 void Unselect_osc3(void);
 void Select_osc3(void);
-
 
 void Draw_OSC_Var_displayed(void);
 
@@ -140,9 +137,8 @@ void ARB_Shift_Select_Right(void);
 void ARB_Shift_Select_Left(void);
 void Update_arb_selected(double value);
 
-
 void draw_LFO_frame(void);
-void update_LFO_value(float freq, float amp,  Waveform wave, int8_t detune,  OnOff onoff);
+void update_LFO_value(float freq, float amp, Waveform wave, int8_t detune, OnOff onoff);
 void draw_LFO_value(void);
 
 #endif /* INC_DISPLAY_SYNTH_H_ */

@@ -11,7 +11,6 @@
 #include "main.h"
 #include "sys_param/sys_param.h"
 
-
 ///////// SOFTWARE DEFINES FOR SETTINGS
 #define OSC_AMP_MIN					0.0
 #define OSC_AMP_MAX					1.0
@@ -42,7 +41,6 @@
 #define DEBOUNCE_NBR_OF_SAMPLES		5
 /////////////////////////////////////
 
-
 ////////// HARDWARE DEPENDANT DEFINES
 #define BT_OSC1_ON					0
 #define BT_OSC2_ON					1
@@ -70,10 +68,21 @@
 #define POT_LFO_DEPTH				11
 //////////////////////////////////////
 
-#define NO_PARAM_CHANGED			0
-#define OSC_PARAM_CHANGED			1
-#define ADSR_PARAM_CHANGED			2
-#define LFO_PARAM_CHANGED			3
+/**
+ * \enum Param_Changed
+ * \brief define what parameter if any has changed on the HMI
+ */
+typedef enum {
+	NO_PARAM_CHANGED, OSC_PARAM_CHANGED, ADSR_PARAM_CHANGED, LFO_PARAM_CHANGED
+} Param_Changed;
+
+/**
+ * \enum
+ * \brief define button states
+ */
+enum {
+	BT_STATE_RST, BT_STATE_SET
+};
 
 /**
  * \struct Button

@@ -10,11 +10,11 @@
 
 #include "stdint.h"
 
-void TestLines (uint8_t color);
+void TestLines(uint8_t color);
 
-void TestRectangles (uint8_t color);
+void TestRectangles(uint8_t color);
 
-void TestFilledRectangles (uint8_t color);
+void TestFilledRectangles(uint8_t color);
 
 void TestFilledCircles(uint8_t radius, uint16_t color);
 
