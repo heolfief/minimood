@@ -27,6 +27,9 @@
 extern C {
 #endif
 
+#include <inttypes.h>
+#include <string.h>
+
 /**
  *
  * Default fonts library. It is used in all LCD based libraries.
@@ -38,8 +41,6 @@ extern C {
  *  - 11 x 18 pixels
  *  - 16 x 26 pixels
  */
-#include "stm32f4xx_hal.h"
-#include "string.h"
 
 /**
  * @defgroup LIB_Typedefs

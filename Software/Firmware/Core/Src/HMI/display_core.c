@@ -19,9 +19,11 @@
  ----------------------------------------------------------------------
  */
 
-#include <display_core/display_core.h>
-#include <display_core/waveforms_bmp.h>
-#include <math.h>
+#include "HMI/display_core.h"
+
+// bmp data is here
+#include "HMI/waveforms_bmp.h"
+
 
 void Init_Displays(void) {
 	SSD1306_Init();  // initialise

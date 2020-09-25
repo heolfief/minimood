@@ -20,7 +20,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ----------------------------------------------------------------------
  */
-#include "display_core/ssd1306.h"
+#include "HMI/SSD1306/ssd1306.h"
 
 extern I2C_HandleTypeDef hi2c1; //SCL : PB6 / SDA : PB7
 /* Write command */

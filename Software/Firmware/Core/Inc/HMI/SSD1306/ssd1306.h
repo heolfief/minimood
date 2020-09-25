@@ -28,6 +28,13 @@
 extern C {
 #endif
 
+#include "stm32f4xx_hal.h"
+#include "HMI/SSD1306/fonts.h"
+
+#include <stdlib.h>
+#include <string.h>
+
+
 /**
  * This SSD1306 LCD uses I2C for communication
  *
@@ -44,13 +51,6 @@ extern C {
  SCL        |PB6          |Serial clock line
  SDA        |PB7          |Serial data line
  */
-
-#include "stm32f4xx_hal.h"
-
-#include "fonts.h"
-
-#include "stdlib.h"
-#include "string.h"
 
 /* I2C address */
 #ifndef SSD1306_I2C_ADDR

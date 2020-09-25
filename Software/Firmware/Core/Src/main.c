@@ -23,8 +23,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "audio_core/audio_core.h"
-#include "display_core/display_core.h"
 #include "HMI/HMI.h"
+#include "HMI/display_core.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -116,8 +116,8 @@ int main(void)
   MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_TIM_Base_Start_IT(&htim6);	// start TIM6, IT mode
-  HAL_TIM_Base_Start_IT(&htim7);	// start TIM7, IT mode
+  HAL_TIM_Base_Start_IT(&htim6);		// start TIM6, IT mode
+  HAL_TIM_Base_Start_IT(&htim7);		// start TIM7, IT mode
   HAL_DAC_Start(&hdac,DAC_CHANNEL_1);	// Start DAC on channel 1
   HAL_DAC_Start(&hdac,DAC_CHANNEL_2);	// Start DAC on channel 2
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)hmi.adc_raw_data, NBR_OF_POTS);
