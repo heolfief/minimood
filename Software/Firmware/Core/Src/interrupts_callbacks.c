@@ -58,5 +58,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 		if (param_changed == LFO_PARAM_CHANGED) {
 			copy_osc_sys_param_to_lfo(&ac.sys_param, &ac.lfo);
 		}
+
+		hmi_screen_fsm(&hmi, param_changed);	// Finite State Machine to handle what to show on screen
 	}
 }
