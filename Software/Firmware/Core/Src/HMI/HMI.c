@@ -97,6 +97,8 @@ void hmi_init(Hmi *hmi) {
 
 	hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_IDLE;
 	hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_IDLE;
+
+	disp_Init_Displays();
 }
 
 void hmi_debounce_buttons(Button *bts) {
@@ -253,15 +255,26 @@ Param_Changed hmi_process_pots(uint8_t *rawdata, Potentiometer *pots, Sys_param 
 	return param_changed;
 }
 
-void hmi_screen_fsm(Hmi *hmi, Param_Changed, param_changed) {
+void hmi_screen_fsm(Hmi *hmi, Sys_param *sys_param, Param_Changed param_changed) {
 	switch (hmi->screens_states[SCREEN_LEFT]) {
 	case SCREEN_STATE_IDLE:
+		hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_BOOTSCREEN;
 		break;
 	case SCREEN_STATE_BOOTSCREEN:
+		hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_BOOTSCREEN;
+		disp_Booting_Screens();
+		hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_OSC;
 		break;
 	case SCREEN_STATE_OSC:
 		if (param_changed == LFO_PARAM_CHANGED)
 			hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_LFO;
+
+		disp_Draw_OSC_frame();
+		disp_Remove_OSC_variables_displayed();
+		disp_Update_value_OSC_1(sys_param->osc1.amp, sys_param->osc1.wave, sys_param->osc1.detune, sys_param->osc1.onoff);
+		disp_Update_value_OSC_2(sys_param->osc2.amp, sys_param->osc2.wave, sys_param->osc2.detune, sys_param->osc2.onoff);
+		disp_Update_value_OSC_3(sys_param->osc3.amp, sys_param->osc3.wave, sys_param->osc3.detune, sys_param->osc3.onoff);
+		disp_Draw_OSC_Var_displayed();
 		break;
 	case SCREEN_STATE_ADSR:
 		// Left screen is not meant to show ADSR screen
@@ -269,6 +282,10 @@ void hmi_screen_fsm(Hmi *hmi, Param_Changed, param_changed) {
 	case SCREEN_STATE_LFO:
 		if (param_changed == OSC_PARAM_CHANGED)
 			hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_OSC;
+
+		disp_draw_LFO_frame();
+		disp_update_LFO_value(sys_param->lfo.freq, sys_param->lfo.amp, sys_param->lfo.wave, sys_param->lfo.detune, sys_param->lfo.onoff);
+		disp_draw_LFO_value();
 		break;
 	case SCREEN_STATE_ARB:
 		// Left screen is not meant to show ARB screen
@@ -279,15 +296,19 @@ void hmi_screen_fsm(Hmi *hmi, Param_Changed, param_changed) {
 
 	switch (hmi->screens_states[SCREEN_RIGHT]) {
 	case SCREEN_STATE_IDLE:
+		hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_BOOTSCREEN;
 		break;
 	case SCREEN_STATE_BOOTSCREEN:
+		hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_ADSR;
 		break;
 	case SCREEN_STATE_OSC:
 		// Right screen is not meant to show OSC screen
 		break;
 	case SCREEN_STATE_ADSR:
-		if (param_changed == ARB_PARAM_CHANGED)
-			hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_ARB;
+		disp_Init_ADSR_points();
+		disp_ADSR_Remove_values_displayed();
+		disp_ADSR_value_update(sys_param->env.attack, sys_param->env.decay, sys_param->env.sustain, sys_param->env.release);
+		disp_ADSR_display_update();
 		break;
 	case SCREEN_STATE_LFO:
 		// Right screen is not meant to show LFO screen
@@ -295,6 +316,8 @@ void hmi_screen_fsm(Hmi *hmi, Param_Changed, param_changed) {
 	case SCREEN_STATE_ARB:
 		if (param_changed == ADSR_PARAM_CHANGED)
 			hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_ADSR;
+
+		// TO BE IMPLEMENTED
 		break;
 	default:
 		break;

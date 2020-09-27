@@ -170,23 +170,7 @@ int main(void)
 
   midi_note_ON(ac.note, 60, 127);
 
-
-  ////////////////////////////////////////// Test of display code
-
-    disp_Init_Displays();
-    //test for Menu display :
-    //Booting_Screens();
-    //testing the LFO screen :
-    disp_draw_LFO_frame();
-    float freq_test=0.00;
-    for(int i=0; i<2000;i+=5){
-  	  freq_test=freq_test+0.05;
-  	  disp_update_LFO_value(freq_test,0.5,TRI,0,OFF);
-  	  disp_draw_LFO_value();
-
-  	  HAL_Delay(100);
-    }
-    //following code will test the arbitrary wave menu
+/*    //following code will test the arbitrary wave menu
     disp_Init_tab_arb();
     disp_Draw_arb_frame();
     disp_Draw_ARB_points();
@@ -202,68 +186,7 @@ int main(void)
   	  }
   	  disp_Draw_ARB_points();
   	  disp_ARB_Shift_Select_Left();
-    }
-
-
-    /* the code after is for testing both the oscillo display and ADSR
-    //test for osc display :
-  	Draw_OSC_frame();
-  	Remove_OSC_variables_displayed();
-  	Update_value_OSC_1(0.7, SIN, -11, ON);
-  	Update_value_OSC_2(0.3, SQR, -12, OFF);
-  	Update_value_OSC_3(1, TRI, -10, OFF);
-  	Draw_OSC_Var_displayed();
-  	HAL_Delay(3000);
-
-  	//try to launch the ADSR menu at the same time
-  	Init_ADSR_points();
-  	ADSR_display_update();
-
-  	HAL_Delay(1000);
-  	ADSR_Remove_values_displayed();
-  	ADSR_value_update(0.01, 0.01, 0.5, 0.5);
-  	ADSR_display_update();
-
-  	// osc menu modified :
-  	Remove_OSC_variables_displayed();
-  	Update_value_OSC_1(0.4, SQR, -8, OFF);
-  	Update_value_OSC_2(0.0, ARB, -11, OFF);
-  	Update_value_OSC_3(0.8, SAW,4, OFF);
-  	Draw_OSC_Var_displayed();
-  	HAL_Delay(3000);
-  	float inc=0;
-  	for (int i = 0; i < 11; ++i) {
-  		for (int det = -12; det < 13; det++) {
-
-  			inc = (float) i / 10.0;
-  			Remove_OSC_variables_displayed();
-  			Update_value_OSC_1(inc, SIN, det, ON);
-  			Update_value_OSC_2(inc, ARB, det, ON);
-  			Update_value_OSC_3(inc, SQR, det, OFF);
-  			Draw_OSC_Var_displayed();
-  			HAL_Delay(100);
-  		}
-  	}
-
-
-
-    // Home_Menu();
-
-
-    // test for ADSR display
-  	//changes in ADSR values
-
-  	HAL_Delay(1000);
-  	ADSR_Remove_values_displayed();
-  	ADSR_value_update(0.01, 1, 0.5, 0.5);
-  	ADSR_display_update();
-
-  	HAL_Delay(1000);
-  	ADSR_Remove_values_displayed();
-  	ADSR_value_update(2, 0,1, 0.5);
-  	ADSR_display_update();
-  */
-   //end of adsr test display
+    }*/
 
   // End of test code		////////////////////////////////
 

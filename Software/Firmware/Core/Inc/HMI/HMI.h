@@ -10,6 +10,7 @@
 
 #include "main.h"
 #include "sys_param/sys_param.h"
+#include "HMI/display_core.h"
 
 ///////// SOFTWARE DEFINES FOR SETTINGS
 #define OSC_AMP_MIN					0.0
@@ -174,9 +175,10 @@ Param_Changed hmi_process_pots(uint8_t *rawdata, Potentiometer *pots, Sys_param 
  * \brief Main finite state machine for the screens display
  * states changes depends on param_changed
  *
- * \param hmi The Hmi structure
+ * \param hmi the Hmi structure
+ * \param sys_param the system parameters structure
  * \param param_changed the Param_Changed enum specifying what parameter just changed
  */
-void hmi_screen_fsm(Hmi * hmi, Param_Changed, param_changed);
+void hmi_screen_fsm(Hmi * hmi, Sys_param* sys_param, Param_Changed param_changed);
 
 #endif /* INC_HMI_HMI_H_ */
