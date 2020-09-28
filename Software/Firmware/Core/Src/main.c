@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "audio_core/audio_core.h"
 #include "HMI/HMI.h"
+#include "HMI/display_core.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -115,8 +116,8 @@ int main(void)
   MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_TIM_Base_Start_IT(&htim6);	// start TIM6, IT mode
-  HAL_TIM_Base_Start_IT(&htim7);	// start TIM7, IT mode
+  HAL_TIM_Base_Start_IT(&htim6);		// start TIM6, IT mode
+  HAL_TIM_Base_Start_IT(&htim7);		// start TIM7, IT mode
   HAL_DAC_Start(&hdac,DAC_CHANNEL_1);	// Start DAC on channel 1
   HAL_DAC_Start(&hdac,DAC_CHANNEL_2);	// Start DAC on channel 2
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)hmi.adc_raw_data, NBR_OF_POTS);
@@ -139,7 +140,6 @@ int main(void)
   ac.sys_param.osc1.wave = SIN;
   ac.sys_param.osc2.wave = SQR;
   ac.sys_param.osc3.wave = TRI;
-
   ac.sys_param.osc1.amp = 1;
   ac.sys_param.osc2.amp = 1;
   ac.sys_param.osc3.amp = 1;
@@ -147,13 +147,15 @@ int main(void)
   ac.sys_param.osc1.detune = 0;
   ac.sys_param.osc2.detune = 0;
   ac.sys_param.osc3.detune = 0;
-
+ // HAL_Delay(2000);
   ac.sys_param.lfo.amp = 0.5;
   ac.sys_param.lfo.wave = SIN;
   ac.sys_param.lfo.freq = 51; // ranges from 0 to 1023, corresponding to 0 to 20Hz
 
+
   copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
   copy_osc_sys_param_to_lfo(&ac.sys_param, &ac.lfo);
+
 
   int testmidinotes[POLYPHONY_MAX]={60,64,67};
 
@@ -168,7 +170,27 @@ int main(void)
 
   midi_note_ON(ac.note, 60, 127);
 
+/*    //following code will test the arbitrary wave menu
+    disp_Init_tab_arb();
+    disp_Draw_arb_frame();
+    disp_Draw_ARB_points();
+    disp_ARB_Shift_Select_Right();
+    double value = 0;
+    for(int i=0; i<sizeOfTab*2;i++){
+  	  value=0;
+  	  for(int j=0; j<11;j++){
+  		  value = 0.1+value;
+  		  disp_Update_arb_selected(value);
+  		  disp_Remove_arb_points();
+  		  disp_Draw_ARB_points();
+  	  }
+  	  disp_Draw_ARB_points();
+  	  disp_ARB_Shift_Select_Left();
+    }*/
+
   // End of test code		////////////////////////////////
+
+
 
 
   /* USER CODE END 2 */

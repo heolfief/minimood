@@ -42,7 +42,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 	// HMI refresh timer
 	if (htim->Instance == TIM7) {
-		uint8_t param_changed = NO_PARAM_CHANGED;
+		Param_Changed param_changed = NO_PARAM_CHANGED;
 
 		hmi_debounce_buttons(hmi.bts);
 		param_changed = hmi_process_osc_buttons(hmi.bts, &ac.sys_param);
@@ -58,5 +58,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 		if (param_changed == LFO_PARAM_CHANGED) {
 			copy_osc_sys_param_to_lfo(&ac.sys_param, &ac.lfo);
 		}
+
+		hmi_screen_fsm(&hmi, &ac.sys_param, param_changed);	// Finite State Machine to handle what to show on screen
 	}
 }

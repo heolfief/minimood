@@ -10,7 +10,7 @@
 
 #include "main.h"
 #include "sys_param/sys_param.h"
-
+#include "HMI/display_core.h"
 
 ///////// SOFTWARE DEFINES FOR SETTINGS
 #define OSC_AMP_MIN					0.0
@@ -42,7 +42,6 @@
 #define DEBOUNCE_NBR_OF_SAMPLES		5
 /////////////////////////////////////
 
-
 ////////// HARDWARE DEPENDANT DEFINES
 #define BT_OSC1_ON					0
 #define BT_OSC2_ON					1
@@ -70,10 +69,37 @@
 #define POT_LFO_DEPTH				11
 //////////////////////////////////////
 
-#define NO_PARAM_CHANGED			0
-#define OSC_PARAM_CHANGED			1
-#define ADSR_PARAM_CHANGED			2
-#define LFO_PARAM_CHANGED			3
+/**
+ * \enum Param_Changed
+ * \brief define what parameter if any has changed on the HMI
+ */
+typedef enum {
+	NO_PARAM_CHANGED, OSC_PARAM_CHANGED, ADSR_PARAM_CHANGED, LFO_PARAM_CHANGED
+} Param_Changed;
+
+/**
+ * \enum
+ * \brief define button states
+ */
+enum {
+	BT_STATE_RST, BT_STATE_SET
+};
+
+/**
+ * \enum Screen_State
+ * \brief define the FSM states for a screen
+ */
+typedef enum {
+	SCREEN_STATE_IDLE, SCREEN_STATE_BOOTSCREEN, SCREEN_STATE_OSC, SCREEN_STATE_ADSR, SCREEN_STATE_LFO, SCREEN_STATE_ARB
+} Screen_State;
+
+/**
+ * \enum
+ * \brief define right and left screen to be used as index of a Screen_State array
+ */
+enum {
+	SCREEN_LEFT, SCREEN_RIGHT
+};
 
 /**
  * \struct Button
@@ -106,6 +132,7 @@ typedef struct {
 	uint8_t adc_raw_data[NBR_OF_POTS]; /*!<raw 8 bit ADC data for the 12 pots */
 	Potentiometer pots[NBR_OF_POTS]; /*!<Potentiometer array */
 	Button bts[NBR_OF_BUTTONS]; /*!<Buttons array */
+	Screen_State screens_states[2]; /*!<FSM states for the screens */
 } Hmi;
 
 /**
@@ -128,9 +155,9 @@ void hmi_debounce_buttons(Button *bts);
  * \param bts the Button structure array
  * \param sys_param the system parameters structure
  *
- * \return _PARAM_CHANGED define depending on what changed
+ * \return PARAM_CHANGED enum depending on what changed
  */
-uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param);
+Param_Changed hmi_process_osc_buttons(Button *bts, Sys_param *sys_param);
 
 /**
  * \brief Process the buttons state and modify system param accordingly
@@ -140,8 +167,18 @@ uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param);
  * \param sys_param the system parameters structure
  *
  *
- * \return _PARAM_CHANGED define depending on what changed
+ * \return PARAM_CHANGED enum depending on what changed
  */
-uint8_t hmi_process_pots(uint8_t *rawdata, Potentiometer *pots, Sys_param *sys_param);
+Param_Changed hmi_process_pots(uint8_t *rawdata, Potentiometer *pots, Sys_param *sys_param);
+
+/**
+ * \brief Main finite state machine for the screens display
+ * states changes depends on param_changed
+ *
+ * \param hmi the Hmi structure
+ * \param sys_param the system parameters structure
+ * \param param_changed the Param_Changed enum specifying what parameter just changed
+ */
+void hmi_screen_fsm(Hmi * hmi, Sys_param* sys_param, Param_Changed param_changed);
 
 #endif /* INC_HMI_HMI_H_ */

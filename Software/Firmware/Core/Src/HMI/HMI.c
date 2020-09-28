@@ -18,7 +18,7 @@
  *
  * \return the mapped value
  */
-#define MAP(X, IN_MIN, IN_MAX, OUT_MIN, OUT_MAX) (X-IN_MIN)*(OUT_MAX-OUT_MIN)/(IN_MAX-IN_MIN)+OUT_MIN
+#define MAP(X, IN_MIN, IN_MAX, OUT_MIN, OUT_MAX) ((X-IN_MIN)*(OUT_MAX-OUT_MIN)/(IN_MAX-IN_MIN)+OUT_MIN)
 
 void hmi_init(Hmi *hmi) {
 	for (int i = 0; i < NBR_OF_POTS; ++i) {
@@ -30,7 +30,7 @@ void hmi_init(Hmi *hmi) {
 		hmi->bts[i].log_cnt = 0;
 		hmi->bts[i].waiting = 0;
 		hmi->bts[i].last_state = 0;
-		hmi->bts[i].state = 0;
+		hmi->bts[i].state = BT_STATE_RST;
 	}
 
 	hmi->bts[BT_OSC1_ON].port = OSC1_ON_GPIO_Port;
@@ -95,6 +95,10 @@ void hmi_init(Hmi *hmi) {
 	hmi->pots[POT_LFO_DEPTH].min_value = LFO_DEPTH_MIN;
 	hmi->pots[POT_LFO_DEPTH].max_value = LFO_DEPTH_MIN;
 
+	hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_IDLE;
+	hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_IDLE;
+
+	disp_Init_Displays();
 }
 
 void hmi_debounce_buttons(Button *bts) {
@@ -110,13 +114,12 @@ void hmi_debounce_buttons(Button *bts) {
 		if (bts[i].waiting == 1) {
 			bts[i].log_cnt++;
 
-			if (bts[i].log_cnt >= DEBOUNCE_NBR_OF_SAMPLES
-					&& current_reading == 0) {
-				bts[i].state = 1;
+			if (bts[i].log_cnt >= DEBOUNCE_NBR_OF_SAMPLES && current_reading == 0) {
+				bts[i].state = BT_STATE_SET;
 				bts[i].log_cnt = 0;
 				bts[i].waiting = 0;
 			} else {
-				bts[i].state = 0;
+				bts[i].state = BT_STATE_RST;
 			}
 
 		}
@@ -124,155 +127,199 @@ void hmi_debounce_buttons(Button *bts) {
 	}
 }
 
-uint8_t hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
-	uint8_t param_changed = NO_PARAM_CHANGED;
+Param_Changed hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
+	Param_Changed param_changed = NO_PARAM_CHANGED;
 
-	if (bts[BT_OSC1_ON].state == 1) {
+	if (bts[BT_OSC1_ON].state == BT_STATE_SET) {
 		if (sys_param->osc1.onoff == OFF) {
 			sys_param->osc1.onoff = ON;
 		} else {
 			sys_param->osc1.onoff = OFF;
 		}
-		bts[BT_OSC1_ON].state = 0;	// reset state
+		bts[BT_OSC1_ON].state = BT_STATE_RST;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
-	if (bts[BT_OSC2_ON].state == 1) {
+	if (bts[BT_OSC2_ON].state == BT_STATE_SET) {
 		if (sys_param->osc2.onoff == OFF) {
 			sys_param->osc2.onoff = ON;
 		} else {
 			sys_param->osc2.onoff = OFF;
 		}
-		bts[BT_OSC2_ON].state = 0;	// reset state
+		bts[BT_OSC2_ON].state = BT_STATE_RST;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
-	if (bts[BT_OSC3_ON].state == 1) {
+	if (bts[BT_OSC3_ON].state == BT_STATE_SET) {
 		if (sys_param->osc3.onoff == OFF) {
 			sys_param->osc3.onoff = ON;
 		} else {
 			sys_param->osc3.onoff = OFF;
 		}
-		bts[BT_OSC3_ON].state = 0;	// reset state
+		bts[BT_OSC3_ON].state = BT_STATE_RST;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
 
-	if (bts[BT_OSC1_WAVE].state == 1) {
+	if (bts[BT_OSC1_WAVE].state == BT_STATE_SET) {
 		sys_param->osc1.wave = (sys_param->osc1.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
-		bts[BT_OSC1_WAVE].state = 0;	// reset state
+		bts[BT_OSC1_WAVE].state = BT_STATE_RST;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
-	if (bts[BT_OSC2_WAVE].state == 1) {
+	if (bts[BT_OSC2_WAVE].state == BT_STATE_SET) {
 		sys_param->osc2.wave = (sys_param->osc2.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
 		bts[BT_OSC2_WAVE].state = 0;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
-	if (bts[BT_OSC3_WAVE].state == 1) {
+	if (bts[BT_OSC3_WAVE].state == BT_STATE_SET) {
 		sys_param->osc3.wave = (sys_param->osc3.wave + 1) % NUMBER_OF_WAVES; // loop trough waveforms
-		bts[BT_OSC3_WAVE].state = 0;	// reset state
+		bts[BT_OSC3_WAVE].state = BT_STATE_RST;	// reset state
 		param_changed = OSC_PARAM_CHANGED;
 	}
 	return param_changed;
 }
 
-uint8_t hmi_process_pots(uint8_t *rawdata, Potentiometer *pots,
-		Sys_param *sys_param) {
+Param_Changed hmi_process_pots(uint8_t *rawdata, Potentiometer *pots, Sys_param *sys_param) {
 
-	uint8_t param_changed = NO_PARAM_CHANGED;
+	Param_Changed param_changed = NO_PARAM_CHANGED;
 
 	if (rawdata[POT_OSC1_AMP] != pots[POT_OSC1_AMP].last_value) {
-		sys_param->osc1.amp = (float) MAP((float)rawdata[POT_OSC1_AMP], 0.0,
-				255.0, (float)pots[POT_OSC1_AMP].min_value,
-				(float)pots[POT_OSC1_AMP].max_value);
+		sys_param->osc1.amp = (float) MAP((float)rawdata[POT_OSC1_AMP], 0.0, 255.0, (float)pots[POT_OSC1_AMP].min_value, (float)pots[POT_OSC1_AMP].max_value);
 		pots[POT_OSC1_AMP].last_value = rawdata[POT_OSC1_AMP];
 		param_changed = OSC_PARAM_CHANGED;
 	}
 
 	if (rawdata[POT_OSC2_AMP] != pots[POT_OSC2_AMP].last_value) {
-		sys_param->osc2.amp = (float) MAP(rawdata[POT_OSC2_AMP], 0.0, 255.0,
-				(float)pots[POT_OSC2_AMP].min_value,
-				(float)pots[POT_OSC2_AMP].max_value);
+		sys_param->osc2.amp = (float) MAP(rawdata[POT_OSC2_AMP], 0.0, 255.0, (float)pots[POT_OSC2_AMP].min_value, (float)pots[POT_OSC2_AMP].max_value);
 		pots[POT_OSC2_AMP].last_value = rawdata[POT_OSC2_AMP];
 		param_changed = OSC_PARAM_CHANGED;
 	}
 
 	if (rawdata[POT_OSC3_AMP] != pots[POT_OSC3_AMP].last_value) {
-		sys_param->osc3.amp = (float) MAP(rawdata[POT_OSC3_AMP], 0.0, 255.0,
-				(float)pots[POT_OSC3_AMP].min_value,
-				(float)pots[POT_OSC3_AMP].max_value);
+		sys_param->osc3.amp = (float) MAP(rawdata[POT_OSC3_AMP], 0.0, 255.0, (float)pots[POT_OSC3_AMP].min_value, (float)pots[POT_OSC3_AMP].max_value);
 		pots[POT_OSC3_AMP].last_value = rawdata[POT_OSC3_AMP];
 		param_changed = OSC_PARAM_CHANGED;
 	}
 
 	if (rawdata[POT_OSC1_DET] != pots[POT_OSC1_DET].last_value) {
-		sys_param->osc1.detune = (int8_t) MAP((float)rawdata[POT_OSC1_DET], 0.0,
-				255.0, (float)pots[POT_OSC1_DET].min_value,
-				(float)pots[POT_OSC1_DET].max_value);
+		sys_param->osc1.detune = (int8_t) MAP((float)rawdata[POT_OSC1_DET], 0.0, 255.0, (float)pots[POT_OSC1_DET].min_value, (float)pots[POT_OSC1_DET].max_value);
 		pots[POT_OSC1_DET].last_value = rawdata[POT_OSC1_DET];
 		param_changed = OSC_PARAM_CHANGED;
 	}
 
 	if (rawdata[POT_OSC2_DET] != pots[POT_OSC2_DET].last_value) {
-		sys_param->osc2.detune = (int8_t) MAP((float)rawdata[POT_OSC2_DET], 0.0,
-				255.0, (float)pots[POT_OSC2_DET].min_value,
-				(float)pots[POT_OSC2_DET].max_value);
+		sys_param->osc2.detune = (int8_t) MAP((float)rawdata[POT_OSC2_DET], 0.0, 255.0, (float)pots[POT_OSC2_DET].min_value, (float)pots[POT_OSC2_DET].max_value);
 		pots[POT_OSC2_DET].last_value = rawdata[POT_OSC2_DET];
 		param_changed = OSC_PARAM_CHANGED;
 	}
 
 	if (rawdata[POT_OSC3_DET] != pots[POT_OSC3_DET].last_value) {
-		sys_param->osc3.detune = (int8_t) MAP((float)rawdata[POT_OSC3_DET], 0.0,
-				255.0, (float)pots[POT_OSC3_DET].min_value,
-				(float)pots[POT_OSC3_DET].max_value);
+		sys_param->osc3.detune = (int8_t) MAP((float)rawdata[POT_OSC3_DET], 0.0, 255.0, (float)pots[POT_OSC3_DET].min_value, (float)pots[POT_OSC3_DET].max_value);
 		pots[POT_OSC3_DET].last_value = rawdata[POT_OSC3_DET];
 		param_changed = OSC_PARAM_CHANGED;
 	}
 
 	if (rawdata[POT_ADSR_A] != pots[POT_ADSR_A].last_value) {
-		sys_param->env.attack = (float) MAP((float)rawdata[POT_ADSR_A], 0.0,
-				255.0, (float)pots[POT_ADSR_A].min_value,
-				(float)pots[POT_ADSR_A].max_value);
+		sys_param->env.attack = (float) MAP((float)rawdata[POT_ADSR_A], 0.0, 255.0, (float)pots[POT_ADSR_A].min_value, (float)pots[POT_ADSR_A].max_value);
 		pots[POT_ADSR_A].last_value = rawdata[POT_ADSR_A];
 		param_changed = ADSR_PARAM_CHANGED;
 	}
 
 	if (rawdata[POT_ADSR_D] != pots[POT_ADSR_D].last_value) {
-		sys_param->env.decay = (float) MAP((float)rawdata[POT_ADSR_D], 0.0,
-				255.0, (float)pots[POT_ADSR_D].min_value,
-				(float)pots[POT_ADSR_D].max_value);
+		sys_param->env.decay = (float) MAP((float)rawdata[POT_ADSR_D], 0.0, 255.0, (float)pots[POT_ADSR_D].min_value, (float)pots[POT_ADSR_D].max_value);
 		pots[POT_ADSR_D].last_value = rawdata[POT_ADSR_D];
 		param_changed = ADSR_PARAM_CHANGED;
 	}
 
 	if (rawdata[POT_ADSR_S] != pots[POT_ADSR_S].last_value) {
-		sys_param->env.sustain = (float) MAP((float)rawdata[POT_ADSR_S], 0.0,
-				255.0, (float)pots[POT_ADSR_S].min_value,
-				(float)pots[POT_ADSR_S].max_value);
+		sys_param->env.sustain = (float) MAP((float)rawdata[POT_ADSR_S], 0.0, 255.0, (float)pots[POT_ADSR_S].min_value, (float)pots[POT_ADSR_S].max_value);
 		pots[POT_ADSR_S].last_value = rawdata[POT_ADSR_S];
 		param_changed = ADSR_PARAM_CHANGED;
 	}
 
 	if (rawdata[POT_ADSR_R] != pots[POT_ADSR_R].last_value) {
-		sys_param->env.release = (float) MAP((float)rawdata[POT_ADSR_R], 0.0,
-				255.0, (float)pots[POT_ADSR_R].min_value,
-				(float)pots[POT_ADSR_R].max_value);
+		sys_param->env.release = (float) MAP((float)rawdata[POT_ADSR_R], 0.0, 255.0, (float)pots[POT_ADSR_R].min_value, (float)pots[POT_ADSR_R].max_value);
 		pots[POT_ADSR_R].last_value = rawdata[POT_ADSR_R];
 		param_changed = ADSR_PARAM_CHANGED;
 	}
 
 	if (rawdata[POT_LFO_RATE] != pots[POT_LFO_RATE].last_value) {
-		sys_param->lfo.freq = (float) MAP((float)rawdata[POT_LFO_RATE], 0.0,
-				255.0, (float)pots[POT_LFO_RATE].min_value,
-				(float)pots[POT_LFO_RATE].max_value);
+		sys_param->lfo.freq = (float) MAP((float)rawdata[POT_LFO_RATE], 0.0, 255.0, (float)pots[POT_LFO_RATE].min_value, (float)pots[POT_LFO_RATE].max_value);
 		pots[POT_LFO_RATE].last_value = rawdata[POT_LFO_RATE];
 		param_changed = LFO_PARAM_CHANGED;
 	}
 
 	if (rawdata[POT_LFO_DEPTH] != pots[POT_LFO_DEPTH].last_value) {
-		sys_param->lfo.amp = (float) MAP((float)rawdata[POT_LFO_DEPTH], 0.0,
-				255.0, (float)pots[POT_LFO_DEPTH].min_value,
-				(float)pots[POT_LFO_DEPTH].max_value);
+		sys_param->lfo.amp = (float) MAP((float)rawdata[POT_LFO_DEPTH], 0.0, 255.0, (float)pots[POT_LFO_DEPTH].min_value, (float)pots[POT_LFO_DEPTH].max_value);
 		pots[POT_LFO_DEPTH].last_value = rawdata[POT_LFO_DEPTH];
 		param_changed = LFO_PARAM_CHANGED;
 	}
 
 	return param_changed;
+}
+
+void hmi_screen_fsm(Hmi *hmi, Sys_param *sys_param, Param_Changed param_changed) {
+	switch (hmi->screens_states[SCREEN_LEFT]) {
+	case SCREEN_STATE_IDLE:
+		hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_BOOTSCREEN;
+		break;
+	case SCREEN_STATE_BOOTSCREEN:
+		hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_BOOTSCREEN;
+		disp_Booting_Screens();
+		hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_OSC;
+		break;
+	case SCREEN_STATE_OSC:
+		if (param_changed == LFO_PARAM_CHANGED)
+			hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_LFO;
+
+		disp_Draw_OSC_frame();
+		disp_Remove_OSC_variables_displayed();
+		disp_Update_value_OSC_1(sys_param->osc1.amp, sys_param->osc1.wave, sys_param->osc1.detune, sys_param->osc1.onoff);
+		disp_Update_value_OSC_2(sys_param->osc2.amp, sys_param->osc2.wave, sys_param->osc2.detune, sys_param->osc2.onoff);
+		disp_Update_value_OSC_3(sys_param->osc3.amp, sys_param->osc3.wave, sys_param->osc3.detune, sys_param->osc3.onoff);
+		disp_Draw_OSC_Var_displayed();
+		break;
+	case SCREEN_STATE_ADSR:
+		// Left screen is not meant to show ADSR screen
+		break;
+	case SCREEN_STATE_LFO:
+		if (param_changed == OSC_PARAM_CHANGED)
+			hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_OSC;
+
+		disp_draw_LFO_frame();
+		disp_update_LFO_value(sys_param->lfo.freq, sys_param->lfo.amp, sys_param->lfo.wave, sys_param->lfo.detune, sys_param->lfo.onoff);
+		disp_draw_LFO_value();
+		break;
+	case SCREEN_STATE_ARB:
+		// Left screen is not meant to show ARB screen
+		break;
+	default:
+		break;
+	}
+
+	switch (hmi->screens_states[SCREEN_RIGHT]) {
+	case SCREEN_STATE_IDLE:
+		hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_BOOTSCREEN;
+		break;
+	case SCREEN_STATE_BOOTSCREEN:
+		hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_ADSR;
+		break;
+	case SCREEN_STATE_OSC:
+		// Right screen is not meant to show OSC screen
+		break;
+	case SCREEN_STATE_ADSR:
+		disp_Init_ADSR_points();
+		disp_ADSR_Remove_values_displayed();
+		disp_ADSR_value_update(sys_param->env.attack, sys_param->env.decay, sys_param->env.sustain, sys_param->env.release);
+		disp_ADSR_display_update();
+		break;
+	case SCREEN_STATE_LFO:
+		// Right screen is not meant to show LFO screen
+		break;
+	case SCREEN_STATE_ARB:
+		if (param_changed == ADSR_PARAM_CHANGED)
+			hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_ADSR;
+
+		// TO BE IMPLEMENTED
+		break;
+	default:
+		break;
+	}
 }
