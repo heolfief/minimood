@@ -1,22 +1,6 @@
 /**
- * original author:  Loïc Scotto<loscot@hotmail.fr>
-
- ----------------------------------------------------------------------
- Copyright (C) Loïc Scotto, 2020
-
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ----------------------------------------------------------------------
+ * \file display_core.h
+ * \brief Functions handling HMI graphics
  */
 
 #include "HMI/SSD1306/fonts.h"
@@ -31,14 +15,18 @@
 #ifndef INC_DISPLAY_SYNTH_H_
 #define INC_DISPLAY_SYNTH_H_
 
+
+#define NUMBER_OF_SSD1306_DISPLAYS			2 /* Number of SSD1306 display used */
+
+#define SSD1306_I2C_ADDR_LEFT_SCREEN		0x78 /* I2C addresses for left screen */
+#define SSD1306_I2C_ADDR_RIGHT_SCREEN		0x7A /* I2C addresses for right screen */
+
+enum{
+	SSD1306_Left_Screen, SSD1306_Right_Screen
+};
+
 int select_index_adsr;
 int select_index_arb;
-
-//in order to know in which menu we are in I'll store that in different booleans for the moment
-bool menu_home;
-bool menu_adsr;
-bool menu_arb;
-bool menu_osc;
 
 typedef struct {
 	uint16_t X_pos;
