@@ -18,6 +18,10 @@ void disp_Init_Displays() {
 	SSD1306_Clear(&SSD1306_Screens[SSD1306_Right_Screen]);
 }
 
+void disp_Refresh() {
+	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]);
+}
+
 void disp_Home_Menu() {
 	SSD1306_Clear(&SSD1306_Screens[SSD1306_Left_Screen]);
 	SSD1306_Clear(&SSD1306_Screens[SSD1306_Right_Screen]);
@@ -229,7 +233,6 @@ void disp_Draw_ADSR_points() {
 	}
 
 	//SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]); //display done in value update function
-
 }
 
 void disp_Draw_ADSR_frame() {
@@ -243,7 +246,6 @@ void disp_Draw_ADSR_frame() {
 	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], 38 + 5, 61 - 2, 38 + 5, 61 + 2, SSD1306_COLOR_WHITE); //adding the grade viewers
 	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], 76 + 5, 61 - 2, 76 + 5, 61 + 2, SSD1306_COLOR_WHITE); //adding the grade viewers
 	SSD1306_DrawTriangle(&SSD1306_Screens[SSD1306_Right_Screen], 120, 61 - 2, 120, 61 + 2, 125, 61, SSD1306_COLOR_WHITE);
-
 }
 
 void disp_Draw_ADSR_lines() {
@@ -258,7 +260,6 @@ void disp_Draw_ADSR_lines() {
 void disp_ADSR_Shift_Select_Right() {
 	select_index_adsr = (select_index_adsr + 1) % 4;
 	disp_ADSR_Update_Select();
-
 }
 
 void disp_ADSR_Shift_Select_Left() {
@@ -267,7 +268,6 @@ void disp_ADSR_Shift_Select_Left() {
 	select_index_adsr = (select_index_adsr - 1) % 4;
 
 	disp_ADSR_Update_Select();
-
 }
 
 void disp_ADSR_Remove_values_displayed() {
@@ -335,7 +335,6 @@ void disp_ADSR_Remove_values_displayed() {
 	//Draw_ADSR_frame(); already done in function ADSR_display_update
 
 	//SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]); //display
-
 }
 
 void disp_ADSR_Update_Select() {
@@ -345,7 +344,6 @@ void disp_ADSR_Update_Select() {
 	Release_pt.is_selected = (select_index_adsr == 3) ? true : false;
 
 	disp_Draw_ADSR_points();
-
 }
 
 void disp_ADSR_value_update(float attack_val, float decay_val, float sustain_val, float release_val) {
@@ -359,7 +357,6 @@ void disp_ADSR_value_update(float attack_val, float decay_val, float sustain_val
 	Decay_pt.X_pos = decay_pos_x_relatve + 38 + 15;
 	Sustain_pt.Y_pos = (31 + (28 - sustain_pos_y_relative));
 	Release_pt.X_pos = release_pos_x_relative + 92;
-
 }
 
 void disp_ADSR_display_update() {
@@ -389,334 +386,216 @@ void disp_Draw_OSC_frame() {
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "Det.", &Font_7x10, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 0, 43, 40, 43, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 20, 43, 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
-	//SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 15, 34, 15, 42, SSD1306_COLOR_WHITE); //test cursor
 
 	//vol display
-
 	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 0, 47);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "Vol", &Font_7x10, SSD1306_COLOR_WHITE);
-
 	SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 0, 58, 38, 5, SSD1306_COLOR_WHITE);
-	//SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 0, 58, 20, 5, SSD1306_COLOR_WHITE); //test for volume
 
 	//drawing frame for the Second Osc
 	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 1 + 43, 23);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "Det.", &Font_7x10, SSD1306_COLOR_WHITE);
-
 	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 44 + 0, 43, 43 + 40, 43, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 44 + 20, 43, 44 + 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
-
-	//SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 43+15, 34, 43+15, 42, SSD1306_COLOR_WHITE); //test cursor
 
 	//vol display
 	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 43 + 0, 47);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "Vol", &Font_7x10, SSD1306_COLOR_WHITE);
-
 	SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 44 + 0, 58, 38, 5, SSD1306_COLOR_WHITE);
-	//SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 44+0, 58, 20, 5, SSD1306_COLOR_WHITE); //test for volume
 
 	//drawing frame for the third Osc
 	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 1 + 86, 23);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "Det.", &Font_7x10, SSD1306_COLOR_WHITE);
-
 	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 87 + 0, 43, 86 + 40, 43, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 87 + 20, 43, 87 + 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
-	//SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 87 + 20, 41);
-	//SSD1306_Putc(&SSD1306_Screens[SSD1306_Left_Screen], '0', &Font_7x10, SSD1306_COLOR_WHITE);
-
-	//SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 86 + 15, 34, 86 + 15, 42, SSD1306_COLOR_WHITE); //test cursor
 
 	//vol display
 	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 86 + 0, 47);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "vol", &Font_7x10, SSD1306_COLOR_WHITE);
-
 	SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 87 + 0, 58, 38, 5, SSD1306_COLOR_WHITE);
-	//SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 87 + 0, 58, 20, 5, SSD1306_COLOR_WHITE); //test for volume
 
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]);
 }
 
-void disp_Remove_OSC_variables_displayed() {
-	//osc1:
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], osc1.det_pos, 39, osc1.det_pos, 45, SSD1306_COLOR_BLACK); //remove cursor
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 0, 58, osc1.Vol_pos, 5, SSD1306_COLOR_BLACK); //remove volume
-	SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 0, 58, 38, 5, SSD1306_COLOR_WHITE); //redraw the vol frame
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 0, 43, 40, 43, SSD1306_COLOR_WHITE); //redraw the detune line
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 20, 43, 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
+void disp_Draw_OSC_Values(Oscillator_param *osc1, Oscillator_param *osc2, Oscillator_param *osc3) {
+	uint16_t osc1_vol_pos = floor(osc1->amp * 39);
+	uint16_t osc1_det_pos = ((osc1->detune + 12) * 40) / 24;
+	uint16_t osc2_vol_pos = floor(osc2->amp * 39);
+	uint16_t osc2_det_pos = ((osc2->detune + 12) * 40) / 24;
+	uint16_t osc3_vol_pos = floor(osc3->amp * 39);
+	uint16_t osc3_det_pos = ((osc3->detune + 12) * 40) / 24;
+	char det_itoa_buffer[3];
+	uint8_t *osc1_waveform_symbol_ptr = NULL;
+	uint8_t *osc2_waveform_symbol_ptr = NULL;
+	uint8_t *osc3_waveform_symbol_ptr = NULL;
 
-	SSD1306_DrawBitmap(&SSD1306_Screens[SSD1306_Left_Screen], 0, 11, osc1.waveform, bmp_width, bmp_height, 0); //removing the old waveform logo
-
-	//osc2:
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 44 + osc2.det_pos, 39, 44 + osc2.det_pos, 45, SSD1306_COLOR_BLACK); //remove cursor
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 44 + 0, 58, osc2.Vol_pos, 5, SSD1306_COLOR_BLACK); //test for volume
-	SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 44 + 0, 58, 38, 5, SSD1306_COLOR_WHITE); //redraw the vol frame
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 44 + 0, 43, 43 + 40, 43, SSD1306_COLOR_WHITE); //redraw the detune line
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 44 + 20, 43, 44 + 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
-	SSD1306_DrawBitmap(&SSD1306_Screens[SSD1306_Left_Screen], 44, 11, osc2.waveform, bmp_width, bmp_height, 0); //removing the old waveform logo
-
-	//osc3:
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 87 + osc3.det_pos, 39, 87 + osc3.det_pos, 47, SSD1306_COLOR_BLACK); //remove cursor
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 87 + 0, 58, osc3.Vol_pos, 5, SSD1306_COLOR_BLACK); //test for volume
-	SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 87 + 0, 58, 38, 5, SSD1306_COLOR_WHITE); //redraw the vol frame
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 87 + 0, 43, 86 + 40, 43, SSD1306_COLOR_WHITE); //redraw the detune line
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 87 + 20, 43, 87 + 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 86 + 0, 47);
-	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "vol", &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_DrawBitmap(&SSD1306_Screens[SSD1306_Left_Screen], 87, 11, osc3.waveform, bmp_width, bmp_height, 0); //removing the old waveform logo
-
-	/* char buffer3[3];
-	 itoa(osc3.detune,buffer3,10);   // here 10 means decimal
-	 if(osc3.detune>0)buffer3[2]=' ';
-	 SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 1 + 105, 30);
-	 SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], buffer3, &Font_7x10, SSD1306_COLOR_BLACK);*/
-
-}
-
-void disp_Unselect_osc1() {
-	for (int i = 0; i < 41; i++) {
-		for (int j = 0; j < 10; j++) {
-			SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_WHITE);
+	/* OSC1 */ // -----------------------------------------------------------------------------------------
+	/* ON/OFF Display */
+	if (osc1->onoff == ON) {
+		for (int i = 0; i < 41; i++) {
+			for (int j = 0; j < 10; j++) {
+				SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_BLACK);
+			}
 		}
-	}
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 5, 0);
-	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
-}
-
-void disp_Select_osc1() {
-
-	for (int i = 0; i < 41; i++) {
-		for (int j = 0; j < 10; j++) {
-			SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_BLACK);
+		SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 5, 0);
+		SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "OSC 1", &Font_7x10, SSD1306_COLOR_WHITE);
+	} else {
+		for (int i = 0; i < 41; i++) {
+			for (int j = 0; j < 10; j++) {
+				SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_WHITE);
+			}
 		}
-	}
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 5, 0);
-	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "OSC 1", &Font_7x10, SSD1306_COLOR_WHITE);
-}
-
-void disp_Unselect_osc2() {
-	for (int i = 44; i < 84; i++) {
-		for (int j = 0; j < 10; j++) {
-			SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_WHITE);
-		}
-	}
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 47, 0);
-	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
-}
-
-void disp_Select_osc2() {
-
-	for (int i = 44; i < 84; i++) {
-		for (int j = 0; j < 10; j++) {
-			SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_BLACK);
-		}
-	}
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 47, 0);
-	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "OSC 2", &Font_7x10, SSD1306_COLOR_WHITE);
-}
-
-void disp_Unselect_osc3() {
-	for (int i = 87; i < 127; i++) {
-		for (int j = 0; j < 10; j++) {
-			SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_WHITE);
-		}
-	}
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 90, 0);
-	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
-}
-
-void disp_Select_osc3() {
-
-	for (int i = 87; i < 127; i++) {
-		for (int j = 0; j < 10; j++) {
-			SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_BLACK);
-		}
-	}
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 90, 0);
-	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "OSC 3", &Font_7x10, SSD1306_COLOR_WHITE);
-}
-
-void disp_Draw_OSC_Var_displayed() {
-	//osc1:
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], osc1.det_pos, 39, osc1.det_pos, 45, SSD1306_COLOR_WHITE); // cursor
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 0, 58, osc1.Vol_pos, 5, SSD1306_COLOR_WHITE); // volume
-
-	char buffer1[11];				//drawing here the detune value
-	itoa(osc1.detune, buffer1, 10);   // here 10 means decimal
-	if (osc1.detune > 0)
-		buffer1[2] = ' ';
-	if (osc1.detune == 0)
-		buffer1[1] = ' ';
-	if (osc1.detune > 0 && osc1.detune < 10) {
-		buffer1[2] = ' ';
-		buffer1[1] = ' ';
-	}
-	if (osc1.detune < 0 && osc1.detune > -10) {
-		buffer1[2] = ' ';
+		SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 5, 0);
+		SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
 	}
 
+	/* Draw volume bar */
+	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 0, 58, osc1_vol_pos, 5, SSD1306_COLOR_WHITE);
+
+	/* Draw detune cursor */
+	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], osc1_det_pos, 39, osc1_det_pos, 45, SSD1306_COLOR_WHITE);
+
+	/* Draw detune value */
+	itoa(osc1->detune, det_itoa_buffer, 10);   // base 10 means decimal
 	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 1 + 20, 30);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Left_Screen], buffer1[0], &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Left_Screen], buffer1[1], &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Left_Screen], buffer1[2], &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], det_itoa_buffer, &Font_7x10, SSD1306_COLOR_WHITE);
 
-	SSD1306_DrawBitmap(&SSD1306_Screens[SSD1306_Left_Screen], 0, 11, osc1.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
-
-	if (!osc1.is_on)
-		disp_Unselect_osc1(); //draw the -OFF- in inverted colors if osc is off
-	if (osc1.is_on)
-		disp_Select_osc1();	//puts back the name of the osc if it is on
-
-	//osc2:
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 44 + osc2.det_pos, 39, 44 + osc2.det_pos, 45, SSD1306_COLOR_WHITE); //remove cursor
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 44 + 0, 58, osc2.Vol_pos, 5, SSD1306_COLOR_WHITE); //volume
-
-	char buffer2[11];
-	itoa(osc2.detune, buffer2, 10);   // here 10 means decimal
-	if (osc2.detune > 0)
-		buffer2[2] = ' ';
-	if (osc2.detune == 0)
-		buffer2[1] = ' ';
-	if (osc2.detune > 0 && osc2.detune < 10) {
-		buffer2[2] = ' ';
-		buffer2[1] = ' ';
-	}
-	if (osc2.detune < 0 && osc2.detune > -10) {
-		buffer2[2] = ' ';
+	/* Assign waveform symbol data to pointer */
+	switch (osc1->wave) {
+	case SIN:
+		osc1_waveform_symbol_ptr = sin_bmp;
+		break;
+	case SQR:
+		osc1_waveform_symbol_ptr = square_bmp;
+		break;
+	case TRI:
+		osc1_waveform_symbol_ptr = triangle_bmp;
+		break;
+	case SAW:
+		osc1_waveform_symbol_ptr = saw_bmp;
+		break;
+	case ARB:
+		osc1_waveform_symbol_ptr = arb_bmp;
+		break;
+	default:
+		osc1_waveform_symbol_ptr = sin_bmp;
+		break;
 	}
 
+	/* Draw waveform symbol */
+	SSD1306_DrawBitmap(&SSD1306_Screens[SSD1306_Left_Screen], 0, 11, osc1_waveform_symbol_ptr, bmp_width, bmp_height, 1);
+
+	/* OSC2 */ // -----------------------------------------------------------------------------------------
+	/* ON/OFF Display */
+	if (osc2->onoff == ON) {
+		for (int i = 44; i < 84; i++) {
+			for (int j = 0; j < 10; j++) {
+				SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_BLACK);
+			}
+		}
+		SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 47, 0);
+		SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "OSC 2", &Font_7x10, SSD1306_COLOR_WHITE);
+	} else {
+		for (int i = 44; i < 84; i++) {
+			for (int j = 0; j < 10; j++) {
+				SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_WHITE);
+			}
+		}
+		SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 47, 0);
+		SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
+	}
+
+	/* Draw volume bar */
+	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 44, 58, osc2_vol_pos, 5, SSD1306_COLOR_WHITE);
+
+	/* Draw detune cursor */
+	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 44 + osc2_det_pos, 39, 44 + osc2_det_pos, 45, SSD1306_COLOR_WHITE);
+
+	/* Draw detune value */
+	itoa(osc2->detune, det_itoa_buffer, 10);   // base 10 means decimal
 	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 1 + 63, 30);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Left_Screen], buffer2[0], &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Left_Screen], buffer2[1], &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Left_Screen], buffer2[2], &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], det_itoa_buffer, &Font_7x10, SSD1306_COLOR_WHITE);
 
-	SSD1306_DrawBitmap(&SSD1306_Screens[SSD1306_Left_Screen], 44, 11, osc2.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
-
-	if (!osc2.is_on)
-		disp_Unselect_osc2();
-	if (osc2.is_on)
-		disp_Select_osc2();
-
-	//osc3:
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 87 + osc3.det_pos, 39, 87 + osc3.det_pos, 45, SSD1306_COLOR_WHITE); //cursor detune
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 87 + 0, 58, osc3.Vol_pos, 5, SSD1306_COLOR_WHITE); //volume
-
-	char buffer3[4];
-	itoa(osc3.detune, buffer3, 10);   // here 10 means decimal
-	if (osc3.detune > 0)
-		buffer3[2] = ' ';
-	if (osc3.detune == 0)
-		buffer3[1] = ' ';
-	if (osc3.detune > 0 && osc3.detune < 10) {
-		buffer3[2] = ' ';
-		buffer3[1] = ' ';
-	}
-	if (osc3.detune < 0 && osc3.detune > -10) {
-		buffer3[2] = ' ';
+	/* Assign waveform symbol data to pointer */
+	switch (osc2->wave) {
+	case SIN:
+		osc2_waveform_symbol_ptr = sin_bmp;
+		break;
+	case SQR:
+		osc2_waveform_symbol_ptr = square_bmp;
+		break;
+	case TRI:
+		osc2_waveform_symbol_ptr = triangle_bmp;
+		break;
+	case SAW:
+		osc2_waveform_symbol_ptr = saw_bmp;
+		break;
+	case ARB:
+		osc2_waveform_symbol_ptr = arb_bmp;
+		break;
+	default:
+		osc2_waveform_symbol_ptr = sin_bmp;
+		break;
 	}
 
+	/* Draw waveform symbol */
+	SSD1306_DrawBitmap(&SSD1306_Screens[SSD1306_Left_Screen], 44, 11, osc2_waveform_symbol_ptr, bmp_width, bmp_height, 1);
+
+	/* OSC3 */ // -----------------------------------------------------------------------------------------
+	/* ON/OFF Display */
+	if (osc3->onoff == ON) {
+		for (int i = 87; i < 127; i++) {
+			for (int j = 0; j < 10; j++) {
+				SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_BLACK);
+			}
+		}
+		SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 90, 0);
+		SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "OSC 3", &Font_7x10, SSD1306_COLOR_WHITE);
+	} else {
+		for (int i = 87; i < 127; i++) {
+			for (int j = 0; j < 10; j++) {
+				SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Left_Screen], i, j, SSD1306_COLOR_WHITE);
+			}
+		}
+		SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 90, 0);
+		SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "-OFF-", &Font_7x10, SSD1306_COLOR_BLACK);
+	}
+
+	/* Draw volume bar */
+	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Left_Screen], 87, 58, osc3_vol_pos, 5, SSD1306_COLOR_WHITE);
+
+	/* Draw detune cursor */
+	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Left_Screen], 87 + osc3_det_pos, 39, 87 + osc3_det_pos, 45, SSD1306_COLOR_WHITE);
+
+	/* Draw detune value */
+	itoa(osc3->detune, det_itoa_buffer, 10);   // base 10 means decimal
 	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 1 + 105, 30);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Left_Screen], buffer3[0], &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Left_Screen], buffer3[1], &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Left_Screen], buffer3[2], &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], det_itoa_buffer, &Font_7x10, SSD1306_COLOR_WHITE);
 
-	SSD1306_DrawBitmap(&SSD1306_Screens[SSD1306_Left_Screen], 87, 11, osc3.waveform, bmp_width, bmp_height, 1); //adding the  waveform logo
-	if (!osc3.is_on)
-		disp_Unselect_osc3();
-	if (osc3.is_on)
-		disp_Select_osc3();
-
-	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]);
-
-}
-
-void disp_Update_value_OSC_1(float amp, Waveform wave, int8_t detune, OnOff onoff) {
-	osc1.Vol_pos = floor(amp * 39);
-	osc1.det_pos = ((detune + 12) * 40) / 24;
-	osc1.detune = detune;
-	osc1.is_on = (onoff == 0) ? false : true; //if onOff is at 0 then is_on equals 0
-
-	switch (wave) {
+	/* Assign waveform symbol data to pointer */
+	switch (osc3->wave) {
 	case SIN:
-		memcpy((char*) osc1.waveform, (char*) sin_bmp, 40);
-		//strcpy((char*)osc1.waveform,(char*)sin_bmp);
-
+		osc3_waveform_symbol_ptr = sin_bmp;
 		break;
 	case SQR:
-		strcpy((char*) osc1.waveform, (char*) square_bmp);
+		osc3_waveform_symbol_ptr = square_bmp;
 		break;
 	case TRI:
-		memcpy((char*) osc1.waveform, (char*) triangle_bmp, 40);
+		osc3_waveform_symbol_ptr = triangle_bmp;
 		break;
 	case SAW:
-		strcpy((char*) osc1.waveform, (char*) saw_bmp);
+		osc3_waveform_symbol_ptr = saw_bmp;
 		break;
 	case ARB:
-		memcpy((char*) osc1.waveform, (char*) arb_bmp, 40);
+		osc3_waveform_symbol_ptr = arb_bmp;
 		break;
-
 	default:
-		strcpy((char*) osc1.waveform, (char*) arb_bmp);
+		osc3_waveform_symbol_ptr = sin_bmp;
+		break;
 	}
-}
 
-void disp_Update_value_OSC_2(float amp, Waveform wave, int8_t detune, OnOff onoff) {
-	osc2.Vol_pos = floor(amp * 39);
-	osc2.det_pos = ((detune + 12) * 40) / 24;
-	osc2.detune = detune;
-	osc2.is_on = (onoff == 0) ? false : true;
-
-	switch (wave) {
-	case SIN:
-		memcpy((char*) osc2.waveform, (char*) sin_bmp, 40);
-		//strcpy((char*)osc1.waveform,(char*)sin_bmp);
-
-		break;
-	case SQR:
-		strcpy((char*) osc2.waveform, (char*) square_bmp);
-		break;
-	case TRI:
-		memcpy((char*) osc2.waveform, (char*) triangle_bmp, 40);
-		break;
-	case SAW:
-		strcpy((char*) osc2.waveform, (char*) saw_bmp);
-		break;
-	case ARB:
-		memcpy((char*) osc2.waveform, (char*) arb_bmp, 40);
-		break;
-
-	default:
-		strcpy((char*) osc2.waveform, (char*) arb_bmp);
-	}
-}
-
-void disp_Update_value_OSC_3(float amp, Waveform wave, int8_t detune, OnOff onoff) {
-	osc3.Vol_pos = floor(amp * 39);
-	osc3.det_pos = ((detune + 12) * 40) / 24;
-	osc3.detune = detune;
-	osc3.is_on = (onoff == 0) ? false : true;
-
-	switch (wave) {
-	case SIN:
-		memcpy((char*) osc3.waveform, (char*) sin_bmp, 40);
-		//strcpy((char*)osc1.waveform,(char*)sin_bmp);
-
-		break;
-	case SQR:
-		strcpy((char*) osc3.waveform, (char*) square_bmp);
-		break;
-	case TRI:
-		memcpy((char*) osc3.waveform, (char*) triangle_bmp, 40);
-		break;
-	case SAW:
-		strcpy((char*) osc3.waveform, (char*) saw_bmp);
-		break;
-	case ARB:
-		memcpy((char*) osc3.waveform, (char*) arb_bmp, 40);
-		break;
-
-	default:
-		strcpy((char*) osc3.waveform, (char*) arb_bmp);
-	}
+	/* Draw waveform symbol */
+	SSD1306_DrawBitmap(&SSD1306_Screens[SSD1306_Left_Screen], 87, 11, osc3_waveform_symbol_ptr, bmp_width, bmp_height, 1);
 }
 
 void disp_Draw_arb_frame() {
@@ -751,12 +630,10 @@ void disp_ARB_Update_Select() {
 		tab_arb_points[i].is_selected = (select_index_arb == i) ? true : false;
 	}
 	//Draw_ADSR_points();
-
 }
 void disp_ARB_Shift_Select_Right() {
 	select_index_arb = (select_index_arb + 1) % (sizeOfTab);
 	disp_ARB_Update_Select();
-
 }
 
 void disp_ARB_Shift_Select_Left() {
@@ -806,7 +683,6 @@ void disp_Draw_ARB_points() {
 					SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Right_Screen], tab_arb_points[i].X_pos, tab_arb_points[i].Y_pos + 4, SSD1306_COLOR_BLACK);
 					SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Right_Screen], tab_arb_points[i].X_pos + 1, tab_arb_points[i].Y_pos + 4, SSD1306_COLOR_BLACK);
 					SSD1306_DrawPixel(&SSD1306_Screens[SSD1306_Right_Screen], tab_arb_points[i].X_pos + 2, tab_arb_points[i].Y_pos + 4, SSD1306_COLOR_BLACK);
-
 				}
 
 			}
@@ -848,6 +724,7 @@ void disp_draw_LFO_frame() {
 
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]);
 }
+
 void disp_update_LFO_value(float freq, float amp, Waveform wave, int8_t detune, OnOff onoff) {
 	lfo.freq = freq;
 	lfo.amp_perc = 100 * amp;

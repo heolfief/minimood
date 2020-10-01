@@ -270,11 +270,8 @@ void hmi_screen_fsm(Hmi *hmi, Sys_param *sys_param, Param_Changed param_changed)
 			hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_LFO;
 
 		disp_Draw_OSC_frame();
-		disp_Remove_OSC_variables_displayed();
-		disp_Update_value_OSC_1(sys_param->osc1.amp, sys_param->osc1.wave, sys_param->osc1.detune, sys_param->osc1.onoff);
-		disp_Update_value_OSC_2(sys_param->osc2.amp, sys_param->osc2.wave, sys_param->osc2.detune, sys_param->osc2.onoff);
-		disp_Update_value_OSC_3(sys_param->osc3.amp, sys_param->osc3.wave, sys_param->osc3.detune, sys_param->osc3.onoff);
-		disp_Draw_OSC_Var_displayed();
+		disp_Draw_OSC_Values(&sys_param->osc1, &sys_param->osc2, &sys_param->osc3);
+		disp_Refresh();
 		break;
 	case SCREEN_STATE_ADSR:
 		// Left screen is not meant to show ADSR screen

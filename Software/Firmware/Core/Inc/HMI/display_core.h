@@ -34,14 +34,10 @@ typedef struct {
 	bool is_selected;
 } ADSR_point;
 
-enum wave {
-	sine, square, triangle, sawtooth, arbitrary
-};
-
 typedef struct {
 	uint16_t Vol_pos;
 	int amp_perc; //the amplitude is here in percentage to be correctly displayed
-	enum wave onde;
+	Waveform onde;
 	bool is_on;
 	int8_t detune;
 	uint16_t det_pos;
@@ -70,60 +66,49 @@ oscillator_display osc2;
 oscillator_display osc3;
 oscillator_display lfo;
 
-void disp_Init_Displays(void);
+void disp_Init_Displays();
 
-void disp_Booting_Screens(void);
+void disp_Refresh();
 
-void disp_Home_Menu(void);
+void disp_Booting_Screens();
 
-void disp_Init_ADSR_points(void);
+void disp_Home_Menu();
 
-void disp_Draw_ADSR_points(void);
+void disp_Init_ADSR_points();
 
-void disp_Draw_ADSR_frame(void);
+void disp_Draw_ADSR_points();
 
-void disp_Draw_ADSR_lines(void);
+void disp_Draw_ADSR_frame();
 
-void disp_ADSR_Shift_Select_Right(void);
+void disp_Draw_ADSR_lines();
 
-void disp_ADSR_Shift_Select_Left(void);
+void disp_ADSR_Shift_Select_Right();
 
-void disp_ADSR_Update_Select(void);
+void disp_ADSR_Shift_Select_Left();
 
-void disp_ADSR_Remove_values_displayed(void);
-void disp_ADSR_display_update(void);
+void disp_ADSR_Update_Select();
+
+void disp_ADSR_Remove_values_displayed();
+void disp_ADSR_display_update();
 
 void disp_ADSR_value_update(float attack_val, float decay_val, float sustain_val, float release_val);
 
-void disp_Draw_OSC_frame(void);
+void disp_Draw_OSC_frame();
 
-void disp_Remove_OSC_variables_displayed(void);
+void disp_Draw_OSC_Values(Oscillator_param *osc1, Oscillator_param *osc2, Oscillator_param *osc3);
 
-void disp_Update_value_OSC_1(float amp, Waveform wave, int8_t detune, OnOff onoff);
-void disp_Update_value_OSC_2(float amp, Waveform wave, int8_t detune, OnOff onoff);
-void disp_Update_value_OSC_3(float amp, Waveform wave, int8_t detune, OnOff onoff);
-
-void disp_Unselect_osc1(void); //to draw the osc name in inverted colors if it is off
-void disp_Select_osc1(void); 	// redraw the osc name as before
-void disp_Unselect_osc2(void);
-void disp_Select_osc2(void);
-void disp_Unselect_osc3(void);
-void disp_Select_osc3(void);
-
-void disp_Draw_OSC_Var_displayed(void);
-
-void disp_Draw_arb_frame(void);
-void disp_Init_tab_arb(void);
+void disp_Draw_arb_frame();
+void disp_Init_tab_arb();
 void disp_Update_values_arb_tab(Arb_points tab[]);
-void disp_Remove_arb_points(void);
-void disp_Draw_ARB_points(void);
-void disp_ARB_Update_Select(void);
-void disp_ARB_Shift_Select_Right(void);
-void disp_ARB_Shift_Select_Left(void);
+void disp_Remove_arb_points();
+void disp_Draw_ARB_points();
+void disp_ARB_Update_Select();
+void disp_ARB_Shift_Select_Right();
+void disp_ARB_Shift_Select_Left();
 void disp_Update_arb_selected(double value);
 
-void disp_draw_LFO_frame(void);
+void disp_draw_LFO_frame();
 void disp_update_LFO_value(float freq, float amp, Waveform wave, int8_t detune, OnOff onoff);
-void disp_draw_LFO_value(void);
+void disp_draw_LFO_value();
 
 #endif /* INC_DISPLAY_SYNTH_H_ */
