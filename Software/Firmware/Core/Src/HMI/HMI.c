@@ -98,7 +98,8 @@ void hmi_init(Hmi *hmi) {
 	hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_IDLE;
 	hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_IDLE;
 
-	disp_Init_Displays();
+	disp_Init(SCREEN_LEFT);
+	disp_Init(SCREEN_RIGHT);
 }
 
 void hmi_debounce_buttons(Button *bts) {
@@ -269,9 +270,10 @@ void hmi_screen_fsm(Hmi *hmi, Sys_param *sys_param, Param_Changed param_changed)
 		if (param_changed == LFO_PARAM_CHANGED)
 			hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_LFO;
 
-		disp_Draw_OSC_frame();
-		disp_Draw_OSC_Values(&sys_param->osc1, &sys_param->osc2, &sys_param->osc3);
-		disp_Refresh();
+		disp_Clear(SCREEN_LEFT);
+		disp_Draw_OSC_frame(SCREEN_LEFT);
+		disp_Draw_OSC_Values(SCREEN_LEFT, &sys_param->osc1, &sys_param->osc2, &sys_param->osc3);
+		disp_Refresh(SCREEN_LEFT);
 		break;
 	case SCREEN_STATE_ADSR:
 		// Left screen is not meant to show ADSR screen
@@ -280,9 +282,10 @@ void hmi_screen_fsm(Hmi *hmi, Sys_param *sys_param, Param_Changed param_changed)
 		if (param_changed == OSC_PARAM_CHANGED)
 			hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_OSC;
 
-		disp_draw_LFO_frame();
-		disp_update_LFO_value(sys_param->lfo.freq, sys_param->lfo.amp, sys_param->lfo.wave, sys_param->lfo.detune, sys_param->lfo.onoff);
-		disp_draw_LFO_value();
+		disp_Clear(SCREEN_LEFT);
+		disp_Draw_LFO_frame(SCREEN_LEFT);
+		disp_Draw_LFO_Values(SCREEN_LEFT, &sys_param->lfo);
+		disp_Refresh(SCREEN_LEFT);
 		break;
 	case SCREEN_STATE_ARB:
 		// Left screen is not meant to show ARB screen
