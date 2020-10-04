@@ -10,11 +10,11 @@
 #include <math.h>
 
 // set for 12bit DAC, 4096 levels
-#define DAC_ZERO			2047
+#define DAC_ZERO		2047
 
-#define MAX_LUT_VALUE 4000
+#define MAX_LUT_VALUE 	4000
 
-#define SAMPLE_RATE 44094.48819			// Cannot be changed, depends on TIM6 settings and LUT values depend on sample rate
+#define SAMPLE_RATE 	44096.03136			// Cannot be changed, depends on TIM6 settings and LUT values depend on sample rate
 
 #define NUMBER_OF_WAVES 5
 
