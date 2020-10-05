@@ -40,6 +40,8 @@
 #define NBR_OF_POTS 				12
 #define NBR_OF_BUTTONS 				11
 #define DEBOUNCE_NBR_OF_SAMPLES		5
+
+#define ADC_MAX						4095.0
 /////////////////////////////////////
 
 ////////// HARDWARE DEPENDANT DEFINES
@@ -129,7 +131,7 @@ typedef struct {
  * \brief define an Human-Machine Interface variables
  */
 typedef struct {
-	uint8_t adc_raw_data[NBR_OF_POTS]; /*!<raw 8 bit ADC data for the 12 pots */
+	uint16_t adc_raw_data[NBR_OF_POTS]; /*!<Raw 12 bits ADC data for the 12 pots */
 	Potentiometer pots[NBR_OF_POTS]; /*!<Potentiometer array */
 	Button bts[NBR_OF_BUTTONS]; /*!<Buttons array */
 	Screen_State screens_states[2]; /*!<FSM states for the screens */
@@ -169,7 +171,7 @@ Param_Changed hmi_process_osc_buttons(Button *bts, Sys_param *sys_param);
  *
  * \return PARAM_CHANGED enum depending on what changed
  */
-Param_Changed hmi_process_pots(uint8_t *rawdata, Potentiometer *pots, Sys_param *sys_param);
+Param_Changed hmi_process_pots(uint16_t *rawdata, Potentiometer *pots, Sys_param *sys_param);
 
 /**
  * \brief Main finite state machine for the screens display

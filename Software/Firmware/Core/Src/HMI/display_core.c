@@ -5,12 +5,29 @@
 
 #include "HMI/display_core.h"
 
+/**
+ * \brief Re-maps a number from one range to another.
+ * That is, a value of fromLow would get mapped to toLow, a value
+ * of fromHigh to toHigh, values in-between to values in-between, etc.
+ *
+ * \param x the input value to map
+ * \param in_min the min value for the input
+ * \param in_max the max value for the input
+ * \param out_min the desired min value for the output
+ * \param out_max the desired max value for the output
+ *
+ * \return the mapped value
+ */
+#define MAP(X, IN_MIN, IN_MAX, OUT_MIN, OUT_MAX) ((X-IN_MIN)*(OUT_MAX-OUT_MIN)/(IN_MAX-IN_MIN)+OUT_MIN)
+
 // bmp data is here
 #include "HMI/waveforms_bmp.h"
 
 SSD1306_t SSD1306_Screens[NUMBER_OF_SSD1306_DISPLAYS];
 
 void disp_Init(uint8_t screen_ID) {
+	SSD1306_Screens[SSD1306_Left_Screen].i2c_address = SSD1306_I2C_ADDR_LEFT_SCREEN;
+	SSD1306_Screens[SSD1306_Right_Screen].i2c_address = SSD1306_I2C_ADDR_RIGHT_SCREEN;
 	SSD1306_Init(&SSD1306_Screens[screen_ID]);
 	SSD1306_Clear(&SSD1306_Screens[screen_ID]);
 }
@@ -23,7 +40,7 @@ void disp_Refresh(uint8_t screen_ID) {
 	SSD1306_UpdateScreen(&SSD1306_Screens[screen_ID]);
 }
 
-void disp_Home_Menu() {
+void disp_Splashscreen() {
 	SSD1306_Clear(&SSD1306_Screens[SSD1306_Left_Screen]);
 	SSD1306_Clear(&SSD1306_Screens[SSD1306_Right_Screen]);
 
@@ -49,7 +66,7 @@ void disp_Home_Menu() {
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
 }
 
-void disp_Booting_Screens() {
+void disp_Booting() {
 	SSD1306_Clear(&SSD1306_Screens[SSD1306_Left_Screen]);
 	SSD1306_Clear(&SSD1306_Screens[SSD1306_Right_Screen]);
 
@@ -67,19 +84,19 @@ void disp_Booting_Screens() {
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], "loading  ", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 
 	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 0, 33);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "Displays set", &Font_7x10, 1);
@@ -87,23 +104,23 @@ void disp_Booting_Screens() {
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], "checking  ", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], "OK.", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 
 	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 0, 43);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "Audio_core", &Font_7x10, 1);
@@ -111,19 +128,19 @@ void disp_Booting_Screens() {
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], "loading  ", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 
 	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Left_Screen], 0, 53);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Left_Screen], "Audio set", &Font_7x10, 1);
@@ -131,83 +148,87 @@ void disp_Booting_Screens() {
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], "checking  ", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], ".", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], "OK.", &Font_7x10, 1);
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
-	HAL_Delay(400);
+	HAL_Delay(50);
 
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Left_Screen]); //display
 	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
 
-	HAL_Delay(2000);
-	disp_Home_Menu();
-	HAL_Delay(2000);
+	HAL_Delay(200);
+	disp_Splashscreen();
+	HAL_Delay(500);
 }
 
 void disp_Draw_OSC_frame(uint8_t screen_ID) {
-	SSD1306_Clear(&SSD1306_Screens[screen_ID]);
-
 	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 42, 0, 42, 63, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 85, 0, 85, 63, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 0, 21, 127, 21, SSD1306_COLOR_WHITE);
 
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 5, 0);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "OSC 1", &Font_7x10, SSD1306_COLOR_WHITE);
+
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 47, 0);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "OSC 2", &Font_7x10, SSD1306_COLOR_WHITE);
+
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 90, 0);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "OSC 3", &Font_7x10, SSD1306_COLOR_WHITE);
 
 	//drawing frame for the first Osc
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 1, 23);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "Det.", &Font_7x10, SSD1306_COLOR_WHITE);
+
 	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 0, 43, 40, 43, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 20, 43, 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
 
 	//vol display
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 0, 47);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "Vol", &Font_7x10, SSD1306_COLOR_WHITE);
+
 	SSD1306_DrawRectangle(&SSD1306_Screens[screen_ID], 0, 58, 38, 5, SSD1306_COLOR_WHITE);
 
 	//drawing frame for the Second Osc
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 1 + 43, 23);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "Det.", &Font_7x10, SSD1306_COLOR_WHITE);
+
 	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 44 + 0, 43, 43 + 40, 43, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 44 + 20, 43, 44 + 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
 
 	//vol display
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 43 + 0, 47);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "Vol", &Font_7x10, SSD1306_COLOR_WHITE);
+
 	SSD1306_DrawRectangle(&SSD1306_Screens[screen_ID], 44 + 0, 58, 38, 5, SSD1306_COLOR_WHITE);
 
 	//drawing frame for the third Osc
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 1 + 86, 23);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "Det.", &Font_7x10, SSD1306_COLOR_WHITE);
+
 	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 87 + 0, 43, 86 + 40, 43, SSD1306_COLOR_WHITE);
 	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 87 + 20, 43, 87 + 20, 46, SSD1306_COLOR_WHITE); //little bar for the 0
 
 	//vol display
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 86 + 0, 47);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "vol", &Font_7x10, SSD1306_COLOR_WHITE);
-	SSD1306_DrawRectangle(&SSD1306_Screens[screen_ID], 87 + 0, 58, 38, 5, SSD1306_COLOR_WHITE);
 
-	SSD1306_UpdateScreen(&SSD1306_Screens[screen_ID]);
+	SSD1306_DrawRectangle(&SSD1306_Screens[screen_ID], 87 + 0, 58, 38, 5, SSD1306_COLOR_WHITE);
 }
 
-void disp_Draw_OSC_Values(uint8_t screen_ID, Oscillator_param *osc1, Oscillator_param *osc2, Oscillator_param *osc3) {
+void disp_Draw_OSC_Values(uint8_t screen_ID, const Oscillator_param *osc1, const Oscillator_param *osc2, const Oscillator_param *osc3) {
 	uint16_t osc1_vol_pos = floor(osc1->amp * 39);
 	uint16_t osc1_det_pos = ((osc1->detune + 12) * 40) / 24;
 	uint16_t osc2_vol_pos = floor(osc2->amp * 39);
@@ -391,11 +412,15 @@ void disp_Draw_OSC_Values(uint8_t screen_ID, Oscillator_param *osc1, Oscillator_
 void disp_Draw_LFO_frame(uint8_t screen_ID) {
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 0, 0);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "Low", &Font_11x18, SSD1306_COLOR_WHITE);
+
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 38, 0);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "Freq Osc", &Font_11x18, SSD1306_COLOR_WHITE);
+
 	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 0, 19, 127, 19, SSD1306_COLOR_WHITE);
+
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 0, 20);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "Rate:", &Font_11x18, SSD1306_COLOR_WHITE);
+
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 113, 25);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "Hz", &Font_7x10, SSD1306_COLOR_WHITE);
 
@@ -403,17 +428,17 @@ void disp_Draw_LFO_frame(uint8_t screen_ID) {
 
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 0, 42);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "State:", &Font_7x10, SSD1306_COLOR_WHITE);
+
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 0, 53);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "Depth:", &Font_7x10, SSD1306_COLOR_WHITE);
+
 	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 63, 39, 63, 63, SSD1306_COLOR_WHITE);
 
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 65, 48);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "Wav:", &Font_7x10, SSD1306_COLOR_WHITE);
-
-	SSD1306_UpdateScreen(&SSD1306_Screens[screen_ID]);
 }
 
-void disp_Draw_LFO_Values(uint8_t screen_ID, Oscillator_param *lfo) {
+void disp_Draw_LFO_Values(uint8_t screen_ID, const Oscillator_param *lfo) {
 	uint16_t lfo_vol_percent = 100 * lfo->amp;
 	char itoa_buffer[10];
 	uint8_t *lfo_waveform_symbol_ptr = NULL;
@@ -491,215 +516,70 @@ void disp_Draw_LFO_Values(uint8_t screen_ID, Oscillator_param *lfo) {
 	SSD1306_DrawBitmap(&SSD1306_Screens[screen_ID], 94, 48, lfo_waveform_symbol_ptr, bmp_width, bmp_height, 1);
 }
 
-void disp_Init_ADSR_points() {
-	First_point.X_pos = 5; //origin of the ADSR grid
-	First_point.Y_pos = 61;
-	First_point.is_selected = false;
+void disp_Draw_ADSR_frame(uint8_t screen_ID) {
+	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 83, 0);
+	SSD1306_Puts(&SSD1306_Screens[screen_ID], "ADSR", &Font_11x18, SSD1306_COLOR_WHITE);
 
-	Attack_pt.X_pos = 38 + 5;
-	Attack_pt.Y_pos = 20;
-	Attack_pt.is_selected = false;
-
-	Decay_pt.X_pos = 57 + 5;
-	Decay_pt.Y_pos = 31;
-	Decay_pt.is_selected = false;
-
-	Sustain_pt.X_pos = 85 + 5;
-	Sustain_pt.Y_pos = 31;
-	Sustain_pt.is_selected = false;
-
-	Release_pt.X_pos = 100 + 5;
-	Release_pt.Y_pos = 61;
-	Release_pt.is_selected = false;
-
-	select_index_adsr = 0;
+	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], ADSR_DISP_X_MIN, ADSR_DISP_Y_MAX, 120, ADSR_DISP_Y_MAX, SSD1306_COLOR_WHITE); // Drawing the scale bar
+	//SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 38 + 5, 61 - 2, 38 + 5, 61 + 2, SSD1306_COLOR_WHITE); //adding the grade viewers
+	//SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 76 + 5, 61 - 2, 76 + 5, 61 + 2, SSD1306_COLOR_WHITE); //adding the grade viewers
+	SSD1306_DrawTriangle(&SSD1306_Screens[screen_ID], 120, 61 - 2, 120, 61 + 2, 125, 61, SSD1306_COLOR_WHITE);
 }
 
-void disp_Draw_ADSR_points() {
-	//each point will be drawn with a square of 3x3 pixels, the reference pixel will be the one at the center
-	//start with the first point :
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Right_Screen], First_point.X_pos - 1, First_point.Y_pos - 1, 2, 2, SSD1306_COLOR_WHITE);
+void disp_Draw_ADSR_Values(uint8_t screen_ID, const Envelope *env) {
+	float total_time = env->attack + env->decay + env->release; /* Total time is second */
+	uint8_t total_time_corresponding_X_px = ADSR_DISP_X_MAX - ADSR_DISP_X_MIN - ADSR_DISP_NOTE_LENGTH; /* Number of X pixel on screen that represent total time */
 
-	//then the Attack
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Attack_pt.X_pos - 1, Attack_pt.Y_pos - 1, 2, 2, SSD1306_COLOR_WHITE);
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Right_Screen], Attack_pt.X_pos + 1, Attack_pt.Y_pos - 11);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Right_Screen], 'A', &Font_7x10, SSD1306_COLOR_WHITE);
-	// an empty rectangle will be displayed around the letter when the point is selected
-	if (Attack_pt.is_selected == true) {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Attack_pt.X_pos, Attack_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_WHITE);
-	} else {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Attack_pt.X_pos, Attack_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
-	}
+	uint8_t origin_point_X = ADSR_DISP_X_MIN;
+	uint8_t origin_point_Y = ADSR_DISP_Y_MAX;
 
-	//then the Decay
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Decay_pt.X_pos - 1, Decay_pt.Y_pos - 1, 2, 2, SSD1306_COLOR_WHITE);
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Right_Screen], Decay_pt.X_pos + 1, Decay_pt.Y_pos - 11);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Right_Screen], 'D', &Font_7x10, SSD1306_COLOR_WHITE);
-	// an empty rectangle will be displayed around the letter when the point is selected
-	if (Decay_pt.is_selected == true) {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Decay_pt.X_pos, Decay_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_WHITE);
-	} else {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Decay_pt.X_pos, Decay_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
+	uint8_t attack_pt_X = MAP(env->attack, 0, total_time, 0, total_time_corresponding_X_px) + origin_point_X;
+	uint8_t attack_pt_Y = ADSR_DISP_Y_MIN;
 
-	}
+	uint8_t decay_pt_X = MAP(env->decay, 0, total_time, 0, total_time_corresponding_X_px) + attack_pt_X;
 
-	//then the Sustain
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Sustain_pt.X_pos - 1, Sustain_pt.Y_pos - 1, 2, 2, SSD1306_COLOR_WHITE);
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Right_Screen], Sustain_pt.X_pos + 1, Sustain_pt.Y_pos - 11);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Right_Screen], 'S', &Font_7x10, SSD1306_COLOR_WHITE);
-	// an empty rectangle will be displayed around the letter when the point is selected
-	if (Sustain_pt.is_selected == true) {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Sustain_pt.X_pos, Sustain_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_WHITE);
-	} else {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Sustain_pt.X_pos, Sustain_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
+	uint8_t sustain_pt_X = decay_pt_X + ADSR_DISP_NOTE_LENGTH;
+	uint8_t sustain_pt_Y = MAP(env->sustain, 0, 1, ADSR_DISP_Y_MAX, ADSR_DISP_Y_MIN); // If sustain is zero, Y is ADSR_DISP_Y_MAX, if 1 is ADSR_DISP_Y_MIN
 
-	}
+	uint8_t decay_pt_Y = sustain_pt_Y;
 
-	//then the Release
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Release_pt.X_pos - 1, Release_pt.Y_pos - 1, 2, 2, SSD1306_COLOR_WHITE);
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Right_Screen], Release_pt.X_pos + 1, Release_pt.Y_pos - 11);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Right_Screen], 'R', &Font_7x10, SSD1306_COLOR_WHITE);
-	// an empty rectangle will be displayed around the letter when the point is selected
-	if (Release_pt.is_selected == true) {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Release_pt.X_pos, Release_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_WHITE);
-	} else {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Release_pt.X_pos, Release_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
+	uint8_t release_pt_X = MAP(env->release, 0, total_time, 0, total_time_corresponding_X_px) + sustain_pt_X;
+	uint8_t release_pt_Y = ADSR_DISP_Y_MAX;
 
-	}
+	// Each point will be drawn with a square of 3x3 pixels, the reference pixel will be the one at the center
 
-	//SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]); //display done in value update function
-}
+	/* Draw first point */
+	SSD1306_DrawFilledRectangle(&SSD1306_Screens[screen_ID], origin_point_X - 1, origin_point_Y - 1, 2, 2, SSD1306_COLOR_WHITE);
 
-void disp_Draw_ADSR_frame() {
+	/* Draw attack point */
+	SSD1306_DrawFilledRectangle(&SSD1306_Screens[screen_ID], attack_pt_X - 1, attack_pt_Y - 1, 2, 2, SSD1306_COLOR_WHITE);
 
-	SSD1306_Clear(&SSD1306_Screens[SSD1306_Right_Screen]);
+	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], attack_pt_X + 1, attack_pt_Y - 11);
+	SSD1306_Putc(&SSD1306_Screens[screen_ID], 'A', &Font_7x10, SSD1306_COLOR_WHITE);
 
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Right_Screen], 83, 0);
-	SSD1306_Puts(&SSD1306_Screens[SSD1306_Right_Screen], "ADSR", &Font_11x18, 1);
+	/* Draw decay point */
+	SSD1306_DrawFilledRectangle(&SSD1306_Screens[screen_ID], decay_pt_X - 1, decay_pt_Y - 1, 2, 2, SSD1306_COLOR_WHITE);
 
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], First_point.X_pos, First_point.Y_pos, 120, First_point.Y_pos, SSD1306_COLOR_WHITE); //drawing the scale bar
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], 38 + 5, 61 - 2, 38 + 5, 61 + 2, SSD1306_COLOR_WHITE); //adding the grade viewers
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], 76 + 5, 61 - 2, 76 + 5, 61 + 2, SSD1306_COLOR_WHITE); //adding the grade viewers
-	SSD1306_DrawTriangle(&SSD1306_Screens[SSD1306_Right_Screen], 120, 61 - 2, 120, 61 + 2, 125, 61, SSD1306_COLOR_WHITE);
-}
+	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], decay_pt_X + 1, decay_pt_Y - 11);
+	SSD1306_Putc(&SSD1306_Screens[screen_ID], 'D', &Font_7x10, SSD1306_COLOR_WHITE);
 
-void disp_Draw_ADSR_lines() {
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], First_point.X_pos, First_point.Y_pos, Attack_pt.X_pos, Attack_pt.Y_pos, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], Attack_pt.X_pos, Attack_pt.Y_pos, Decay_pt.X_pos, Decay_pt.Y_pos, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], Decay_pt.X_pos, Decay_pt.Y_pos, Sustain_pt.X_pos, Sustain_pt.Y_pos, SSD1306_COLOR_WHITE);
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], Sustain_pt.X_pos, Sustain_pt.Y_pos, Release_pt.X_pos, Release_pt.Y_pos, SSD1306_COLOR_WHITE);
+	/* Draw sustain point */
+	SSD1306_DrawFilledRectangle(&SSD1306_Screens[screen_ID], sustain_pt_X - 1, sustain_pt_Y - 1, 2, 2, SSD1306_COLOR_WHITE);
 
-	//SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]); done in ADSR_display_update
-}
+	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], sustain_pt_X + 1, sustain_pt_Y - 11);
+	SSD1306_Putc(&SSD1306_Screens[screen_ID], 'S', &Font_7x10, SSD1306_COLOR_WHITE);
 
-void disp_ADSR_Shift_Select_Right() {
-	select_index_adsr = (select_index_adsr + 1) % 4;
-	disp_ADSR_Update_Select();
-}
+	/* Draw release point */
+	SSD1306_DrawFilledRectangle(&SSD1306_Screens[screen_ID], release_pt_X - 1, release_pt_Y - 1, 2, 2, SSD1306_COLOR_WHITE);
 
-void disp_ADSR_Shift_Select_Left() {
-	if (select_index_adsr == 0)
-		select_index_adsr = 4;
-	select_index_adsr = (select_index_adsr - 1) % 4;
+	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], release_pt_X + 1, release_pt_Y - 11);
+	SSD1306_Putc(&SSD1306_Screens[screen_ID], 'R', &Font_7x10, SSD1306_COLOR_WHITE);
 
-	disp_ADSR_Update_Select();
-}
-
-void disp_ADSR_Remove_values_displayed() {
-	//same code as draw ADSR points but in black colors :
-
-	//each point will be drawn with a square of 3x3 pixels, the reference pixel will be the one at the center
-	//start with the first point :
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Right_Screen], First_point.X_pos - 1, First_point.Y_pos - 1, 2, 2, SSD1306_COLOR_BLACK);
-
-	//then the Attack
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Attack_pt.X_pos - 1, Attack_pt.Y_pos - 1, 2, 2, SSD1306_COLOR_BLACK);
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Right_Screen], Attack_pt.X_pos + 1, Attack_pt.Y_pos - 11);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Right_Screen], 'A', &Font_7x10, SSD1306_COLOR_BLACK);
-	// an empty rectangle will be displayed around the letter when the point is selected
-	if (Attack_pt.is_selected == true) {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Attack_pt.X_pos, Attack_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
-	} else {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Attack_pt.X_pos, Attack_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
-	}
-
-	//then the Decay
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Decay_pt.X_pos - 1, Decay_pt.Y_pos - 1, 2, 2, SSD1306_COLOR_BLACK);
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Right_Screen], Decay_pt.X_pos + 1, Decay_pt.Y_pos - 11);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Right_Screen], 'D', &Font_7x10, SSD1306_COLOR_BLACK);
-	// an empty rectangle will be displayed around the letter when the point is selected
-	if (Decay_pt.is_selected == true) {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Decay_pt.X_pos, Decay_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
-	} else {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Decay_pt.X_pos, Decay_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
-
-	}
-
-	//then the Sustain
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Sustain_pt.X_pos - 1, Sustain_pt.Y_pos - 1, 2, 2, SSD1306_COLOR_BLACK);
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Right_Screen], Sustain_pt.X_pos + 1, Sustain_pt.Y_pos - 11);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Right_Screen], 'S', &Font_7x10, SSD1306_COLOR_BLACK);
-	// an empty rectangle will be displayed around the letter when the point is selected
-	if (Sustain_pt.is_selected == true) {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Sustain_pt.X_pos, Sustain_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
-	} else {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Sustain_pt.X_pos, Sustain_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
-
-	}
-
-	//then the Release
-	SSD1306_DrawFilledRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Release_pt.X_pos - 1, Release_pt.Y_pos - 1, 2, 2, SSD1306_COLOR_BLACK);
-	SSD1306_GotoXY(&SSD1306_Screens[SSD1306_Right_Screen], Release_pt.X_pos + 1, Release_pt.Y_pos - 11);
-	SSD1306_Putc(&SSD1306_Screens[SSD1306_Right_Screen], 'R', &Font_7x10, SSD1306_COLOR_BLACK);
-	// an empty rectangle will be displayed around the letter when the point is selected
-	if (Release_pt.is_selected == true) {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Release_pt.X_pos, Release_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
-	} else {
-		SSD1306_DrawRectangle(&SSD1306_Screens[SSD1306_Right_Screen], Release_pt.X_pos, Release_pt.Y_pos - 13, 8, 11, SSD1306_COLOR_BLACK);
-
-	}
-
-	//then the lines will be drawn black :
-
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], First_point.X_pos, First_point.Y_pos, Attack_pt.X_pos, Attack_pt.Y_pos, SSD1306_COLOR_BLACK);
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], Attack_pt.X_pos, Attack_pt.Y_pos, Decay_pt.X_pos, Decay_pt.Y_pos, SSD1306_COLOR_BLACK);
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], Decay_pt.X_pos, Decay_pt.Y_pos, Sustain_pt.X_pos, Sustain_pt.Y_pos, SSD1306_COLOR_BLACK);
-	SSD1306_DrawLine(&SSD1306_Screens[SSD1306_Right_Screen], Sustain_pt.X_pos, Sustain_pt.Y_pos, Release_pt.X_pos, Release_pt.Y_pos, SSD1306_COLOR_BLACK);
-
-	//redraw the damaged frame points
-	//Draw_ADSR_frame(); already done in function ADSR_display_update
-
-	//SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]); //display
-}
-
-void disp_ADSR_Update_Select() {
-	Attack_pt.is_selected = (select_index_adsr == 0) ? true : false;
-	Decay_pt.is_selected = (select_index_adsr == 1) ? true : false;
-	Sustain_pt.is_selected = (select_index_adsr == 2) ? true : false;
-	Release_pt.is_selected = (select_index_adsr == 3) ? true : false;
-
-	disp_Draw_ADSR_points();
-}
-
-void disp_ADSR_value_update(float attack_val, float decay_val, float sustain_val, float release_val) {
-	//the values should be fetched in the sys.param
-	int release_pos_x_relative = (release_val * 30) / 2;
-	int sustain_pos_y_relative = 28 * sustain_val;
-	int attack_pos_x_relative = (23 * attack_val) / 2;
-	int decay_pos_x_relatve = (30 * decay_val) / 2;
-
-	Attack_pt.X_pos = attack_pos_x_relative + 20;
-	Decay_pt.X_pos = decay_pos_x_relatve + 38 + 15;
-	Sustain_pt.Y_pos = (31 + (28 - sustain_pos_y_relative));
-	Release_pt.X_pos = release_pos_x_relative + 92;
-}
-
-void disp_ADSR_display_update() {
-	//SSD1306_Clear(&SSD1306_Screens[SSD1306_Right_Screen]);
-	disp_Draw_ADSR_frame();
-	disp_Draw_ADSR_points();
-	disp_Draw_ADSR_lines();
-	SSD1306_UpdateScreen(&SSD1306_Screens[SSD1306_Right_Screen]);
+	/* Draw lines between points */
+	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], origin_point_X, origin_point_Y, attack_pt_X, attack_pt_Y, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], attack_pt_X, attack_pt_Y, decay_pt_X, decay_pt_Y, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], decay_pt_X, decay_pt_Y, sustain_pt_X, sustain_pt_Y, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], sustain_pt_X, sustain_pt_Y, release_pt_X, release_pt_Y, SSD1306_COLOR_WHITE);
 }
 
 void disp_Draw_arb_frame() {

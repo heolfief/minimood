@@ -11,8 +11,6 @@ extern I2C_HandleTypeDef hi2c1; //SCL : PB6 / SDA : PB7
 
 int8_t SSD1306_Init(SSD1306_t *display) {
 
-	/* Init I2C */
-	//ssd1306_I2C_Init();
 	/* Check if LCD connected to I2C */
 	if (HAL_I2C_IsDeviceReady(&hi2c1, display->i2c_address, 1, 20000) != HAL_OK) {
 		/* Return KO */
@@ -464,7 +462,6 @@ void SSD1306_DrawBitmap(SSD1306_t *display, int16_t x, int16_t y, const unsigned
 
 void SSD1306_Clear(SSD1306_t *display) {
 	SSD1306_Fill(display, 0);
-	SSD1306_UpdateScreen(display);
 }
 
 void SSD1306_ON(SSD1306_t *display) {

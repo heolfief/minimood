@@ -116,13 +116,17 @@ int main(void)
   MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_TIM_Base_Start_IT(&htim6);		// start TIM6, IT mode
-  HAL_TIM_Base_Start_IT(&htim7);		// start TIM7, IT mode
+  HAL_TIM_Base_Start_IT(&htim5);		// Start TIM5 (LFO timer), IT mode
+  HAL_TIM_Base_Start_IT(&htim6);		// Start TIM6 (Audio core timer), IT mode
+
   HAL_DAC_Start(&hdac,DAC_CHANNEL_1);	// Start DAC on channel 1
   HAL_DAC_Start(&hdac,DAC_CHANNEL_2);	// Start DAC on channel 2
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)hmi.adc_raw_data, NBR_OF_POTS);
+
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)hmi.adc_raw_data, NBR_OF_POTS);	// Start HMI potentiometers ADC
 
   hmi_init(&hmi);
+  HAL_TIM_Base_Start_IT(&htim7);		// Start TIM7 (HMI refresh timer), IT mode
+
   synth_core_start(&ac);
 
 
@@ -278,9 +282,9 @@ static void MX_ADC1_Init(void)
   */
   hadc1.Instance = ADC1;
   hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
-  hadc1.Init.Resolution = ADC_RESOLUTION_8B;
+  hadc1.Init.Resolution = ADC_RESOLUTION_12B;
   hadc1.Init.ScanConvMode = ENABLE;
-  hadc1.Init.ContinuousConvMode = ENABLE;
+  hadc1.Init.ContinuousConvMode = DISABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
   hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
@@ -296,7 +300,7 @@ static void MX_ADC1_Init(void)
   */
   sConfig.Channel = ADC_CHANNEL_2;
   sConfig.Rank = 1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+  sConfig.SamplingTime = ADC_SAMPLETIME_144CYCLES;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     Error_Handler();
