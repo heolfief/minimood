@@ -20,8 +20,10 @@
 #define SSD1306_I2C_ADDR_LEFT_SCREEN		0x78	/* I2C address for left screen */
 #define SSD1306_I2C_ADDR_RIGHT_SCREEN		0x7A	/* I2C address for right screen */
 
-#define ADSR_DISP_X_MAX						115		/* Max X coordinate for ADSR points */
-#define ADSR_DISP_X_MIN						5		/* Min X coordinate for ADSR points */
+#define ADSR_DISP_AXIS_TICKS_SPACING		0.5		/* Time spacing between each axis ticks */
+
+#define ADSR_DISP_X_MAX						116		/* Max X coordinate for ADSR points */
+#define ADSR_DISP_X_MIN						2		/* Min X coordinate for ADSR points */
 
 #define ADSR_DISP_Y_MAX						61		/* Max Y coordinate for ADSR points */
 #define ADSR_DISP_Y_MIN						20		/* Min Y coordinate for ADSR points */
