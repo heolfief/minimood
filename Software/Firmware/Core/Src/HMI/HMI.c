@@ -93,7 +93,7 @@ void hmi_init(Hmi *hmi) {
 	hmi->pots[POT_LFO_RATE].max_value = LFO_RATE_MAX;
 
 	hmi->pots[POT_LFO_DEPTH].min_value = LFO_DEPTH_MIN;
-	hmi->pots[POT_LFO_DEPTH].max_value = LFO_DEPTH_MIN;
+	hmi->pots[POT_LFO_DEPTH].max_value = LFO_DEPTH_MAX;
 
 	hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_IDLE;
 	hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_IDLE;
@@ -180,10 +180,6 @@ Param_Changed hmi_process_osc_buttons(Button *bts, Sys_param *sys_param) {
 Param_Changed hmi_process_pots(uint16_t *rawdata, Potentiometer *pots, Sys_param *sys_param) {
 	Param_Changed param_changed = NO_PARAM_CHANGED;
 
-	for (int i = 0; i < NBR_OF_POTS; ++i) {
-		//rawdata[i] = rawdata[i] >> 4; // Convert from 12 to 8 bits, loose resolution to reduce noise
-	}
-
 	if (rawdata[POT_OSC1_AMP] != pots[POT_OSC1_AMP].last_value) {
 		sys_param->osc1.amp = (float) MAP((float)rawdata[POT_OSC1_AMP], 0.0, ADC_MAX, (float)pots[POT_OSC1_AMP].min_value, (float)pots[POT_OSC1_AMP].max_value);
 		pots[POT_OSC1_AMP].last_value = rawdata[POT_OSC1_AMP];
@@ -259,7 +255,7 @@ Param_Changed hmi_process_pots(uint16_t *rawdata, Potentiometer *pots, Sys_param
 	return param_changed;
 }
 
-void hmi_screen_fsm(Hmi *hmi, Sys_param *sys_param, Param_Changed param_changed) {
+void hmi_screen_fsm(Hmi *hmi, Sys_param *sys_param, Param_Changed param_changed, uint16_t actual_lfo_sample) {
 	switch (hmi->screens_states[SCREEN_LEFT]) {
 	case SCREEN_STATE_IDLE:
 		hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_BOOTSCREEN;
@@ -291,7 +287,7 @@ void hmi_screen_fsm(Hmi *hmi, Sys_param *sys_param, Param_Changed param_changed)
 
 		disp_Clear(SCREEN_LEFT);
 		disp_Draw_LFO_frame(SCREEN_LEFT);
-		disp_Draw_LFO_Values(SCREEN_LEFT, &sys_param->lfo);
+		disp_Draw_LFO_Values(SCREEN_LEFT, &sys_param->lfo, actual_lfo_sample);
 		disp_Refresh(SCREEN_LEFT);
 		break;
 	case SCREEN_STATE_ARB:

@@ -49,7 +49,7 @@ DAC_HandleTypeDef hdac;
 
 I2C_HandleTypeDef hi2c1;
 
-TIM_HandleTypeDef htim5;
+TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim6;
 TIM_HandleTypeDef htim7;
 
@@ -68,8 +68,8 @@ static void MX_DAC_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_I2C1_Init(void);
-static void MX_TIM5_Init(void);
 static void MX_TIM7_Init(void);
+static void MX_TIM4_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -112,11 +112,10 @@ int main(void)
   MX_TIM6_Init();
   MX_ADC1_Init();
   MX_I2C1_Init();
-  MX_TIM5_Init();
   MX_TIM7_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_TIM_Base_Start_IT(&htim5);		// Start TIM5 (LFO timer), IT mode
   HAL_TIM_Base_Start_IT(&htim6);		// Start TIM6 (Audio core timer), IT mode
 
   HAL_DAC_Start(&hdac,DAC_CHANNEL_1);	// Start DAC on channel 1
@@ -125,7 +124,8 @@ int main(void)
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)hmi.adc_raw_data, NBR_OF_POTS);	// Start HMI potentiometers ADC
 
   hmi_init(&hmi);
-  HAL_TIM_Base_Start_IT(&htim7);		// Start TIM7 (HMI refresh timer), IT mode
+  HAL_TIM_Base_Start_IT(&htim7);		// Start TIM7 (HMI inputs timer), IT mode
+  HAL_TIM_Base_Start_IT(&htim4);		// Start TIM4 (HMI display refresh timer), IT mode
 
   synth_core_start(&ac);
 
@@ -151,10 +151,12 @@ int main(void)
   ac.sys_param.osc1.detune = 0;
   ac.sys_param.osc2.detune = 0;
   ac.sys_param.osc3.detune = 0;
- // HAL_Delay(2000);
+
   ac.sys_param.lfo.amp = 0.5;
   ac.sys_param.lfo.wave = SIN;
   ac.sys_param.lfo.freq = 51; // ranges from 0 to 1023, corresponding to 0 to 20Hz
+  ac.sys_param.lfo.onoff = ON;
+  ac.sys_param.lfo.detune = 0;
 
 
   copy_osc_sys_param_to_notes_osc(&ac.sys_param, ac.note);
@@ -231,7 +233,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLM = 4;
   RCC_OscInitStruct.PLL.PLLN = 180;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 2;
@@ -425,7 +427,7 @@ static void MX_DAC_Init(void)
   }
   /** DAC channel OUT1 config
   */
-  sConfig.DAC_Trigger = DAC_TRIGGER_T6_TRGO;
+  sConfig.DAC_Trigger = DAC_TRIGGER_SOFTWARE;
   sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
   if (HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_1) != HAL_OK)
   {
@@ -433,7 +435,6 @@ static void MX_DAC_Init(void)
   }
   /** DAC channel OUT2 config
   */
-  sConfig.DAC_Trigger = DAC_TRIGGER_T5_TRGO;
   if (HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_2) != HAL_OK)
   {
     Error_Handler();
@@ -479,47 +480,47 @@ static void MX_I2C1_Init(void)
 }
 
 /**
-  * @brief TIM5 Initialization Function
+  * @brief TIM4 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_TIM5_Init(void)
+static void MX_TIM4_Init(void)
 {
 
-  /* USER CODE BEGIN TIM5_Init 0 */
+  /* USER CODE BEGIN TIM4_Init 0 */
 
-  /* USER CODE END TIM5_Init 0 */
+  /* USER CODE END TIM4_Init 0 */
 
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
 
-  /* USER CODE BEGIN TIM5_Init 1 */
+  /* USER CODE BEGIN TIM4_Init 1 */
 
-  /* USER CODE END TIM5_Init 1 */
-  htim5.Instance = TIM5;
-  htim5.Init.Prescaler = 89;
-  htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim5.Init.Period = 4999;
-  htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
-  if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
+  /* USER CODE END TIM4_Init 1 */
+  htim4.Instance = TIM4;
+  htim4.Init.Prescaler = 8999;
+  htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim4.Init.Period = 199;
+  htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
   {
     Error_Handler();
   }
   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim5, &sClockSourceConfig) != HAL_OK)
+  if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
   {
     Error_Handler();
   }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim5, &sMasterConfig) != HAL_OK)
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN TIM5_Init 2 */
+  /* USER CODE BEGIN TIM4_Init 2 */
 
-  /* USER CODE END TIM5_Init 2 */
+  /* USER CODE END TIM4_Init 2 */
 
 }
 

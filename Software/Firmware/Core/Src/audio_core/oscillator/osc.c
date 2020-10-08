@@ -24,14 +24,14 @@ void osc_init_default(Oscillator *osc) {
 	osc->offset = DAC_ZERO;
 }
 
-void lfo_init_default(Oscillator *osc) {
-	osc->amp = 0.5;
-	osc->onoff = ON;
-	osc->phase = 0;
-	osc->phase_inc = 1;
-	osc->wave = SIN;
-	osc->detune = 0;
-	osc->offset = osc->amp * (MAX_LUT_VALUE/2.0);
+void lfo_init_default(Oscillator *lfo) {
+	lfo->amp = 0.5;
+	lfo->onoff = ON;
+	lfo->phase = 0;
+	lfo->phase_inc = 1;
+	lfo->wave = SIN;
+	lfo->detune = 0;
+	lfo->offset = lfo->amp * (MAX_LUT_VALUE/2.0);
 }
 
 void osc_change_midi_note(Oscillator *osc, uint8_t midi_note) {
@@ -42,15 +42,7 @@ void osc_change_LFO_freq(Oscillator *osc, uint16_t normalized_freq) {
 	osc->phase_inc = LFO_phase_inc[normalized_freq];
 }
 
-/**
- * \brief Cubic Hermite spline interpollation
- *
- * \param ip input array
- * \param ipsz number of elements in input array
- * \param op output array
- * \param op number of elements in output array
- */
-static void cubic_Intrpl(float *ip, int ipsz, float *op, int opsz) {
+void cubic_Intrpl(float *ip, int ipsz, float *op, int opsz) {
 	int j;
 	float map;
 
