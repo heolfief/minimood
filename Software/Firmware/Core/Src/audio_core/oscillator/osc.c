@@ -42,15 +42,7 @@ void osc_change_LFO_freq(Oscillator *osc, uint16_t normalized_freq) {
 	osc->phase_inc = LFO_phase_inc[normalized_freq];
 }
 
-/**
- * \brief Cubic Hermite spline interpollation
- *
- * \param ip input array
- * \param ipsz number of elements in input array
- * \param op output array
- * \param op number of elements in output array
- */
-static void cubic_Intrpl(float *ip, int ipsz, float *op, int opsz) {
+void cubic_Intrpl(float *ip, int ipsz, float *op, int opsz) {
 	int j;
 	float map;
 

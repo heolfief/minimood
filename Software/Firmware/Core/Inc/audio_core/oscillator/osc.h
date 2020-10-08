@@ -106,6 +106,16 @@ void osc_change_midi_note(Oscillator *osc, uint8_t midi_note);
 void osc_change_LFO_freq(Oscillator *osc, uint16_t normalized_freq);
 
 /**
+ * \brief Cubic Hermite spline interpollation
+ *
+ * \param ip input array
+ * \param ipsz number of elements in input array
+ * \param op output array
+ * \param op number of elements in output array
+ */
+void cubic_Intrpl(float *ip, int ipsz, float *op, int opsz);
+
+/**
  * \brief Interpolate values to fill ARB waveform in wave_LUT
  *
  * \param values the array of values to interpolate to the wave_LUT ARB waveform

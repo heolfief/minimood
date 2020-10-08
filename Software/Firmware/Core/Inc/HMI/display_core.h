@@ -30,7 +30,8 @@
 
 #define ADSR_DISP_NOTE_LENGTH				15		/* Note length in pixels (only for display, not actual note length) */
 
-#define NBR_SAMPLES_LFO_HISTORY 			128		/* Number of sample in LFO display history */
+#define LFO_NBR_SAMPLES_IN_HISTORY 			64		/* Number of sample in LFO display history */
+#define LFO_NBR_SAMPLES_INTERPOLATED		512		/* Number of sample interpolated for LFO display history */
 
 /**
  * \brief define left and right screen SSD1306_t array index

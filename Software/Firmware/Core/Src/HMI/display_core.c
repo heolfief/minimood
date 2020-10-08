@@ -397,139 +397,35 @@ void disp_Draw_OSC_Values(uint8_t screen_ID, const Oscillator_param *osc1, const
 	SSD1306_DrawBitmap(&SSD1306_Screens[screen_ID], 87, 11, osc3_waveform_symbol_ptr, bmp_width, bmp_height, 1);
 }
 
-/*
- void disp_Draw_LFO_frame(uint8_t screen_ID) {
- SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 0, 0);
- SSD1306_Puts(&SSD1306_Screens[screen_ID], "Low", &Font_11x18, SSD1306_COLOR_WHITE);
-
- SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 38, 0);
- SSD1306_Puts(&SSD1306_Screens[screen_ID], "Freq Osc", &Font_11x18, SSD1306_COLOR_WHITE);
-
- SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 0, 19, 127, 19, SSD1306_COLOR_WHITE);
-
- SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 0, 20);
- SSD1306_Puts(&SSD1306_Screens[screen_ID], "Rate:", &Font_11x18, SSD1306_COLOR_WHITE);
-
- SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 113, 25);
- SSD1306_Puts(&SSD1306_Screens[screen_ID], "Hz", &Font_7x10, SSD1306_COLOR_WHITE);
-
- SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 30, 39, 98, 39, SSD1306_COLOR_WHITE);
-
- SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 0, 42);
- SSD1306_Puts(&SSD1306_Screens[screen_ID], "State:", &Font_7x10, SSD1306_COLOR_WHITE);
-
- SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 0, 53);
- SSD1306_Puts(&SSD1306_Screens[screen_ID], "Depth:", &Font_7x10, SSD1306_COLOR_WHITE);
-
- SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 63, 39, 63, 63, SSD1306_COLOR_WHITE);
-
- SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 65, 48);
- SSD1306_Puts(&SSD1306_Screens[screen_ID], "Wav:", &Font_7x10, SSD1306_COLOR_WHITE);
- }*/
-
 void disp_Draw_LFO_frame(uint8_t screen_ID) {
 	/* Draw title */
 	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 0, 0);
 	SSD1306_Puts(&SSD1306_Screens[screen_ID], "LFO", &Font_11x18, SSD1306_COLOR_WHITE);
+	SSD1306_DrawLine(&SSD1306_Screens[screen_ID], 0, (63 + 17) / 2, 127, (63 + 17) / 2, SSD1306_COLOR_WHITE);
 }
 
 void disp_Draw_LFO_Values(uint8_t screen_ID, const Oscillator_param *lfo, uint16_t actual_lfo_sample) {
-	static uint16_t old_lfo_samples[NBR_SAMPLES_LFO_HISTORY];
+	static float old_lfo_samples[LFO_NBR_SAMPLES_IN_HISTORY];
+	static float old_lfo_samples_interpolated[LFO_NBR_SAMPLES_INTERPOLATED];
+	int16_t normalized_actual_lfo_sample = actual_lfo_sample - lfo->amp * (MAX_LUT_VALUE / 2.0);
 
-	for (int i = 0; i < NBR_SAMPLES_LFO_HISTORY - 1; ++i) {
+	for (int i = 0; i < LFO_NBR_SAMPLES_IN_HISTORY - 1; ++i) {
 		old_lfo_samples[i] = old_lfo_samples[i + 1];
 	}
-	old_lfo_samples[NBR_SAMPLES_LFO_HISTORY - 1] = actual_lfo_sample;
+	old_lfo_samples[LFO_NBR_SAMPLES_IN_HISTORY - 1] = normalized_actual_lfo_sample;
 
-	for (int i = 1; i < NBR_SAMPLES_LFO_HISTORY; ++i) {
-		uint8_t xpx = MAP(i, 0, NBR_SAMPLES_LFO_HISTORY, 0, 127);
-		uint8_t xpx_old = MAP(i - 1, 0, NBR_SAMPLES_LFO_HISTORY, 0, 127);
-		uint8_t ypx = MAP(old_lfo_samples[i], 0, MAX_LUT_VALUE, 17, 63);
-		uint8_t ypx_old = MAP(old_lfo_samples[i - 1], 0, MAX_LUT_VALUE, 17, 63);
-		SSD1306_DrawLine(&SSD1306_Screens[screen_ID], xpx_old, ypx_old, xpx, ypx, SSD1306_COLOR_WHITE);
-		//SSD1306_DrawPixel(&SSD1306_Screens[screen_ID], xpx, ypx, SSD1306_COLOR_WHITE);
+	cubic_Intrpl(old_lfo_samples, LFO_NBR_SAMPLES_IN_HISTORY, old_lfo_samples_interpolated, LFO_NBR_SAMPLES_INTERPOLATED);
+
+	for (int i = 1; i < LFO_NBR_SAMPLES_INTERPOLATED; ++i) {
+		uint8_t xpx = MAP(i, 0, LFO_NBR_SAMPLES_INTERPOLATED, 0, 127);
+		uint8_t xpx_old = MAP(i - 1, 0, LFO_NBR_SAMPLES_INTERPOLATED, 0, 127);
+		uint8_t ypx = MAP((int16_t )old_lfo_samples_interpolated[i], -MAX_LUT_VALUE/2.0, MAX_LUT_VALUE/2.0, 17, 63);
+		uint8_t ypx_old = MAP((int16_t )old_lfo_samples_interpolated[i - 1], -MAX_LUT_VALUE/2.0, MAX_LUT_VALUE/2.0, 17, 63);
+		SSD1306_DrawLine(&SSD1306_Screens[screen_ID], xpx_old, ypx_old, xpx, ypx, SSD1306_COLOR_WHITE);	// Interpolate curve between 2 samples
 	}
-	uint8_t ypx = MAP(old_lfo_samples[NBR_SAMPLES_LFO_HISTORY-1], 0, MAX_LUT_VALUE, 17, 63);
+	uint8_t ypx = MAP(normalized_actual_lfo_sample, -MAX_LUT_VALUE/2.0, MAX_LUT_VALUE/2.0, 17, 63);
 	SSD1306_DrawFilledCircle(&SSD1306_Screens[screen_ID], 127 - 1 - 1, ypx - 1, 2, SSD1306_COLOR_WHITE);
 }
-
-//void disp_Draw_LFO_Values(uint8_t screen_ID, const Oscillator_param *lfo) {
-//	uint16_t lfo_vol_percent = 100 * lfo->amp;
-//	char itoa_buffer[10];
-//	uint8_t *lfo_waveform_symbol_ptr = NULL;
-//	double temp_freq = 100.00 * lfo->freq; //the freq is a double between 0.01 and 20.00, to display it properly I will multiply it by a 100
-//
-//	/* Frequency display */
-//	itoa((int) temp_freq, itoa_buffer, 10);   // base 10 means decimal
-//	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 55, 20);
-//	if (temp_freq < 10) {
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], '0', &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], '0', &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], '.', &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], '0', &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], itoa_buffer[0], &Font_11x18, SSD1306_COLOR_WHITE);
-//	}
-//	if (temp_freq < 100 && temp_freq > 10) {
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], '0', &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], '0', &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], '.', &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], itoa_buffer[0], &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], itoa_buffer[1], &Font_11x18, SSD1306_COLOR_WHITE);
-//
-//	}
-//	if (temp_freq < 1000 && temp_freq > 100) {
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], '0', &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], itoa_buffer[0], &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], '.', &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], itoa_buffer[1], &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], itoa_buffer[2], &Font_11x18, SSD1306_COLOR_WHITE);
-//	}
-//	if (temp_freq > 1000) {
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], itoa_buffer[0], &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], itoa_buffer[1], &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], '.', &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], itoa_buffer[2], &Font_11x18, SSD1306_COLOR_WHITE);
-//		SSD1306_Putc(&SSD1306_Screens[screen_ID], itoa_buffer[3], &Font_11x18, SSD1306_COLOR_WHITE);
-//	}
-//
-//	/* ON/OFF Display */
-//	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 41, 42);
-//	if (lfo->onoff == ON) {
-//		SSD1306_Puts(&SSD1306_Screens[screen_ID], "ON", &Font_7x10, SSD1306_COLOR_WHITE);
-//	} else {
-//		SSD1306_Puts(&SSD1306_Screens[screen_ID], "OFF", &Font_7x10, SSD1306_COLOR_WHITE);
-//	}
-//
-//	/* Amplitude display */
-//	itoa(lfo_vol_percent, itoa_buffer, 10);   // base 10 means decimal
-//	SSD1306_GotoXY(&SSD1306_Screens[screen_ID], 41, 53);
-//	SSD1306_Puts(&SSD1306_Screens[screen_ID], itoa_buffer, &Font_7x10, SSD1306_COLOR_WHITE);
-//
-//	/* Assign waveform symbol data to pointer */
-//	switch (lfo->wave) {
-//	case SIN:
-//		lfo_waveform_symbol_ptr = sin_bmp;
-//		break;
-//	case SQR:
-//		lfo_waveform_symbol_ptr = square_bmp;
-//		break;
-//	case TRI:
-//		lfo_waveform_symbol_ptr = triangle_bmp;
-//		break;
-//	case SAW:
-//		lfo_waveform_symbol_ptr = saw_bmp;
-//		break;
-//	case ARB:
-//		lfo_waveform_symbol_ptr = arb_bmp;
-//		break;
-//	default:
-//		lfo_waveform_symbol_ptr = sin_bmp;
-//		break;
-//	}
-//
-//	/* Draw waveform symbol */
-//	SSD1306_DrawBitmap(&SSD1306_Screens[screen_ID], 94, 48, lfo_waveform_symbol_ptr, bmp_width, bmp_height, 1);
-//}
 
 void disp_Draw_ADSR_frame(uint8_t screen_ID) {
 	/* Draw title */
