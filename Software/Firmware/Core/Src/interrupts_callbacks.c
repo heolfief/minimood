@@ -36,7 +36,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 		HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, read_audio_buffer());
 		HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 
-		// TODO Move below code to TIM5 IT
 		lfo_render(&ac);	// LFO rendering here
 
 		actual_lfo_sample = read_LFO_buffer();
@@ -45,17 +44,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 		HAL_DAC_SetValue(&hdac, DAC_CHANNEL_2, DAC_ALIGN_12B_R, actual_lfo_sample);
 		HAL_DAC_Start(&hdac, DAC_CHANNEL_2);
 	}
-
-	// LFO rendering timer
-	/*if (htim->Instance == TIM5) {
-	 // TODO Change LFO LUT to accommodate new sampling rate at TIM5 update frequency
-	 lfo_render(&ac);	// LFO rendering here
-
-	 actual_lfo_sample = read_LFO_buffer();
-
-	 // LFO from CHANNEL 2
-	 HAL_DAC_SetValue(&hdac, DAC_CHANNEL_2, DAC_ALIGN_12B_R, actual_lfo_sample);
-	 }*/
 
 	// HMI input acquisition timer
 	if (htim->Instance == TIM7) {

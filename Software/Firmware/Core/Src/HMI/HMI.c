@@ -262,8 +262,7 @@ void hmi_screen_fsm(Hmi *hmi, Sys_param *sys_param, Param_Changed param_changed,
 		break;
 	case SCREEN_STATE_BOOTSCREEN:
 		hmi->screens_states[SCREEN_RIGHT] = SCREEN_STATE_BOOTSCREEN;
-		// TODO Uncomment
-		//disp_Booting();
+		disp_Booting();
 		hmi->screens_states[SCREEN_LEFT] = SCREEN_STATE_OSC;
 		break;
 	case SCREEN_STATE_OSC:
