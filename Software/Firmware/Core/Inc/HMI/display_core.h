@@ -3,16 +3,17 @@
  * \brief Functions handling HMI graphics
  */
 
+#ifndef INC_DISPLAY_SYNTH_H_
+#define INC_DISPLAY_SYNTH_H_
+
 #include "HMI/SSD1306/fonts.h"
 #include "HMI/SSD1306/ssd1306.h"
 #include "audio_core/oscillator/osc.h"
 #include "audio_core/note/adsr.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
-#ifndef INC_DISPLAY_SYNTH_H_
-#define INC_DISPLAY_SYNTH_H_
 
 #define NUMBER_OF_SSD1306_DISPLAYS			2		/* Number of SSD1306 display used */
 
@@ -28,6 +29,8 @@
 #define ADSR_DISP_Y_MIN						20		/* Min Y coordinate for ADSR points */
 
 #define ADSR_DISP_NOTE_LENGTH				15		/* Note length in pixels (only for display, not actual note length) */
+
+#define NBR_SAMPLES_LFO_HISTORY 			128		/* Number of sample in LFO display history */
 
 /**
  * \brief define left and right screen SSD1306_t array index
@@ -97,8 +100,9 @@ void disp_Draw_LFO_frame(uint8_t screen_ID);
  *
  * \param screen_ID the screen SSD1306_t array index
  * \param lfo the Oscillator_param structure for the LFO
+ * \param actual_lfo_sample the actual LFO sample from the audio core, used to display dynamic oscilloscope of the LFO output
  */
-void disp_Draw_LFO_Values(uint8_t screen_ID, const Oscillator_param *lfo);
+void disp_Draw_LFO_Values(uint8_t screen_ID, const Oscillator_param *lfo, uint16_t actual_lfo_sample);
 
 /**
  * \brief draw the ADSR frame in the display buffer

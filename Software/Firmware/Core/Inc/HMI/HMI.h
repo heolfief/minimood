@@ -180,7 +180,8 @@ Param_Changed hmi_process_pots(uint16_t *rawdata, Potentiometer *pots, Sys_param
  * \param hmi the Hmi structure
  * \param sys_param the system parameters structure
  * \param param_changed the Param_Changed enum specifying what parameter just changed
+ * \param actual_lfo_sample the actual LFO sample from the audio core, used to display dynamic oscilloscope of the LFO output
  */
-void hmi_screen_fsm(Hmi * hmi, Sys_param* sys_param, Param_Changed param_changed);
+void hmi_screen_fsm(Hmi * hmi, Sys_param* sys_param, Param_Changed param_changed, uint16_t actual_lfo_sample);
 
 #endif /* INC_HMI_HMI_H_ */

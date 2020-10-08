@@ -36,8 +36,9 @@ void copy_osc_sys_param_to_lfo(Sys_param *sys_param_to_copy, Oscillator *lfo) {
 
 	lfo->offset = lfo->amp * (MAX_LUT_VALUE / 2.0);
 
-	if (sys_param_to_copy->lfo.freq > 1023)
-		sys_param_to_copy->lfo.freq = 1023;
+	if (sys_param_to_copy->lfo.freq > 20)
+		sys_param_to_copy->lfo.freq = 20;
 
-	osc_change_LFO_freq(lfo, sys_param_to_copy->lfo.freq);
+	uint16_t normalised_freq = (uint16_t)((float)((float)sys_param_to_copy->lfo.freq / 20.0) * 1023.0);
+	osc_change_LFO_freq(lfo, normalised_freq);
 }

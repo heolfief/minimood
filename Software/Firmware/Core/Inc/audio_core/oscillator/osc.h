@@ -85,9 +85,9 @@ void osc_init_default(Oscillator *osc);
 /**
  * \brief Initialize LFO with default values
  *
- * \param osc The Oscillator structure
+ * \param lfo The Oscillator structure for the LFO
  */
-void lfo_init_default(Oscillator *osc);
+void lfo_init_default(Oscillator *lfo);
 
 /**
  * \brief Change MIDI note number (and so, frequency) of the oscillator
